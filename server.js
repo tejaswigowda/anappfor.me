@@ -93,8 +93,8 @@ app.use(errorHandler({
 
 var fs = require('fs');
 var AWS = require('aws-sdk');
-AWS.config.loadFromPath('./credentials.json');
-var s3 = new AWS.S3()//.client;
+//AWS.config.loadFromPath('./credentials.json');
+//var s3 = new AWS.S3()//.client;
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
