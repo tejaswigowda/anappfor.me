@@ -15,34 +15,33 @@ function authenticate(name, pass, collection, userType, db, fn) {
 	});
 }
 
+function isApproved(approvedUsers, session)
+{
+    for(var i = 0; i < approvedUsers.length; i++){
+      if(session[approvedUsers[i]] === "true"){
+         return true;
+      }
+    }
+    return false;
+}
+
 
 function restrict(req, res, db, approvedUsers, fn) {
-	var ret;
-  console.log(req.session);
-	if(req.session.collection != null){
-		db.collection(req.session.collection).findOne({userID:req.session.userID}, function(err, result) {
-      console.log(result);
-			if(result) { 
-				if (result.userID == req.session.userID && result.password == req.session.password && approvedUsers.indexOf(req.session.userType) != -1 ) {
-					ret = true;
-						
-				}else {
-					ret = false;
-				}
-			
-				return fn(ret);
-		
-			} else{
-				res.send("The user does not exist");
-			}
-		});
-	}else{
-		res.send("You are not currently logged in. Please log in and try again.")
-	}
+     db.collection(req.session.collection).findOne({userID:req.session.userID}, function(err, result) {
+         if(result) { 
+            if (result.userID == req.session.userID && result.password == req.session.password && isApproved(approvedUsers)) {
+                ret = true;
+            }else {
+                ret = false;
+            }
+            return fn(ret);
+          } else{
+              return fn(false);
+          }
+      });
 
-	ret = true;
-	return fn(ret);
 }
+
 		
 
 exports.authenticate = authenticate;

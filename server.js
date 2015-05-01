@@ -156,7 +156,7 @@ app.get('/login', function(req, res){
 app.get('/getUser', function(req, res){
 	auth.restrict(req, res, db, ['user'], function(ret){	
 			if(ret){		
-					db.collection(collection).findOne({userID: info.userID}, function(err, result) {
+					db.collection('user').findOne({userID: info.userID}, function(err, result) {
 					if(result) {
                             //res.writeHead(200, "OK", {'Content-Type': 'text/plain'});
                             var output = JSON.stringify(result);
@@ -175,12 +175,12 @@ app.get('/getUser', function(req, res){
 		});
 });
 
-app.get('/createUser', function(req, res){
-				db.collection(req.query.collection).findOne({userID:req.query.userID}, function(err, result) {
+app.get('/addUser', function(req, res){
+				db.collection('user').findOne({userID:req.query.userID}, function(err, result) {
 						if(result) { 
 							res.send('0');
 						} else {
-							db.collection(req.query.collection).insert(req.query, function(err, result) {
+							db.collection('user').insert(req.query, function(err, result) {
 							if (err) throw err;
 							if (result) {
 								res.send('1');
@@ -189,6 +189,53 @@ app.get('/createUser', function(req, res){
 					}
 		  });
 	  });
+
+
+
+app.get('/changePassword', function(req, res){
+    auth.restrict(req, res, db, ['user', 'admin'], function(auth){
+       if(auth){
+           db.collection("user").update({userID:req.query.userID}, {password:req.query.newPassword},{ upsert: true });
+           db.collection("admin").update({userID:req.query.userID}, {password:req.query.newPassword},{ upsert: true });
+       }
+       else{
+           res.send('noauth');
+       } 
+    });
+});
+
+
+
+app.get('/loginUser', function(req, res){
+    auth.authenticate(req.query.userID, req.query.password,'user', 'user', db, function(err, user){
+        if (user) {
+            req.session.regenerate(function(){
+                req.session.userID = user.userID;
+                req.session.user = 'true';
+                req.session.password = user.password;
+                res.send('1');
+            });
+        } else {
+            res.send('0');
+        }
+    });
+});
+
+app.get('/loginAdmin', function(req, res){
+    auth.authenticate(req.query.userID, req.query.password, 'admin', 'admin', db, function(err, user){
+        if (user) {
+            req.session.regenerate(function(){
+                req.session.userID = user.userID;
+                req.session.admin = 'true';
+                req.session.password = user.password;
+                res.send('1');
+            });
+
+        } else {
+            res.send('0');
+        }
+    });
+});
 
 console.log("Simple static server listening at http://" + hostname + ":" + port);
 app.listen(port, hostname);

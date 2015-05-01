@@ -220,6 +220,60 @@ function updateLangSettings()
   }
 }
 
+function registerNow1()
+{
+    var t = getElementObject("iAgree").checked;
+    if(t == false){
+        alertHandler.flashNewMessage("Error", "Please agree with the Terms and Service to continue.");
+        return;
+    }
+
+    var mm = parseInt(getElementObject("dobDTRMM").value);
+    var dd = parseInt(getElementObject("dobDTRDD").value);
+    var yyyy = parseInt(getElementObject("dobDTRYYYY").value);
+
+    var dob = new Date(yyyy, mm, dd);
+    if(parseInt(dd) > new Date(yyyy, mm+1, 0).getDate()){
+    alertHandler.flashNewMessage("Invalid date of birth", "Please enter a valid date");
+    return;
+    }
+    if(dob.toString() === "Invalid Date"){
+    alertHandler.flashNewMessage("Invalid date of birth", "Please enter a valid date");
+    return;
+    }
+    dob = dob.getTime();
+
+
+    var pw1 = getElementObject("ERCUserpassword1").value;
+    var pw2 = getElementObject("ERCUserpassword2").value;
+    var uID = getElementObject("ERCuserEmail").value;
+    var pNo = getElementObject("ERCuserPhone").value;
+    var eMail = getElementObject("ERCuserEmail").value;
+    var fName = getElementObject("ERCuserFN").value;
+    var lName = getElementObject("ERCuserLN").value;
+    if(uID.length < 7 || uID.indexOf("@") < 0){
+    alertHandler.flashNewMessage("Email error", "Please enter a valid email");
+    return;
+    }
+    if(fName.length < 1 || lName.length < 1){
+    alertHandler.flashNewMessage("Name error", "Please enter your first and last name");
+    return;
+    }
+
+    if(pw1.length < 4 || pw2.length < 4){
+    alertHandler.flashNewMessage("Password error", "Password should have more than 3 characters");
+    return;
+    }
+    if(pw1 != pw2){
+    alertHandler.flashNewMessage("Password error", "Passwords do not match");
+    return;
+    }
+
+    registerNow();
+
+}
+
+
 function registerNow()
 {
     var mm = parseInt(getElementObject("dobDTRMM").value);
@@ -238,7 +292,7 @@ function registerNow()
     var lName = getElementObject("ERCuserLN").value;
 
 	var url = App.mainURL;
-    url = url + "addPatient";
+    url = url + "addUser";
     url = url + "?userID=" + encodeURIComponent(uID);
     url = url + "&fname=" + encodeURIComponent(fName);
     url = url + "&lname=" + encodeURIComponent(lName);
