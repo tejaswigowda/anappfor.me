@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html> 
+<head>   
+	
+	<title> CARESapp.me</title>
+
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="YES">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+	<meta name = "format-detection" content = "telephone=yes">
+      
+	<link rel="stylesheet/less" type="text/less" href="less/anappforme.less">   
+
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54553348-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+
+	<script language="javascript">
+		document.addEventListener('contextmenu', function (event) {
+			    if (event.target.nodeName !== 'INPUT' && event.target.type !== 'text' && event.target.nodeName !== 'TEXTAREA') {
+			    	        event.preventDefault();
+			    	            }
+							});
+						</script>
+
+
+	<script src="js/basics/md5.js" type="text/javascript"></script>
+	<script src="js/basics/less.1.3.0.js" type="text/javascript"></script>
+	<script src="js/basics/jquery-1.8.0.min.js" type="text/javascript"></script>
+	<script src="js/fnslib.js" type="text/javascript" charset="utf-8"></script> 
+	<script src="js/app.js" type="text/javascript" charset="utf-8"></script> 
+  <script type="text/javascript" src="js/basics/moment.js"></script>
+  <!--[if lt IE 9]>
+  <script src="js/basics/html5shiv.js"></script>
+  <![endif]-->
+<!--  <script type="text/javascript" src="js/basics/cordova.js"></script>
+  <script type="text/javascript" src="js/basics/PushNotificationPGiOS.js"></script>
+  <script type="text/javascript" src="js/basics/iospush.js"></script> -->
+
+    <link rel="apple-touch-startup-image" href="splash/iphone.png" />
+    <link rel="apple-touch-startup-image" sizes="640x960" href="splash/iphoneR.png" />
+    <link rel="apple-touch-startup-image" sizes="768x1004" href="splash/ipad.png" />
+    <link rel="apple-touch-startup-image" sizes="640x1136" href="splash/iphone5.png" />
+    <!-- <script>
+      var addToHomeConfig = {
+        animationIn: 'bubble',
+        animationOut: 'drop',
+        lifespan:10000,
+        expire:2,
+        touchIcon:true
+      }
+    </script>
+	<script src="js/add2home.js" type="text/javascript" charset="utf-8"></script> 
+	<link rel="stylesheet" type="text/css" media="screen" href="less/add2home.css"> -->
+  <style>
+	  body{
+	  	font-family: Helvetica Neue, Helvetica, sans serif;
+	  }
+	  #shareBrandContactID{
+	  	font-size: 13px;
+	  }
+	  .shareTitleID{
+	  	width: 100%;
+	  	text-align: center;
+	  	font-size: 160%;
+	  	font-weight: bold;
+	  	margin-top: 20px;
+	  }
+	  .shareID{
+	  	width: 100%;
+	  	margin-top: 20px;
+	  	margin-bottom: 80px;
+	  }
+  @-webkit-keyframes infinite-spinning {
+     from {
+       -webkit-transform: rotate(0deg);
+     }
+     to {
+       -webkit-transform: rotate(360deg);
+     }
+  }
+  @keyframes infinite-spinning {
+     0% {
+       -moz-transform: rotate(0deg);
+       -o-transform: rotate(0deg);
+       -ms-transform: rotate(0deg);
+       transform: rotate(0deg);
+     }
+     100% {
+       -moz-transform: rotate(0deg);
+       -o-transform: rotate(0deg);
+       -ms-transform: rotate(0deg);
+       transform: rotate(360deg);
+     }
+  }
+
+  @keyframes locselectanimate 
+  {
+	  0% {opacity:1;}
+	  50% {opacity:.7;}
+	  100% {opacity:1;}
+  }
+
+  @-webkit-keyframes locselectanimate /* Safari and Chrome */
+  {
+	  0% {opacity:1;}
+	  50% {opacity:.7;}
+	  100% {opacity:1;}
+  }
+
+  .shareID a:active
+  {
+  	text-decoration: underline;
+  }
+  .web .shareID a:hover
+  {
+  	text-decoration: underline;
+  }
+  .shareID a
+  {
+  	color: #232323;
+  	font-size: 14px;
+  }
+  .shareID .title
+  {
+  	margin-bottom: 40px;
+  }
+  .touchSupport .ltWrapper
+  {
+    width: 96%;
+    margin-left:2%;
+  }
+  .touchSupport .rsWrapper
+  {
+    width: 96%;
+    margin-left:2%;
+  }
+  .web .ltWrapper
+  {
+    float: left;
+    width: 28%;
+    margin-left:2%;
+    position: fixed;
+  }
+  .web .rsWrapper
+  {
+    float: right;
+    margin-right:2%;
+    width: 65%;
+    overflow-y: auto;
+  }
+  </style>
+  <script>
+var proDict = {};
+function getProLinks(pInfo)
+{
+      var pKeys = Object.keys(pInfo)
+            var brandText = "";
+        var addrstr;
+          temp = "email";
+            if(pKeys.indexOf(temp) >=0){
+                    addrstr = decodeURIComponent(pInfo[temp]).split(",");
+                        for(var t=0; t< addrstr.length; t++){
+                                  brandText = brandText + "<a class='email link' href='mailto:" + decodeURIComponent(addrstr[t])  + "'>" + decodeURIComponent(addrstr[t]) + "</a>";
+                                    }
+                          }
+              temp = "phone";
+                if(pKeys.indexOf(temp) >=0){
+                        addrstr = decodeURIComponent(pInfo[temp]).split(",");
+                            for(var t=0; t< addrstr.length; t++){
+                                      brandText = brandText + "<a class='phoneno link' href='tel:" +  addrstr[t]  + "'>" + addrstr[t] + "</a>";
+                                          }
+                              }
+
+
+                  brandText += "<div class='sm'>";
+                    temp = "web";
+                      if(pKeys.indexOf(temp) >=0 && pInfo[temp].length > 0){
+                                brandText = brandText + "<a class='link' target='_blank' href='" + gethttpPrefix(decodeURIComponent(pInfo[temp]))  + "'>  Website  </a>";
+                                  }
+                        temp = "linkedin";
+                          if(pKeys.indexOf(temp) >=0 && pInfo[temp].length > 0){
+                                    brandText = brandText + "<a class='link' target='_blank' href='" + gethttpPrefix(decodeURIComponent(pInfo[temp]))  + "'>  LinkedIn  </a>";
+                                      }
+                            temp = "fb";
+                              if(pKeys.indexOf(temp) >=0 && pInfo[temp].length > 0){
+                                        brandText = brandText + "<a class='link' target='_blank' href='" + gethttpPrefix(decodeURIComponent(pInfo[temp]))  + "'>  Facebook  </a>";
+                                          } 
+                                temp = "tw";
+                                  if(pKeys.indexOf(temp) >=0 && pInfo[temp].length > 0){
+                                            brandText = brandText + "<a class='link' target='_blank' href='" + gethttpPrefix(decodeURIComponent(pInfo[temp]))  + "'>  Twitter  </a>";
+                                              } 
+                                    temp = "gplus";
+                                      if(pKeys.indexOf(temp) >=0 && pInfo[temp].length > 0){
+                                                brandText = brandText + "<a class='link' target='_blank' href='" + gethttpPrefix(decodeURIComponent(pInfo[temp]))  + "'>  Google +  </a>";
+                                                  }
+                                        brandText += "</div>";
+                                          data555 = pInfo;
+                                            return brandText;
+} 
+function getProCarousel(loc, aID, aBox)
+{
+    if(ENV.screen.smallscreenon){
+        getElementStyleObject("proassetBox").display = "none";
+        return;
+    }
+	var url = App.mainURL;
+	  url = url + "getPros";
+	    url = url + "?loc=" + loc;
+	     var callback = function getProCarousel_CB(data){
+		var pInfo = JSON.parse(data);
+		  if(data === "[]"){
+			getElementStyleObject(aBox).display = "none";
+			return;
+		  }
+		  else{
+			getElementStyleObject(aBox).display = "block";
+		  }
+          proDict = pInfo;
+		var outS = "";
+		var outTemp = "";
+		var name;
+		var image;
+		for(var i = 0; i < pInfo.length; i++){
+			item = pInfo[i];
+			var kys = Object.keys(item);
+			name = "";
+			image = "";
+			if(kys.indexOf("name")>=0){name = item.name;}
+			if(kys.indexOf("image")>=0){image = "background-image:url(" + App.resURL + item.image + ")";}
+			
+			 outTemp = "<div class='assetItemVC gradientLeftFade'> <div class='proPic' style='" + image + "'> </div> <div class='proDetails'>";
+             outTemp +="<div class='actionItems'>";
+			outTemp +="</div>"
+            outTemp += "<div class='standardFont proTitle'>" ; 
+			outTemp += name + "</div>"
+			outTemp +="<div class='standardFont proSocial'>";
+			outTemp += getProLinks(item);
+			outTemp +="</div>"
+			outTemp +="</div>"
+			outTemp +="</div>"
+			outS += outTemp;
+			outTemp = "";
+		}
+
+		getElementStyleObject(aID).width = (pInfo.length * 300).toString() + "px";
+		getElementObject(aID).innerHTML = outS;
+		  setTimeout('handleEmbeddedLinks("' + aID +' .sm")', 200);
+		$("#" + aBox).animate({"scrollLeft":"0"}, 200);
+		
+		getElementStyleObject(aBox).display = "block";
+	    }
+
+	            loadFile(url, callback);
+}
+
+  var App = {
+		  mainURL: "../",
+		  resURL: "https://s3-us-west-1.amazonaws.com/caresappme/"
+	  }
+	  var args;
+	  var id;
+	  var loc;
+	  var cat;
+		function removeLeadingHash(str)
+		{
+	  	      if(str[0] === "#"){ str = str.substring(1);}
+	  	      	return str;
+		}     
+		function load(){
+			var args = removeLeadingHash(window.location.hash).split(",");
+			if(args.length < 3){
+				return;
+			}
+			cat = args[0];
+			loc = args[1];
+			id = args[2];
+			shareLang = args[3] || "";
+			if(args.length > 4){
+				isPreview = true;
+			}
+			else{
+				isPreview = false;
+			}
+			shareID = "shareID";
+			shareTitleID = "shareTitleID";
+			shareBrandID = "shareBrandID";
+			shareBrandTitleID = "shareBrandTitleID";
+			shareBrandContactID = "shareBrandContactID";
+			assetID = "assetID";
+			assetBox = "assetBox";
+			ENV.setup();
+			assignBodyClassnames();
+			setTimeout("initAux()", 1500);
+            document.getElementById("pageHTML").innerHTML =
+                "<div class='ltWrapper'>" +
+    "<div class='brandWrapper brandplain'>"+	
+	"<div class='brand' id='shareBrandID'></div>"+	
+	"<div class='brandText'>"+	
+	"<div class='title' id='shareBrandTitleID'></div>"+	
+	"<div class='' id='shareBrandContactID'></div>"+	
+	"</div>"+
+	"</div>"+
+	"<div class='assetBox' id='proassetBox'><div class='assetWrapper' id='proassetID'></div></div>"+
+	"</div>"+
+                "<div class='rsWrapper'>" +
+	"<div class='shareTitleID' id='shareTitleID'></div>"+	
+	"<div class='assetBox' id='assetBox'><div class='assetWrapper' id='assetID'></div></div>"+
+	"<div class='shareID' id='shareID'></div>"+	
+	"<div class='horizontalLine'> </div>"+
+    "</div>";
+			getShareContent(cat, loc, id);
+			getAssetCarousel(cat, loc, id);
+			applyShareStyle(cat, loc);
+			getProCarousel(loc, "proassetID", "proassetBox");
+
+		}
+		function initAux(){
+			document.getElementById("socialShare").innerHTML = 
+					"<a href='" + fbShare() + "' class='fbShare shareButton' target='_blank'> </a>"+
+					"<a href='" + twShare() + "' class='twShare shareButton' target='_blank'> </a>"+
+					"<a href='" + inShare() + "' class='inShare shareButton' target='_blank'> </a>"+
+					"<a href='" + emShare() + "' class='emShare shareButton' target='_blank'> </a>"//+
+	//				"<a href='" + lkShare() + "' class='lkShare shareButton' target='_blank'> </a>";
+		}
+
+		//function
+
+  </script>
+</head>
+
+<body style="overflow:auto" id="body" onload="load()">
+	<div id="pageWrapper" class="" style="width:100%;margin-left:0%;margin-top: 20px">
+		<div id="pageFrame">
+			<div id="pageHTML"> </div>
+		</div>  
+	</div>
+	<div id="headerWrapper1" class="headerWrapper"> </div> 
+	<div id="footerWrapper1" class=""> </div> 
+	<a id="socialFlair" class="socialFlair" href="https://caresapp.me/" target="_blank"></a>
+	<div id="socialShare" style="right: -55px;" class="socialShare"></div>
+	<div id="overlayWrapper" class="">
+		<div id="overlayFrame">
+			<div id="overlayHTML"> </div>
+		</div>  
+	</div>
+</body>    
+
+
+</html>

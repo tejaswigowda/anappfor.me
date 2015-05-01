@@ -1,0 +1,21 @@
+{
+	"version": "1.0",
+	"name": "Cares Admin App",
+	"appID": "caresadmin",
+	"location": "resources/caresadmin",
+	"canvases": ["caresadmin-mainMenu", "caresadmin-afterER", "caresadmin-appearance", "caresadmin-erNavigator", "caresadmin-healthInfo", "caresadmin-healthRecords", "caresadmin-hospitalInfo", "caresadmin-login", "caresadmin-manageProviders", "caresadmin-notifications", "caresadmin-reminders"],
+	"maincanvas": "caresadmin-mainMenu",
+	"mainmenubuttons": ["buttonLogin", "buttonAppearance", "buttonHospitalInfo", "buttonManageProviders", "buttonHealthInfo", "buttonERNavigator", "buttonNotifications", "buttonReminders", "buttonAfterER", "buttonHealthRecords"],
+	"mainmenubuttontargets": ["caresadmin-afterER", "caresadmin-appearance", "caresadmin-erNavigator", "caresadmin-healthInfo", "caresadmin-healthRecords", "caresadmin-hospitalInfo", "caresadmin-login", "caresadmin-manageProviders", "caresadmin-notifications", "caresadmin-reminders"],
+	"scrolls": [],
+	"plugins": ["none"],
+	"mainMenuOverlayAllowed": "true",
+	"overlays": ["none"],
+	"mainMenuFlair": "caresadmin-login",
+	"header": ["$??headerTitle?appHeaderTitle?",
+				"$??headerSubTitle?appHeaderSubTitle?",
+				"$??menuVisible?appMenuToggle?",
+				"$???collapseAll?",
+				"$??headerButton?appInfoButton?"
+  ]
+}

@@ -1,0 +1,536 @@
+@pColor1 : rgb(59,64,83);
+@pColor2 : rgb(228,233,221);
+@pColor3 : rgb(155,83,71);
+@sColor1 : rgb(210,210,145);
+@sColor2 : rgb(171,173,104);
+@hilite: gold; 
+@hiliteneg: silver; 
+
+@lightblue: rgb(191,240,250);
+
+.transition(@duration: 700ms)
+{
+transition-property: all;
+transition-timing-function: linear;
+transition-duration: @duration;
+-webkit-transition-duration: @duration;
+-webkit-transition-property: all;
+-webkit-transition-timing-function: linear;
+-moz-transition-duration: @duration;
+-moz-transition-property: all;
+-moz-transition-timing-function: linear;
+-ms-transition-duration: @duration;
+-ms-transition-property: all;
+-ms-transition-timing-function: linear;
+}
+
+
+.glassFinish
+{
+background-image: url("../../../images/glass.png");
+background-position:50%;
+background-repeat: repeat-x;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("fonts/Raleway.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "OpenSans";
+  src: url("fonts/OpenSans.ttf") format("truetype");
+}
+
+body{
+   font-family: OpenSans, Helvetica;
+   color : rgb(167,2,64);
+}
+
+a
+{
+  color: @pColor3;
+  font-weight: bold;
+}
+
+a:visited
+{
+  color: @pColor1;
+}
+#headerWrapper
+{
+  height: 60px;
+}
+
+.web #headerWrapper
+{
+  margin-right: 12px;
+}
+
+.touchSupport #headerWrapper
+{
+  margin-right: 0px;
+}
+
+#adFooterWrapper
+{
+   background-image: url(images/curtainud.png);
+   background-size: 160px;
+   background-repeat: repeat-x;
+   height: 100px;
+}
+
+.buttonsWrapper3Items .listButton
+{
+	font-size: 20px;
+	text-shadow: @lightblue 0px 0px 1px;	
+  margin-bottom: 0px;
+  text-align: center;
+  height: 40px;
+  color: @pColor1;
+  margin-left: -35px;
+  padding-left: 35px;
+  padding-right: 20px;
+  border-radius: 35px;
+  background-position: 50%;
+  background-repeat: repeat-x;
+  background-size: 1px;
+}
+
+.smallScreen .listButton{
+  font-size: 26px;
+  height: 45px;
+}
+
+.bigScreen .listButton{
+  width: 175px;
+  text-align: right;
+}
+
+.touchSupport .listButton:active{
+  color: rgb(167,2,64);
+}
+
+.smallScreen .listButton{
+  width: 300px;
+  text-align: center;
+}
+
+.listButton p
+{
+  position: relative;
+  display: inline-block;
+  width: 125px;
+  font-size: 16px;
+  top: -15px;
+}
+
+.listButton em
+{
+  margin: 0px;
+  font-family: Raleway;
+  display: block;
+  margin-top: -10px;
+}
+
+.web .listButton:hover
+{
+  color: rgb(167,2,64);
+}
+
+
+.heading
+{
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 100px;
+  text-align: center;
+  font-size: 44px;
+  text-shadow: rgb(224, 231, 213) 0px 0px 1px;
+}
+
+.para
+{
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+  font-size: 18px;
+  text-shadow: rgb(224, 231, 213) 0px 0px 1px;
+}
+
+.msgList
+{
+  color: black;
+  text-shadow: gray 0px 1px 1px;
+}
+
+.headerTitle
+{
+  font-family: Raleway;
+  font-size: 24px; 
+}
+
+.headerSubTitle
+{
+  font-size: 18px;
+  float: right;
+  text-align: right;
+  margin-right: 5px;
+  margin-top: -25px;
+}
+
+
+.headerTitle p
+{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 0px;
+  margin-right: 0px;
+  height: 10px;
+}
+
+#maincanvasWrapper
+{
+  background-size: 10px;
+}
+
+.aMessage
+{
+  box-shadow: black 1px 1px 2px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: @pColor1;
+  background-color: white;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: none;
+}
+
+.aMessageRec
+{
+  background-image: url(images/recpaper.jpg);
+}
+
+.smallScreen .aMessage .dealTitle p
+{
+    font-size: 24px;
+}
+
+.aMessage .dealTitle 
+{
+  font-size: 24px;
+  text-align: center;
+  width: 80%;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-left: 5%;
+  margin-top: 0px;
+  color: rgb(59, 64, 83);
+  text-decoration: none;
+}
+
+.dealTitle p
+{
+  margin:0px;
+  margin-left: auto;
+  width: 80%;
+  padding-right: 5%;
+  padding-left: 5%;
+  margin-right: auto;
+  background-color: rgb(224, 231, 213);
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px white outset;
+  margin-top: -20px;
+  margin-bottom: -20px;
+  .glassFinish();
+  font-family: Helvetica;
+  font-weight: normal;
+}
+
+
+.aMessage .date
+{
+  font-size: 16px;
+  width: 95%;
+  text-align: right;
+  margin-bottom: 5px;
+}
+
+.touchSupport .aMessage em
+{
+  right: 20px;
+}
+
+.web .loadMoreMsgs:hover
+{
+  background-color: rgb(210, 210, 145);
+}
+
+.loadMoreMsgs:active
+{
+  background-color: rgb(210, 210, 145);
+}
+
+.loadMoreMsgs
+{
+  border: 1px solid rgb(200,200,200,.2);
+  box-shadow: @pColor3 0px 1px 2px;
+  border-radius: 10px;
+  .glassFinish();
+  margin-bottom: 10px;
+  color: white;
+  background-color: rgb(59, 64, 83);
+  width: 90%;
+  margin-left: 5%;
+  margin-top: -50px;
+  font-family: Raleway;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loadMoreMsgs p
+{
+  width: 100%;
+  text-align: center;
+  font-size: 32px;
+  font-weight: normal;
+  margin: 5px;
+}
+
+#messagesPluginHW
+{
+  background-color: rgb(60, 56, 38);
+  border-bottom: white 1px solid;
+  max-width: 600px;
+  position: absolute;
+}
+
+#appHeaderTitle
+{
+  color: rgb(0,57,166);
+  text-shadow: none;
+  margin-top: 5px;
+  font-size: 30px;
+}
+
+.dealWrapper
+{
+  display: none;
+  height: auto;
+  width: 100%;
+  min-height: 200px;
+}
+
+#appMenuToggle
+{
+  margin-top: -100px;
+}
+
+.dealWrapper
+{
+  width: 90%;
+  margin-left: 5%;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.dealWrapper p
+{
+  font-size: 16px;
+  text-align: left;
+}
+
+.touchSupport .dealWrapper img
+{
+  max-width: 90%;
+  max-height: 300px;
+}
+
+.web .dealWrapper img
+{
+  max-width: 90%;
+}
+
+.dealWrapper img{
+  display: block;
+  left: 0px;
+  right: 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+}
+
+   
+
+#collapseAll
+{
+	height: 60px;
+	width: 60px;
+  display: inline-block;
+  position: absolute;
+  background-image: url("../../../images/collapseAll.png");
+  background-position:50%;
+  background-repeat: no-repeat no-repeat;
+  background-size: 37px;
+}
+
+.smallScreen #collapseAll
+{
+  left: 50px;
+  top: 2px;
+}
+
+.bigScreen #collapseAll
+{
+  top: 3px;
+  left: 20px;
+}
+
+a
+{
+  word-wrap: break-word;
+  -webkit-user-select: none;
+}
+
+.recommended .dealTitle p
+{
+  color : rgb(60, 56, 38);
+}
+
+.expired
+{
+  text-decoration:line-through;
+}
+
+.dealWrapper h6
+{
+  width: 100%;
+  font-size: 44px;
+  text-align: center;
+  margin: 0px;
+}
+
+.liveLifeBetter
+{
+  background-image: url(images/liveLifeBetter.png);
+  height: 100px;
+  width: 100%;
+  background-repeat: no-repeat no-repeat;
+  background-position: 50%;
+  background-size: auto 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.neverMiss
+{
+  background-image: url(images/neverMiss.png);
+  height: 100px;
+  width: 100%;
+  background-repeat: no-repeat no-repeat;
+  background-position: 50%;
+  background-size: auto 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.iconFlair
+{
+  background-image: url(icon.png);
+  height: 220px;
+  width: 100%;
+  background-repeat: no-repeat no-repeat;
+  background-position: 50%;
+  background-size: auto 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.bestInPHX
+{
+  background-image: url(images/bestInPHX.jpg);
+  height: 200px;
+  width: 100%;
+  background-repeat: no-repeat no-repeat;
+  background-position: 50%;
+  background-size: auto 180px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.topM80
+{
+  margin-top: 80px;
+}
+
+#mpPluginTitle
+{
+  width: 100%;
+  line-height: 50px;
+  text-align: center;
+  font-size: 30px;
+  color: rgb(224, 231, 213);
+  font-family: Raleway;
+  position: absolute;
+}
+
+.smallScreen #headerWebOnly
+{
+  display: none;
+}
+.bigScreen #headerWebOnly
+{
+  display: block;
+}
+#headerWebOnly
+{
+  position: absolute;
+  width: 650px;
+  top: 0px;
+  left: 10px;
+}
+
+.horizontalLine
+{
+  height: 5px;
+  border-radius: 3px;
+  background-color: rgb(167,2,64);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 50%;
+  .glassFinish;
+}
+
+.currentVideo
+{
+  text-decoration: none;
+  display: block;
+  font-size: 18px;
+}
+
+.currentVideo:visited
+{
+  color: white;
+}
+input[type="file"]
+{
+  margin-left: 34%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.smallScreen .aList
+{
+  margin-top: 10px;
+}
