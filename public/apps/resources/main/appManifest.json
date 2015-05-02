@@ -8,8 +8,8 @@
 	"location": "",
 	"canvases": [
         ["mainMenu", "", ""],
-        ["places", "glyphicon-google_maps", ""],
-        ["orders", "glyphicon-shopping_bag", ""],
+        ["discover", "glyphicon-google_maps", ""],
+        ["anotherMenu", "glyphicon-shopping_bag", ""],
         ["notifications", "glyphicon-envelope", ""],
         ["login", "glyphicon-user", ""]
      ],

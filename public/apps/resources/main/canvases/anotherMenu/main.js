@@ -1,5 +1,5 @@
 var aerAC ={};
-var ordersinit = function()
+var anotherMenuinit = function()
 {
   getElementObject("afterERInputBox").innerHTML = '<h1 class="" id="aerTextTitle"></h1> <div class="assetBox" id="aerAssetBox"> <div class="assetWrapper" id="aerAssetWrapper"> </div></div><div id="aerInfoText"> </div><div id="aerInfoText1"> </div>';
   getElementObject("addAfterER").innerHTML = "<select class='locSelect flip0' id='afterERLoc' onchange='afterERLocChanged()'> </select>"
@@ -75,7 +75,7 @@ function afterEREC()
   unsavedDataPlugin.show();
 }
 
-function orderActive()
+function anotherMenuActive()
 {
 	getElementStyleObject("noitem").display = "block";	
 	getElementStyleObject("addAfterER").display = "block";
@@ -449,7 +449,7 @@ function saveAfterERInfo()
   loadFile(url, callback);
 }
 
-function orderDeActive()
+function anotherMenuDeActive()
 {
   $("#" + Canvas.current + " .searchWrapper").fadeIn(0);
   getElementStyleObject("noitem").display = "none";	

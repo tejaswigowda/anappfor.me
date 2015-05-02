@@ -37,7 +37,7 @@ function updateCTdropdown(arr){
 
 var erAC ={};
 var appAC ={};
-var placesinit = function()
+var discoverinit = function()
 {
   getElementObject("buttonplaces").innerHTML = getElementObject("buttonplaces").innerHTML + '<div class="hilitebg badge" id="appBadge"> </div>';
  // getElementObject("erNavigatorBrandOpts").innerHTML = "<a href='javascript:switchTo(0)'><div class='glassFinish optionsDivLeft'>Library</div></a><a href='javascript:switchTo(1)'><div class='glassFinish optionsDivTile'>Support</div></a><a href='javascript:switchTo(2)'><div class='glassFinish optionsDivRight selected'>Options</div></a>";
@@ -1170,7 +1170,7 @@ function erNavigatorEC()
 
 var erNavActiveSmp = true;
 
-function placesActive()
+function discoverActive()
 {
   //getERNavInfo();
 	//getElementStyleObject("appBadge").backgroundColor = "#FFFFFF";
@@ -1674,7 +1674,7 @@ function saveERNavInfo(data)
   }
 }
 
-function placesDeActive()
+function discoverDeActive()
 {
     proDict = [];
 	//getElementStyleObject("appBadge").backgroundColor = "";
