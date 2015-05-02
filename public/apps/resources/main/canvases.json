@@ -119,7 +119,7 @@
     "notifications": "Alerts"
   },
   "btitles":{
-    "places": "Places",
+    "discover": "Places",
     "products": "Products",
     "orders": "Orders",
     "generateOrder": "Processing Order",

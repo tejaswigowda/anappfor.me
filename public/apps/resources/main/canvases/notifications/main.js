@@ -1,29 +1,3 @@
-var checkforbott = false;
-var alertsDispOption = 1;
-function alertsAllClicked()
-{
-	alertsDispOption = 1;
-  getElementObject("alertsAll").className = "glassFinish optionsDivLeft redbg";
-  getElementObject("alertsRide").className = "glassFinish optionsDivTile";
-  getElementObject("alertsWorse").className = "glassFinish optionsDivRight";
-}
-
-function alertsRideClicked()
-{
-	alertsDispOption = 2;
-  getElementObject("alertsAll").className = "glassFinish optionsDivLeft";
-  getElementObject("alertsRide").className = "glassFinish optionsDivTile redbg";
-  getElementObject("alertsWorse").className = "glassFinish optionsDivRight";
-}
-
-function alertsWorseClicked()
-{
-	alertsDispOption = 3;
-  getElementObject("alertsAll").className = "glassFinish optionsDivLeft";
-  getElementObject("alertsRide").className = "glassFinish optionsDivTile";
-  getElementObject("alertsWorse").className = "glassFinish optionsDivRight redbg";
-}
-
 
 function loadMoreMessages(){
 	getNotificationsInfo();
@@ -57,7 +31,6 @@ var notificationsinit = function()
 {
 	  getElementObject("newNotFlair").innerHTML = "<a href='javascript:notFlairClicked()'> <div class='flip0' id='nfButton'></div></a>";
 	getElementObject("loadMoreNot").innerHTML = "<a class='link titleText' style='margin-top: 20px; padding-bottom: 10px;' href='javascript:loadMoreMessages()'> Load more ... </a>";
-//	getElementObject("addNotifications").innerHTML = "<a href='javascript:alertsAllClicked()'> <div id='alertsAll' class='glassFinish optionsDivLeft'>All</div></a><a href='javascript:alertsAllClicked()'> </a><a href='javascript:alertsRideClicked()'> <div id='alertsRide' class='glassFinish optionsDivTile'>Flagged</div></a><a href='javascript:alertsWorseClicked()'> <div class='glassFinish optionsDivRight' id='alertsWorse'>Unread</div></a>";
   getElementObject("buttonnotifications").innerHTML = getElementObject("buttonnotifications").innerHTML + '<div class="hilitebg badge" id="notBadge"> </div>';
  	
  getElementObject("notificationsInputBoxOptions").innerHTML = "<a href='javascript:notificationRead()' id='markRead' class='notOptionButton'>Mark as Read</a>"+
@@ -74,10 +47,6 @@ var notificationsinit = function()
 												"<a href='javascript:notFav()' id='notFavLink' class='notLink'> </a>"+
 												"<a href='javascript:notUnfav()' id='notUnfavLink' class='notLink'> </a>";
   getElementObject("refreshButtonBBox").innerHTML = "<a href='javascript:notificationRefresh()'> <div class='flip0 refreshButton'></div></a>";
-  getElementObject("notificationsDelete").innerHTML = "<a href='javascript:notificationsDeleteClicked()'> <div class='fadeC deleteYesFull'>Delete Message</div></a>";
-  getElementObject("notificationsDeleteYes").innerHTML = "<a href='javascript:notificationsDeleteYesClicked()'> <div class='glassFinish deleteYes'>Yes, delete now.</div></a>";
-  getElementObject("notificationsDeleteNo").innerHTML = "<a href='javascript:notificationsDeleteNoClicked()'> <div style='margin-top: -40px' class='glassFinish deleteNo'>No, not now.</div></a>";
-  setTimeout('notificationsAux()', 1000);
 }
 
 var readOption = true;
@@ -122,24 +91,6 @@ function notificationUnstar()
 	editNotification();
 }
 
-function editNotification()
-{ 
-  //activityIndicator.show();
- // var read = getElementObject("isRead").checked;
- // var star = getElementObject("isStar").checked;
-  var url = App.mainURL;
-  url = url + "editNotification";
-  url = url + "?notID=" + currNotifications;
-  url = url + "&read=" + readOption.toString();
-  url = url + "&star=" + starOption.toString();
-  var callback = editNotifications_CB;
-  loadFile(url, callback);
-}
-function editNotifications_CB(data)
-{
-	return;
-  //activityIndicator.hide();
-}
 
 function notificationsAux()
 {
@@ -151,11 +102,6 @@ function notificationRefresh()
   getNotificationsInfo();
 }
 
-function notificationsDeleteClicked()
-{
-  getElementStyleObject("notificationsDeleteConf").display = "block";
-  getElementStyleObject("notificationsDelete").display = "none";
-}
 
 function setNotBadge()
 {
@@ -190,35 +136,7 @@ function handleBadge(n){
 }
 
 
-function notificationsDeleteYesClicked()
-{
-  activityIndicator.show();
-  var url = App.mainURL;
-  url = url + "editNotification";
-  url = url + "?notID=" + currNotifications;
-  url = url + "&archived=true";
-  var callback = deleteNotifications_CB;
-  loadFile(url, callback);
-}
 
-function deleteNotifications_CB(data)
-{
-    getElementStyleObject('n' + currNotID + currNotifications).display = "none";
- // getNotificationsInfo();
-  backButtonClicked();
-  activityIndicator.hide();
-}
-
-function notificationsDeleteNoClicked()
-{
-  getElementStyleObject("notificationsDeleteConf").display = "none";
-  getElementStyleObject("notificationsDelete").display = "block";
-}
-
-
-function notificationsEC()
-{
-}
 
 function notificationsActive()
 {
@@ -238,7 +156,6 @@ function notificationsActive()
 
 function getNotificationsInfo()
 {
-  //getElementStyleObject("notificationsBoxWrapper").display = "none";
   getElementStyleObject("notificationsListWrapper").display = "block";
     activityIndicator.setText("Loading messages...");
   getElementObject("loadMoreNot").getElementsByTagName('a')[0].innerHTML = "<h6 class='ac'> </h6>";

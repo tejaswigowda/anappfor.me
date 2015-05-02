@@ -1,6 +1,3 @@
-var ls_saveYN;
-var ls_showYN;
-var isLoggedIn = false;
 var logininit = function()
 {
    getElementObject("logoutFlairBBox").innerHTML = "<a href='javascript:logoutConfirm()' class='flip0 logoutFlair'></a>";
@@ -42,7 +39,7 @@ var logininit = function()
 		 "<div class='patImage' id='patImage'></div>"+
 		 "<div style='height:20px;' class='fileUploadWrapper link'>"+
 		"<div class='fileUploadText textLeftDI'> Change Profile Picture </div>"+
-		'<input type="file" name="iconUploadPat" id="iconUploadPat" onchange="iconUploadedPat()">'+
+		'<input type="file" name="iconUploadUser" id="iconUploadUser" onchange="iconUploadedPat()">'+
 		"</div>"+
 	  '<label for="ERCuserFN2"> First Name </label> <input autocapitalize="on" autocorrect="off" type="text" class="input" id="ERCuserFN2" onchange="loginEC2()" onkeypress="loginEC2()"> <label for="ERCuserLN2"> Last Name </label> <input autocapitalize="on" autocorrect="off" type="text" class="input" id="ERCuserLN2" onchange="loginEC2()" onkeypress="loginEC2()"> <label for="ERCuserPhone2"> Phone </label> <input autocapitalize="on" autocorrect="off" type="text" class="input" id="ERCuserPhone2" onchange="loginEC2()" onkeypress="loginEC2()"><label id="dobLabel2"> Date of Birth (mm/dd/yyyy)</label><div class="dateWrapper" id="dw2">'+
   	  '<select class="dateMM" id="dobDTMM" onchange="loginEC2()">'+ monthselect + '</select>'+
@@ -51,82 +48,16 @@ var logininit = function()
   	  '<span>&frasl; </span>'+
   	  '<select class="dateYYYY" id="dobDTYYYY" onchange="loginEC2()">'+ yearselect + '</select>'+
   	  '</div>  <label for="ERCuserLang"> Preferred Language </label> <select class="selectInput" onchange="languageChanged()" id="ERCuserLang"> <option value="English">English</option> <option value="Spanish">Spanish</option></select>';
-  getElementObject("loginInputBoxCP1").innerHTML = 
-        '<div class="titleTextLeft" id="intTitle">Interests</div>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="int0" type="checkbox"> <label for="int0">Chronic Obstructive Pulmonary Disease (COPD) </label>'+
-    '</br>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="int1" type="checkbox"> <label for="int1">Congestive Heart Failure (CHF) </label>'+
-    '</br>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="int2" type="checkbox"> <label for="int2">Diabetes </label>'+
-    '</br>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="int3" type="checkbox"> <label for="int3">Hypertension </label>'+
-    '</br>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="int4" type="checkbox"> <label for="int4">Heart Disease </label>'+
-    '</br>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="int5" type="checkbox"> <label for="int5">Joint Replacement </label>'+
-    '</br>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="int6" type="checkbox"> <label for="int6">Kidney Disease </label>'+
-    '</br>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="int7" type="checkbox"> <label for="int7">Pneumonia </label>'+
-    '</br>'+
-        '<div class="titleTextLeft" id="goalTitle">Goals</div>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="gls0" type="checkbox"> <label for="gls0">Exercise</label>'+
-    '</br>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="gls1" type="checkbox"> <label for="gls1">Stop Smoking</label>'+
-    '</br>'+
-    '<input onChange="loginEC2()" class="inputcheck" id="gls2" type="checkbox"> <label for="gls2">Weight Loss</label>';
-
-  getElementObject("cpWrapper").innerHTML = '<p class="titleTextLeft" id="cpTitle"> Change Password</p><label for="ERCpasswordC1"> Current Password </label> <input autocapitalize="off" autocorrect="off" type="password" class="input" id="ERCpasswordC1" onkeypress="loginEC()"> <label for="ERCpasswordL1"> New Password </label> <input autocapitalize="off" autocorrect="off" type="password" class="input" id="ERCpasswordL1" onkeypress="loginEC()"> <label for="ERCpasswordL2"> Retype New Password </label> <input autocapitalize="off" autocorrect="off" type="password" class="input" id="ERCpasswordL2" onkeypress="loginEC()"> <a href="javascript:saveLoginPC()"><p id="saveCP" class="deleteNo glassFinish"> Save </p> </a> <a href="javascript:clearLoginPC()"> <p id="clearCP" class="deleteYes glassFinish"> Clear </p></a>';
-  
+ 
   getElementObject("loginInputBox").innerHTML = '<div class="sits">' +
       APPLOGO +
       '</div></div><input placeholder="Username (email)" autocapitalize="off" autocorrect="off" class="input" type="email" onkeypress="unkeypress(event)" id="ERCusername' + '"> <input placeholder="Password" autocapitalize="off" autocorrect="off" type="password" class="input" onkeypress="pwkeypress(event)" id="ERCpassword' + '">';
-
-  /*
-$("#dw1 :input").focus(function() {
-	$("#dobLabel").addClass("labelfocus");
-	}).blur(function() {
-	$("#dobLabel").removeClass("labelfocus");
-});
-
-$("#dw2 :input").focus(function() {
-	$("#dobLabel2").addClass("labelfocus");
-	}).blur(function() {
-	$("#dobLabel2").removeClass("labelfocus");
-});
-
-$("#loginInputBox :input").focus(function() {
-	$("label[for='" + this.id + "']").addClass("labelfocus");
-	}).blur(function() {
-	$("label").removeClass("labelfocus");
-});
-
-$("#loginInputBoxCP :input").focus(function() {
-	$("label[for='" + this.id + "']").addClass("labelfocus");
-	}).blur(function() {
-	$("label").removeClass("labelfocus");
-});
-
-$("#cpWrapper :input").focus(function() {
-	$("label[for='" + this.id + "']").addClass("labelfocus");
-	}).blur(function() {
-	$("label").removeClass("labelfocus");
-});
-
-
-$("#loginRegisterBox1 :input").focus(function() {
-	$("label[for='" + this.id + "']").addClass("labelfocus");
-	}).blur(function() {
-	$("label").removeClass("labelfocus");
-});
-*/
 
   Language = "English";
 	 loginSigninSel(); 
   if(ENV.embedded){
     apppush.initialize();
   }
-	//checkforLogin();
 
 }
 
@@ -136,88 +67,6 @@ function checkforLogin()
     url = url + "isUserLoggedIn";
     var callback = login_CB;
   loadFile(url, callback);
-}
- function languageChanged()
-{
-  loginEC2();
-  var lang = getElementObject("ERCuserLang").value;
-  Language = lang;
-}
-
-function savePatientInfo()
-{
-    var uID = userID;
-    var lang = getElementObject("ERCuserLang").value;
-    var pNo = getElementObject("ERCuserPhone2").value;
-    var fName = getElementObject("ERCuserFN2").value;
-    var lName = getElementObject("ERCuserLN2").value;
-    var mm = parseInt(getElementObject("dobDTMM").value);
-    var dd = parseInt(getElementObject("dobDTDD").value);
-    var yyyy = parseInt(getElementObject("dobDTYYYY").value);
-    //var saveYN = getElementObject("saveMyRecords").checked;
-   // var showYN = getElementObject("showMyRecords").checked;
-    
-	var dob = new Date(yyyy,mm,dd);
-	
-	if(parseInt(dd) > new Date(yyyy, mm+1, 0).getDate()){
-        alertHandler.flashNewMessage("Invalid date of birth", "Please enter a valid date");
-        return;
-	}
-	if(dob.toString() === "Invalid Date"){
-        alertHandler.flashNewMessage("Invalid date of birth", "Please enter a valid date");
-        return;
-	}
-	dob = dob.getTime();
-
-    if(fName.length < 1 || lName.length < 1){
-        alertHandler.flashNewMessage("Name error", "Please enter valid first and last name");
-        return;
-    }
- /*   if(pNo.length < 7){
-        alertHandler.flashNewMessage("Phone number error", "Please enter valid phone number");
-        return;
-    }*/
-
-    activityIndicator.show();
-    var url = App.mainURL;
-    url = url + "editPatient";
-    // url = url + "?loc=" + Location;
-    url = url + "?userID=" + encodeURIComponent(uID);
-    url = url + "&fname=" + encodeURIComponent(fName);
-    url = url + "&lname=" + encodeURIComponent(lName);
-    url = url + "&lang=" + encodeURIComponent(lang);
-    url = url + "&dob=" + encodeURIComponent(dob);
-    url = url + "&phone=" + encodeURIComponent(pNo);
-    url = url + "&interests=" + encodeURIComponent(getInterests());
-    url = url + "&goals=" + encodeURIComponent(getGoals());
-    if(patReg.length > 0){
-	    url = url + "&image=" + encodeURIComponent(patReg);
-    }
-    //url = url + "&saveYN=" + encodeURIComponent(saveYN);
-    //url = url + "&showYN=" + encodeURIComponent(showYN);
-    var callback = savePatientInfo_CB;
-    loadFile(url, callback);
-}
-
-function savePatientInfo_CB(data)
-{
-    data56 = data;
-    dataEdited = false;
-    unsavedDataPlugin.hide();
-    updateLangSettings();
-    activityIndicator.hide();
-}
-
-function updateLangSettings()
-{
-  if(Language === "English"){
-	  surgAC.setOptions({"lookup":surgsEnglish})
-	  medProbsAC.setOptions({"lookup":medProbsEnglish})
-  }
-  else{
-	  surgAC.setOptions({"lookup":surgsSpanish})
-	  medProbsAC.setOptions({"lookup":medProbsSpanish})
-  }
 }
 
 function registerNow1()
@@ -385,58 +234,6 @@ function loginEC2()
   unsavedDataPlugin.show();
 }
 
-function saveLoginPC()
-{
-  var pwC = getElementObject("ERCpasswordC1").value;
-  var pw1 = getElementObject("ERCpasswordL1").value;
-  var pw2 = getElementObject("ERCpasswordL2").value;
-  if(hex_md5(pwC) != dialogInputPassword.pwHash){
-     alertHandler.flashNewMessage("Password error", "Current password is incorrect");
-     return;
-  }
-  if(pw1.length < 4 || pw2.length < 4){
-     alertHandler.flashNewMessage("Password error", "Password should have more than 3 characters");
-     return;
-  }
-  if(pw1 != pw2){
-     alertHandler.flashNewMessage("Password error", "Passwords do not match");
-     return;
-  }
-  activityIndicator.show();
-  var url = App.mainURL;
-  url = url + "changePatientPassword";
-  //url = url + "?loc=" + Location;
-  url = url + "?userID=" + encodeURIComponent(userID);
-  url = url + "&oldPassword=" + hex_md5(pwC);
-  url = url + "&newPassword=" + hex_md5(pw1);
-  var callback = saveLoginPC_CB;
-  loadFile(url, callback);
-}
-
-var data86;
-
-function saveLoginPC_CB(data)
-{
-  if(data === "1"){
-     alertHandler.flashNewMessage("Password reset", "You will be asked to relogin in a few moments..");
-     setTimeout("window.location.reload()", 5000);
-     return;
-  }
-  else{
-     alertHandler.flashNewMessage("Unable to reset password", "Something went wrong. Try again in a few minutes..");
-  }
-  activityIndicator.hide();
-}
-
-function clearLoginPC()
-{
-  activityIndicator.show();
-  setTimeout("activityIndicator.hide()", 300);
-  getElementObject("ERCpasswordC1").value = "";
-  getElementObject("ERCpasswordL1").value = "";
-  getElementObject("ERCpasswordL2").value = "";
-}
-
 var userID;
 var username;
 var userimage;
@@ -524,16 +321,6 @@ function login_CB(data)
   getElementStyleObject("loginDetailsBox").display = "block";
   getElementStyleObject("logInButtonBBox").display = "none";
   getElementStyleObject("loginOptionsBox").display = "none";
-  getElementObject("appHeaderSubTitle").innerHTML = getElementObject("ERCusername").value;
-  getElementObject("statusWrapper").innerHTML = "<div id='statusBox'>" +
-  	  "<a id='patImageStatus' class='patImage flip1' href='javascript:editAccount()'></a>" +
-  	  "<div id='statusUN' class='titleText statusText'></div>" +
-  	  "<div id='howAreYou' class='howAreYou statusText'></div>" +
-  	  "<div id='whereAreYou' class='whereAreYou statusText'></div>" +
-  	  "<div id='myVitals' class='myVitals statusText'></div>" +
-  	  "<a href='javascript:editStatus()' class='editStatus flip0' id='editStatus'> </a>" +
-  	  "</div>";
-
   getElementObject("ERCusername").value = "";
   getElementObject("ERCpassword").value = "";
 
@@ -565,17 +352,7 @@ function postLogin()
         locAllStyle();
       }
 	  /*
-      if(ENV.device.touchSupport){
-          window.onscroll = function(ev) {
-                  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                    if(checkforbott){
-                        checkforbott = false;
-                        loadMoreMessages();
-                    }
-                }
-          };
-      }
-      */
+      
       $("body .input").each(function(index, elem) {
               var eId = $(elem).attr("id");
                   var label = null;
@@ -584,24 +361,25 @@ function postLogin()
                                           //$(label).attr("style", "opacity:0");
                                             }
                                              });
+      */
       $("#body").addClass("postlogin");
 }
 
-function loadPatientInfo()
+function loadUserInfo()
 {
   var url = App.mainURL;
-  url = url + "getPatient";
+  url = url + "getUser";
   url = url + "?userID=" + encodeURIComponent(userID);
   //url = url + "&password=" + passwd;
   //url = url + "&loc=" + Location;
-  var callback = loadPatientInfo_CB;
+  var callback = loadUserInfo_CB;
   loadFile(url, callback);
 }
 
 var appletlocs = [];
 var data687;
 
-function loadPatientInfo_CB(data)
+function loadUserInfo_CB(data)
 {
 	scrollRefreshAll();
   	loadUserStatus_CB(data);
@@ -614,30 +392,7 @@ function loadPatientInfo_CB(data)
   var outS = "";
   var un = "";
      pKeys = Object.keys(pInfo);
-     if(pKeys.contains("agree") >=0 && pInfo.agree === "false"){
-         getAgreement();
-     }
-     if(pKeys.contains("pwreset") >=0 && pInfo.pwreset === "true"){
-	     alertHandler.flashNewMessage("You are using a system generated password (possibly due to a reset).", "It is recommended that you change your password.");
-     }
-     if(pKeys.contains("interests") >=0){
-         setInterests(decodeURIComponent(pInfo.interests));
-     }
-     else{
-         setInterests("00000000");
-     }
-     if(pKeys.contains("goals") >=0){
-         setGoals(decodeURIComponent(pInfo.goals));
-     }
-     else{
-         setGoals("000");
-     }
-     if(pKeys.contains("appletlocs") >=0){
-	     appletlocs = pInfo.appletlocs;
-     }
-     else{
-	     appletlocs = [];
-     }
+     
      if(pKeys.contains("fname") >=0){
        getElementObject("ERCuserFN2").value = pInfo.fname;
        un += pInfo.fname;
@@ -688,93 +443,9 @@ function loadPatientInfo_CB(data)
        getElementObject("dobDTMM").value = "label";
        getElementObject("dobDTYYYY").value = "label";
      }
-	 /*
-     var temp = "showYN";
-     var ls_temp = "ls_showYN";
-     if(pKeys.contains(temp) >=0){
-        PersistantValue.set(ls_temp, pInfo[temp]);
-        setTimeout(ls_temp + ' = Boolean(PersistantValue.get("' + ls_temp + '"))', 100);
-		getElementObject("showMyRecords").checked = pInfo.showYN;
-     }
-	 else{
-        setTimeout(temp + " = true", 100);
-        PersistantValue.set(temp, "true");
-		getElementObject("showMyRecords").checked = true;
-	 }
-	 temp = "saveYN";
-	 ls_temp = "ls_saveYN";
-     if(pKeys.contains(temp) >=0){
-        PersistantValue.set(ls_temp, pInfo[temp]);
-        setTimeout(ls_temp + ' = Boolean(PersistantValue.get("' + ls_temp + '"))', 100);
-		getElementObject("saveMyRecords").checked = pInfo.saveYN;
-     }
-	 else{
-        setTimeout(temp + " = true", 100);
-        PersistantValue.set(temp, "true");
-		getElementObject("saveMyRecords").checked = true;
-	 }
-	 */
-    updateLangSettings();
 }
 
-function getAgreement()
-{
-    activityIndicator.show();
-	var url = App.mainURL;
-	url = url + "ua.txt";
-	var callback = function (data){
-        var outS = "";
-        outS += "<div class='textWrapper' id=''>";
-        outS += "<div class='theText' id='' style=''>" + data + " </div>";
-        outS += "</div>";
-        outS += "<div class='fright'>";
-        outS += '<a class="dialogNo glassFinish" href="javascript:agreeNo()"> Not Now </a>';
-        outS += '<a class="dialogYes glassFinish" href="javascript:agreeYes()"> Agree </a>';
-        outS += "</div>";
-        overlayWrapper.set(outS);
-        overlayWrapper.show();
-         alertHandler.flashNewMessage("Before you begin...", "Please agree with the <b>Terms and Conditions</b> to continue");
 
-
-    }
-	loadFile(url, callback);
-}
-
-function agreeYes()
-{
-    activityIndicator.hide();
-    var url = App.mainURL;
-    url = url + "editPatient";
-    url = url + "?userID=" + encodeURIComponent(userID);
-    url = url + "&agree=true";
-    var callback = function(dt){
-        alertHandler.class = "lightbulb";
-        alertHandler.flashNewMessage('Click the light bulb at the bottom of your screen for tips!', "");
-        overlayWrapper.hide();
-        activityIndicator.hide();
-    }
-    loadFile(url, callback);
-}
-
-function agreeNo()
-{
-  var url = App.mainURL;
-  url = url + "logout";
-  var callback = function(data){
-      window.location.reload();
-  }
-  loadFile(url, callback);
-}
-
-function logoutClicked()
-{
-  clearLoginPC();
-  var url = App.mainURL;
-  url = url + "logout";
-  var callback = logout_CB;
-  activityIndicator.show();
-  loadFile(url, callback);
-}
 
 function logout_CB(data)
 {
@@ -788,8 +459,6 @@ var data56;
 
 function loginActive()
 {
-  	getElementObject("helpText").innerHTML = "<p class='helpA1'>Use your registration email to sign in and start using CARES<i>app</i>.me. </p> <p class='helpA2'>If you haven’t already register using your email. I takes only a minute!</p>";
-  locAllStyle();
     activityIndicator.hide();
 }
 
@@ -815,29 +484,10 @@ function pwkeypress(event)
 }
 
 
-function saveRecordsChangeToggle()
-{
-  loginEC2();
-  ls_saveYN = getElementObject("saveMyRecords").checked;
-  PersistantValue.set('ls_saveYN', ls_saveYN.toString());
-}
-
-
-
-function logoutClickedConfirm()
-{
-
-}
-
-function handlelostpassword()
-{
-	dialogInput.display("Enter your <i>email</i> used to register for " + CARESLOGO + ".", "",resetPasswordNow, "Continue", "Cancel","images/lockwhite.png");
-}
-
 function resetPasswordNow(data)
 {
     var url = App.mainURL;
-    url = url + "resetPatientPassword";
+    url = url + "resetUserPassword";
     url = url + "?userID=" + encodeURIComponent(dialogInput.value);
     var callback = resetPasswordNow_CB;
     loadFile(url, callback);
@@ -858,9 +508,9 @@ function resetPasswordNow_CB(data)
 
 var patReg = "";
 
-function iconUploadedPat()
+function iconUploadedUser()
 {
-  var file = $('#iconUploadPat').get(0);
+  var file = $('#iconUploadUser').get(0);
    if(file.files[0].type.split("/")[0].toLowerCase() != "image"){
        alertHandler.flashNewMessage("Incorrect file type","Please snsure you are uploading an image file.");
    }
@@ -893,19 +543,18 @@ function iconUploadedPat()
 
                var dataurl = canvas.toDataURL("image/png");
                var url = App.mainURL;
-               url = url + "editPatient";
+               url = url + "editUser";
                url = url + "?userID=" + encodeURIComponent(userID);
                url = url + "&image=" + encodeURIComponent(dataurl);
                var callback = function(dt){
                   getElementStyleObject("patImage").backgroundImage = "url(" + dataurl + ")";
-                  getElementStyleObject("patImageStatus").backgroundImage = "url(" + dataurl + ")";
                   currT = dataurl;
                   activityIndicator.hide();
                }
                loadFile(url, callback);
          }
          img.src = data;
-         getElementObject("iconUploadPat").value = "";
+         getElementObject("iconUploadUser").value = "";
      }
      activityIndicator.setText("Uploading Picture...");
      activityIndicator.show();
@@ -921,81 +570,7 @@ function iconUploadPat_CB2(data){
 		return;
 	}
   getElementStyleObject("patImage").backgroundImage = "url(" + data +  ")";
-  getElementStyleObject("patImageStatus").backgroundImage = "url(" + data + ")";
   userimage = data;
   currT = data;
 }
-
-function editAccount()
-{
-	mainMenuButtons.selected("buttonLogin");
-	//loadStatus();
-}
-
-function getGoals()
-{
-    var outS = "";
-    for(var i= 0; i < 3; i++){
-        var flag = getElementObject("gls" + i).checked;
-        if(flag){
-            outS += "1";
-        }
-        else{
-            outS += "0";
-        }
-    }
-    mygls = outS;
-    return outS;
-}
-
-function setGoals(str)
-{
-    if(str.length < 3){
-        str = "000";
-    }
-    mygls = str;
-    for(var i= 0; i < str.length; i++){
-        var t = str[i];
-        if(t === "1"){
-            getElementObject("gls" + i).checked = true;
-        }
-        else{
-            getElementObject("gls" + i).checked = false;
-        }
-    }
-}
-
-function getInterests()
-{
-    var outS = "";
-    for(var i= 0; i < 8; i++){
-        var flag = getElementObject("int" + i).checked;
-        if(flag){
-            outS += "1";
-        }
-        else{
-            outS += "0";
-        }
-    }
-    myints = outS;
-    return outS;
-}
-
-function setInterests(str)
-{
-    if(str.length < 8){
-        str = "00000000";
-    }
-    myints = str;
-    for(var i= 0; i < str.length; i++){
-        var t = str[i];
-        if(t === "1"){
-            getElementObject("int" + i).checked = true;
-        }
-        else{
-            getElementObject("int" + i).checked = false;
-        }
-    }
-}
-
 

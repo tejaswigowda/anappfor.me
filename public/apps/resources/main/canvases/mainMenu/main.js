@@ -3,20 +3,11 @@ function backButtonClicked()
     if(Canvas.current === "places" || Canvas.current === "appSettings"){
       backtoNavList();
     }
-    else if(Canvas.current === "products"){
-      backtoHIList();
-    }
-    else if(Canvas.current === "orders"){
-      backtoAERList();
-    }
     else if(Canvas.current === "login"){
       backToDiscover();
     }
     else if(Canvas.current === "notifications"){
       backtoNotList();
-    }
-    else if(Canvas.current === "caresuser-hipaa"){
-      backFromHipaa();
     }
     hideBackButton();
     backState = 1;
@@ -81,22 +72,6 @@ function mainMenuinit()
   navPlugin.initialize();
 }
 
-function maincanvasImageClicked()
-{
-	if(ENV.screen.smallscreenon){ return; }
-	Canvas.showOneCanvasOnly(App.mainMenuFlair);
-	getElementStyleObject("headerWrapper").display = "none";
-	
-	for(var i=0; i< App.mainmenubuttons.length; i++){ 
-		mainMenuButtons.__removeSelectedStyle(App.mainmenubuttons[i]);			   
-	}
-	
-	getElementObject("appHeaderTitle").innerHTML = "";
-}
-
-
-
-var data4;
 var currentCat;
 
 function hideHomeButton()
@@ -109,110 +84,6 @@ function showHomeButton()
     if(App.classSmall.indexOf('-bottom-') >= 0){
         getElementStyleObject("homeButton").display = "block";
     }
-}
-
-var assetPath = "";
-
-function handleImageAssets(category)
-{
-  document.getElementById(category + 'Image').style.backgroundImage = "url(" + assetPath + category + ".png"  + ")";
-}
-
-var data0;
-function handleRemindersScreen_CB(data)
-{
-  var t = JSON.parse(data);
-  data0 = t;
-  document.getElementById('remindersImage').style.backgroundImage = "url(" + t[0].message + ")";
-}
-
-
-function handleCalendarScreen_CB(data)
-{
-  var t = JSON.parse(data);
-  data0 = t;
-  document.getElementById('calendarImage').style.backgroundImage = "url(" + t[0].message + ")";
-}
-
-function handleScheduleScreen()
-{
-  var category = "schedule";
-  var url = App.mainURL;
-  url = url + "getSessionInfo";
-  url = url + "?category=" + category;
-  var callback = handleScheduleScreen_CB;
-  loadFile(url, callback);
-}
-
-function handleScheduleScreen_CB(data)
-{
-  var t = JSON.parse(data);
-  data0 = t;
-  document.getElementById('scheduleImage').style.backgroundImage = "url(" + t[0].message + ")";
-}
-
-function postComment(){
- addComment(messagesPlugin.current, getElementObject("commentText").value, getElementObject("commentName").value, getElementObject("commentEmail").value); 
-}
-
-function addComment(guid, comment, name, email)
-{
-  var date = new Date().toString().substring(0, 15);
-  var userID = new Date().getTime();
-  var url = "../../../../../";
-  url = url + "generateSession";
-  url = url + "?userID=" + userID+guid;
-  url = url + "&category=" + guid;
-  url = url + "&datestamp=" + encodeURIComponent(date);
-  url = url + "&message=" + encodeURIComponent(comment);
-  url = url + "&name=" + encodeURIComponent(name);
-  url = url + "&email=" + encodeURIComponent(email);
-  var callback = postComment_CB;
-  loadFile(url, callback);
-}
-
-function postComment_CB(data)
-{
-   alertHandler.flashNewMessage('Comment posted!!', "It will appear on the site in a minute");
-   getElementObject("commentText").value = "";
-   var temp;
-   temp = PersistantValue.get("name");
-   PersistantValue.set("name", getElementObject("commentName").value);
-   PersistantValue.set("name", getElementObject("commentEmail").value);
-
-
-}
-
-function loadComments(guid)
-{
-  var url = "../../../../../";
-  url = url + "getSessionInfo";
-  url = url + "?category=" + guid;
-  var callback = loadComment_CB;
-  loadFile(url, callback);
-}
-
-var data22;
-function loadComment_CB(data)
-{
-  if(data.length < 60){
-    getElementObject("messagesPluginCW").innerHTML = "<h6> No Comments Yet </h6>";
-    return;
-  }
-    var el = document.getElementById("messagesPluginCW");
-    while( el.hasChildNodes() ){
-          el.removeChild(el.lastChild);
-    }
-  var comments = JSON.parse(data);
-  var outS = "";
-  for (var i = comments.length - 1; i >=0; i--){
-    outS = outS + "<div class='aComment'> <p> " + comments[i].message + "</p> <em>by <b>" + decodeURIComponent(comments[i].name) + "</b> on " + decodeURIComponent(comments[i].datestamp) + "</em> </div>"; 
-  }
-  
-  getElementObject("messagesPluginCW").innerHTML = outS;
-
-  setTimeout("messagesPlugin.scrollRefresh()", 500);
-
 }
 
 function showHelp()
@@ -247,40 +118,6 @@ var helpPlugin = {
   }
 }
 
-function bsScrollApp()
-{
-   if(!ENV.device.touchSupport){
-	 $("#locList").animate({"scrollTop":currApps.indexOf(currApp)*52}, 200);
-	}
-}
-function bsScrollERNav()
-{
-   if(!ENV.device.touchSupport){
-	 $("#erNavigatorListWrapper").animate({"scrollTop":currERNav*30}, 200);
-	}
-}
-
-function bsScrollHI()
-{
-   if(!ENV.device.touchSupport){
-	$("#healthInfoListWrapper").animate({"scrollTop":navPlugin.currList.indexOf(selectedStyle.id.split(currHIsf)[1])*30}, 200);
-   }
-}
-
-function bsScrollAER()
-{
-   if(!ENV.device.touchSupport){
-	   $("#afterERListWrapper").animate({"scrollTop":navPlugin.currList.indexOf(selectedStyle.id.split(currAERsf)[1])*30}, 200);
-   }
-}
-
-function bsScrollNot()
-{
-   if(!ENV.device.touchSupport){
-	   $("#notificationsListWrapper").animate({"scrollTop":currNotList.indexOf(selectedStyle.id.split(currNotID)[1])*85}, 200);
-   }
-}
-
 
 
 var unsavedDataPlugin = {
@@ -301,68 +138,14 @@ var unsavedDataPlugin = {
   },
   save:function(){
     if(Canvas.current === "login"){
-      savePatientInfo();
-    }
-    else if(Canvas.current === "caresuser-appearance"){
-      saveAppearanceClicked();
-    }
-    else if(Canvas.current === "caresuser-healthRecords"){
-      savePatientInfo2();
-    }
-    else if(Canvas.current === "caresuser-afterER"){
-      saveAfterERClicked();
-    }
-    else if(Canvas.current === "caresuser-healthInfo"){
-      saveHealthInfoClicked();
-    }
-    else if(Canvas.current === "notifications"){
-      saveNotificationsClicked();
-    }
-    else if(Canvas.current === "caresuser-reminders"){
-      saveRemindersClicked();
-    }
-    else if(Canvas.current === "caresuser-erNavigator"){
-      saveERNavClicked();
-    }
-    else if(Canvas.current === "caresuser-status"){
-      saveStatus();
-    }
-    else if(Canvas.current === "caresuser-hipaa"){
-      registerNow();
+      saveUserInfo();
     }
   },
   cancel:function(){
     dataEdited = false;
     unsavedDataPlugin.hide();
-    if(Canvas.current === "caresuser-login"){
+    if(Canvas.current === "login"){
       loadPatientInfo();
-    }
-    else if(Canvas.current === "caresuser-appearance"){
-      cancelAppearanceClicked();
-    }
-    else if(Canvas.current === "caresuser-healthRecords"){
-      loadPatientInfo2();
-    }
-    else if(Canvas.current === "caresuser-afterER"){
-      getAfterERInfo();
-    }
-    else if(Canvas.current === "caresuser-healthInfo"){
-      getHealthInfoInfo();
-    }
-    else if(Canvas.current === "caresuser-notifications"){
-      getNotificationsInfo();
-    }
-    else if(Canvas.current === "caresuser-reminders"){
-      getRemindersInfo();
-    }
-    else if(Canvas.current === "caresuser-erNavigator"){
-      getERNavInfo();
-    }
-    else if(Canvas.current === "caresuser-status"){
-      cancelStatus();
-    }
-    else if(Canvas.current === "caresuser-hipaa"){
-      backFromHipaa();
     }
   }
 }

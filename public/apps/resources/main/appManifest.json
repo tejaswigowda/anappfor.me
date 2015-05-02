@@ -20,6 +20,6 @@
 	"classBig": "big-left-list-labelbelow mb-chevron-right",
 	"classSmall": "small-bottom-5 mb-active-fill",
 	"overlays": ["none"],
-	"mainMenuFlair": "places",
+	"mainMenuFlair": "discover",
 	"haslogin": "true"
 }

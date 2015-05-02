@@ -17,7 +17,7 @@ var App = {
 
 function backToDiscover()
 {
-    Canvas.showOneCanvasOnly("places");
+    Canvas.showOneCanvasOnly("discover");
 }
 
 function bannerLogin()
