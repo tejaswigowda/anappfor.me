@@ -212,7 +212,7 @@ app.get('/loginUser', function(req, res){
             req.session.regenerate(function(){
                 req.session.userID = user.userID;
                 req.session.user = 'true';
-                req.session.password = user.password;
+                req.session.passworduser = user.password;
                 res.send('1');
             });
         } else {
@@ -227,7 +227,7 @@ app.get('/loginAdmin', function(req, res){
             req.session.regenerate(function(){
                 req.session.adminID = user.userID;
                 req.session.admin = 'true';
-                req.session.password = user.password;
+                req.session.passwordadmin = user.password;
                 res.send('1');
             });
 
