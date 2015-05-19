@@ -225,7 +225,7 @@ app.get('/loginAdmin', function(req, res){
     auth.authenticate(req.query.userID, req.query.password, 'admin', 'admin', db, function(err, user){
         if (user) {
             req.session.regenerate(function(){
-                req.session.userID = user.userID;
+                req.session.adminID = user.userID;
                 req.session.admin = 'true';
                 req.session.password = user.password;
                 res.send('1');
@@ -236,6 +236,24 @@ app.get('/loginAdmin', function(req, res){
         }
     });
 });
+
+app.get('/isAdminLoggedIn', function(req, res){
+  if(Object.keys(req.session).indexOf('admin')>=0){
+      res.send(req.session.adminID)
+     }
+     else{
+     res.send('false');
+   }
+ }); 
+ 
+ app.get('/isUserLoggedIn', function(req, res){
+  if(Object.keys(req.session).indexOf('user')>=0){
+      res.send(req.session.userID)
+     }
+     else{
+     res.send('false');
+   }
+ }); 
 
 console.log("Simple static server listening at http://" + hostname + ":" + port);
 app.listen(port, hostname);
