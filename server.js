@@ -185,6 +185,8 @@ app.get('/addUser', function(req, res){
 							if (result) {
 								res.send('1');
 							}
+							db.collection('operator').insert(req.query, function(erro, resulto) {});
+							db.collection('admin').insert(req.query, function(erra, resulta) {});
 						});
 					}
 		  });
