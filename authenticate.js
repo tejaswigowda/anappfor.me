@@ -28,7 +28,7 @@ function isApproved(approvedUsers, session)
 function restrict(req, res, db, approvedUsers, fn) {
      db.collection(req.session.collection).findOne({userID:req.session[req.session.collection + "ID"]}, function(err, result) {
          if(result) { 
-            if (result.userID == req.session.userID && result.password == req.session["password" + req.session.collection] && isApproved(approvedUsers)) {
+            if (result.userID == req.session[req.session.collection + "ID"] && result.password == req.session["password" + req.session.collection] && isApproved(approvedUsers)) {
                 ret = true;
             }else {
                 ret = false;
