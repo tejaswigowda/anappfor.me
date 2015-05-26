@@ -12,7 +12,7 @@ app.get("/", function (req, res) {
 
 var auth = require('./authenticate.js');
 
-var db = require('mongoskin').db('mongodb://user1:password@localhost:27017/photos');
+var db = require('mongoskin').db('mongodb://user:password@localhost:27017/photos');
 console.log(db);
 
 app.get("/addtodo", function (req, res) {
@@ -71,7 +71,71 @@ app.get("/listphotos", function (req, res) {
 		}
 	});
 });
+//server quests to manipulate messages (getMessages,getOneMessage,addMessage,deleteMessage)
+app.get('/getMessages', function(req,res){
 
+	var args = req.query;
+	console.log(args.userID);
+	db.collection('messages').find({userID:args.userID}).sort({id:-1}).skip(args.skip).limit(args.skip).toArray(function(err,result){
+		
+		if(result){res.send(JSON.strigify(result));
+}
+
+});
+	
+
+
+});
+
+app.get('/getOneMessage',function(req,res){
+		var args = req.query;
+		db.collection("posts").findOne({},function(err,result){
+			if(result){
+
+				var output = JSON.strigify(result);
+				res.write(output);
+				red.end();
+		
+}else{
+		res.send('0');
+
+}
+
+
+
+
+});
+});
+
+app.get('/addMessage',function(req,res){
+	
+	var message  = req.query;
+	var callback = function(error, result){
+		if(result)
+		{
+			res.end("added");
+		}
+	}
+	db.collection("message").insert( message , callback);
+ 
+
+	
+
+});
+
+app.get('/deleteMessage',function(req,res){
+	
+	var index = req.query.id;
+	var callback = function(error, result){
+		if(result)
+		{
+			res.end("deleted");
+		}
+	}
+	db.collection(req.query.collection).remove({"id": index}, callback);
+
+
+});
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
