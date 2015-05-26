@@ -92,7 +92,6 @@
     "mainMenu": [
       "-??maincanvasImage glyphicon glyphicon-log_book?maincanvasImage?",
       "-??horizontalLine?hlMM?",
-      "-???statusWrapper?",
       "-??buttonsWrapper3Items?mainmenuButtonsWrapper?",
       "-??logoutFlairBBox?logoutFlairBBox?",
       "-??aVideo?caresVideo?"

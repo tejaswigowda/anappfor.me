@@ -89,7 +89,7 @@ app.get('/getMessages', function(req,res){
 
 app.get('/getOneMessage',function(req,res){
 		var args = req.query;
-		db.collection("posts").findOne({},function(err,result){
+		db.collection('messages').findOne({ID: args.messageID},function(err,result){
 			if(result){
 
 				var output = JSON.strigify(result);
@@ -116,7 +116,7 @@ app.get('/addMessage',function(req,res){
 			res.end("added");
 		}
 	}
-	db.collection("message").insert( message , callback);
+	db.collection("messages").insert( message , callback);
  
 
 	
@@ -125,14 +125,14 @@ app.get('/addMessage',function(req,res){
 
 app.get('/deleteMessage',function(req,res){
 	
-	var index = req.query.id;
+	var index = req.query.messageID;
 	var callback = function(error, result){
 		if(result)
 		{
 			res.end("deleted");
 		}
 	}
-	db.collection(req.query.collection).remove({"id": index}, callback);
+	db.collection("messages").remove({"id": index}, callback);
 
 
 });

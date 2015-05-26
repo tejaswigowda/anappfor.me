@@ -524,44 +524,7 @@ function appLoad()
 {
 	App.appID = theAppID;
   messagesPlugin.initialize();
-  //loadAllJSFiles();
-  //loadAllLessFiles();
-
-	if(!ENV.device.touchSupport){
-		$('#spCanvasslideShow').mouseover(function(){
-			getElementStyleObject("slideShowNext").display = "block";
-			getElementStyleObject("slideShowPrev").display = "block";
-		});
-
-		$('#spCanvasslideShow').mouseout(function(){
-			getElementStyleObject("slideShowNext").display = "none";
-			getElementStyleObject("slideShowPrev").display = "none";
-		});
-		
-		
-		$('#slideShowNext').mouseover(function(){
-			getElementStyleObject("slideShowNext").display = "block";
-			//getElementStyleObject("slideShowPrev").display = "block";
-		});
-
-		$('#slideShowNext').mouseout(function(){
-			getElementStyleObject("slideShowNext").display = "none";
-			//getElementStyleObject("slideShowPrev").display = "none";
-		});
-		
-		$('#slideShowPrev').mouseover(function(){
-			//getElementStyleObject("slideShowNext").display = "block";
-			getElementStyleObject("slideShowPrev").display = "block";
-		});
-
-		$('#slideShowPrev').mouseout(function(){
-			//getElementStyleObject("slideShowNext").display = "none";
-			getElementStyleObject("slideShowPrev").display = "none";
-		});
-		
-	}
 	
-	//  readAssetsList();
    	readAppManifest();
 }
 
@@ -599,7 +562,7 @@ function readAppManifest_Aux(data)
 	loadLessfile("resources/" + App.appID + "/main.less", false);  
 	
 	
-	buildHeader();
+//	buildHeader();
 	 
 	Canvas.list = readData.canvases;  
 	Canvas.mainMenuFocus = true;  

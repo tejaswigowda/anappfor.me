@@ -1,8 +1,8 @@
 {
 	"version": "1.0",
-	"name": "ALL DONE",
-	"resURL": "https://s3-us-west-1.amazonaws.com/caresappme/",
-	"reshttpURL": "http://s3-us-west-1.amazonaws.com/caresappme/",
+	"name": "An App For Me",
+	"resURL": "https://s3-us-west-1.amazonaws.com/xxxxxxxx/",
+	"reshttpURL": "http://s3-us-west-1.amazonaws.com/xxxxxxx/",
 	"embedded": "false",
 	"embedType": "ios",
 	"location": "",
