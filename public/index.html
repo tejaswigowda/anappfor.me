@@ -11,7 +11,6 @@
     <script src="vendor/jquery.min.js"></script>
     <script src="vendor/materialize/materialize.min.js"></script>
 
-
 <script>
 var main = function(){
   loadFile("/loginStatus", function(data){
@@ -19,9 +18,7 @@ var main = function(){
       window.location.href='./login.html'
       return;
     }
-    else{
-      document.getElementById("accountInfo").innerHTML = data;
-    }
+    buildMarkup();
   });               
 }
 
@@ -42,6 +39,18 @@ var doLogout = function()
   </div>
 </div>
   <!-- put logout button anywhere -->
+<ul id="nav-mobile" class="sidenav sidenav-fixed" style="transform: translateX(0px);">
+        <li class="bold"><a href="mobile.html" class="waves-effect waves-teal">Mobile</a></li>
+        <li class="bold"><a href="showcase.html" class="waves-effect waves-teal">Showcase</a></li>
 <button onclick='doLogout()'>Logout</button>
+      </ul>
+
+  <ul id="slide-out" class="sidenav">
+        <li class="bold"><a href="mobile.html" class="waves-effect waves-teal">Mobile</a></li>
+        <li class="bold"><a href="showcase.html" class="waves-effect waves-teal">Showcase</a></li>
+<button onclick='doLogout()'>Logout</button>
+  </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
 </body>
 </html>
