@@ -41,6 +41,29 @@ require('./passport/routes.js')(app, passport); // load our routes and pass in o
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+var db = require('mongoskin').db('mongodb://127.0.0.1:27017/test');
+app.use(function(req,res,next){
+    req.db = db; 
+    next();
+});
+
+app.use(require('./routes'))
+
+function getFile(localPath, res, mimeType) {
+	fs.readFile(localPath, function(err, contents) {
+		if(!err) {
+			res.setHeader("Content-Length", contents.length);
+			res.setHeader("Content-Type", mimeType);
+			res.statusCode = 200;
+			res.end(contents);
+		} else {
+			res.writeHead(500);
+			res.end();
+		}
+	});
+}
+
+
 
 app.listen(8080);
 
