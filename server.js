@@ -9,7 +9,7 @@ var path = require('path'),
 
 
 var mongoose = require('mongoose');
-var configDB = require('./passport/config/database.js');
+var configDB = require('./backend/passport/config/database.js');
 mongoose.connect(configDB.url); // connect to our database
 
 var app = express();
@@ -25,7 +25,7 @@ app.use(session( {store: new MongoStore({
 app.use(passport.initialize());
 app.use(passport.session());
 var flash = require('express-flash');
-app.use( flash() );      
+app.use( flash() );
 
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
@@ -33,21 +33,21 @@ var methodOverride = require("method-override");
 app.use(methodOverride());
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended:false 
+  extended:false
 }));
-require('./passport/config/passport')(passport); // pass passport for configuration
-require('./passport/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./backend/passport/config/passport')(passport); // pass passport for configuration
+require('./backend/passport/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 var db = require('mongoskin').db('mongodb://127.0.0.1:27017/test');
 app.use(function(req,res,next){
-    req.db = db; 
+    req.db = db;
     next();
 });
 
-app.use(require('./routes'))
+app.use(require('./backend'))
 
 function getFile(localPath, res, mimeType) {
 	fs.readFile(localPath, function(err, contents) {
@@ -77,5 +77,3 @@ function isLoggedIn(req, res, next) {
 
     res.send('noauth');
 }
-
-
