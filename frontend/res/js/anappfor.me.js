@@ -20,12 +20,20 @@ function readAppManifest_Aux(data)
    }
 
   loadMenu();
-  loadViews();
+  loadCanvases();
 }
 
 function loadMenu()
 {
-  	mainMenuButtons.list = App.mainmenubuttons;
+  for (i = 0; i < App.canvases.length; i++){
+	  var Parent = document.getElementById("canvasWrapper");
+	  var cn = "canvas";
+		var NewNode = document.createElement("div");
+		NewNode.id = App.canvases[i][0];
+		NewNode.className = cn;
+		Parent.appendChild(NewNode);
+  }
+  mainMenuButtons.list = App.mainmenubuttons;
     var outS = "";
 
     for (i = 0; i < App.mainmenubuttons.length; i++){
@@ -34,26 +42,28 @@ function loadMenu()
     $(".sidenav").html($(".sidenav").html() + outS);
 }
 
-function loadViews()
+function loadCanvases()
 {
   for (i = 0; i < App.canvases.length; i++){
-	  var Parent = document.getElementById("canvasWrapper");
-	  var cn = "canvas fullScreen";
-		var NewNode = document.createElement("div");
-		NewNode.id = App.canvases[i][0];
-		NewNode.className = cn;
-		Parent.appendChild(NewNode);
-
-		Parent = NewNode;
-		NewNode = document.createElement("div");
-		NewNode.id = App.canvases[i][0] + "ScrollWrapper";
-		NewNode.className = "fullScreenWrapper";
-		Parent.appendChild(NewNode);
-  }
-
-	for (i = 0; i < App.canvases.length; i++){
-		buildCanvas(App.canvases[i][0]);
+    (function (x){
+      loadFile("res/canvases/" + x + "/index.html", function(data){
+        $("#canvasWrapper #" + x).html(data)
+      });
+    })(App.canvases[i][0]);
+    (function (x){
+      loadFile("res/canvases/" + x + "/main.js", function(data){
+        console.log(data, isJsonString(data));
+         try{
+           eval("App." + x + " = " + data);
+         }
+         catch(e){
+          console.log("Canvas '" + x + "' JavaScript did not load --- " + e);
+         }
+      });
+    })(App.canvases[i][0]);
+		loadLessfile("res/canvases/" + App.canvases[i][0] + "/main.less", false);
 	}
+	less.refresh();
 }
 
 function loadJSfile(filename, callback){
@@ -156,4 +166,13 @@ var mainMenuButtons = {
       var canvasID = mainMenuButtons.getTargetCanvas(buttonClicked);
       mainMenuButtons.__selected(buttonClicked, canvasID);
 	}
+}
+
+function isJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }

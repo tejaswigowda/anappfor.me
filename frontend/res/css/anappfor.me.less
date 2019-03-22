@@ -1,1 +1,24 @@
-
+.onlySmallScreen, .onlyBigScreen{
+  display: none;
+}
+@media (max-width : 500px){
+  .onlySmallScreen{
+    display: block;
+  }
+  .canvas{
+    width: 100vw;
+    min-height: 100vw;
+    position: absolute;
+  }
+}
+@media (min-width : 500px){
+  .onlyBigScreen{
+    display: block;
+  }
+  .canvas{
+    width: ~"calc(100vw - 300px)";
+    margin-left: 300px;
+    min-height: 100vw;
+    position: absolute;
+  }
+}

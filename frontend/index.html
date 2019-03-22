@@ -4,11 +4,11 @@
   <meta content="width=device-width, initial-scale=1, maximum-width=device-width, maximum-scale=1" name="viewport">
   <script src='res/js/asyncReq.js'></script>
   <script src='res/js/anappfor.me.js'></script>
-   <!-- Compiled and minified CSS -->
+     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="res/vendor/materialize/materialize.min.css">
     <link href="res/vendor/materialize/icon.css" rel="stylesheet">
 
-    <!-- Compiled and minified JavaScript -->
+      <!-- Compiled and minified JavaScript -->
     <script src="res/vendor/jquery.min.js"></script>
     <script src="res/vendor/materialize/materialize.min.js"></script>
     <link href="res/css/anappfor.me.less" rel="stylesheet/less">
@@ -40,28 +40,13 @@ var start = function()
 }
 </script>
 <style>
-.onlySmallScreen, .onlyBigScreen{
-  display: none;
-}
-@media (max-width : 500px){
-  .onlySmallScreen{
-    display: block;
-  }
-}
-@media (min-width : 500px){
-  .onlyBigScreen{
-    display: block;
-  }
-}
-.background img{
-  height: 100%;
-}
+
 
 </style>
 </head>
 <body onload='main()'>
   <!-- app content -->
-<div class='container'>
+<div class='app-container'>
   <div id='canvasWrapper'>
   </div>
 </div>
@@ -69,22 +54,22 @@ var start = function()
   <!-- app menu -->
       <div class='onlyBigScreen'>
     <ul id="nav-mobile" class="menuMarkup sidenav sidenav-fixed" style="transform: translateX(0px);">
-    <li><div class="user-view">
-      <div class="background"  style="height:140px;background-size:cover;background-image:url(res/splash.png)">
-        
+    <li><div class="user-view" style="margin-bottom:40px;">
+      <div class="background"  style="height:140px;background-size:cover;background-image:url(res/images/splash.png)">
       </div>
-      <img class="circle" src="res/icon.png">
+      <div class="circle"  style="background-repeat:no-repeat;height:90px;background-size:contain;background-image:url(res/images/icon.png)">
+      </div>
     </div></li>
       </ul>
     </div>
 
       <div class='onlySmallScreen'>
   <ul id="slide-out" class="sidenav menuMarkup">
-    <li><div class="user-view">
-      <div class="background">
-        <img src="res/splash.png">
+    <li><div class="user-view" style="margin-bottom:40px;">
+      <div class="background"  style="height:140px;background-size:cover;background-image:url(res/images/splash.png)">
       </div>
-      <img class="circle" src="res/icon.png">
+      <div class="circle"  style="background-repeat:no-repeat;height:90px;background-size:contain;background-image:url(res/images/icon.png)">
+      </div>
     </div></li>
   </ul>
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>

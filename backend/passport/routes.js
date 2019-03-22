@@ -5,7 +5,6 @@ var User       = require('./models/user');
 module.exports = function(app, passport) {
 
 app.get('/loginStatus', function(req, res) {
-  console.log (req.isAuthenticated())
   if (req.isAuthenticated())
     res.send(JSON.stringify(req.user));
   else
