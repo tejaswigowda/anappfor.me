@@ -1,3 +1,10 @@
+@import "globals.less";
+
+body{
+  color: black;
+  background: white;
+}
+
 .onlySmallScreen, .onlyBigScreen{
   display: none;
 }
@@ -22,3 +29,29 @@
     position: absolute;
   }
 }
+
+.sidenav{
+     background-size:400px;
+     background-position: 50%;
+     background-color: @brandColor;
+     li > a{
+       color: @menutextColor;
+     }
+}
+
+.iconBox{
+   margin-bottom:40px;
+   .background{
+     height:140px;
+     background-size:cover;
+     background-image:linear-gradient(fade(@accentColor,50%), transparent);
+     padding: 10px;
+    }
+   .icon{
+     background-repeat:no-repeat;
+     height:90px;
+     background-size:contain;
+     background-image:url(../images/icon.png);
+     margin: 10px;
+   }
+ }
