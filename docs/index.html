@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <meta content="width=device-width, initial-scale=1, maximum-width=device-width, maximum-scale=1" name="viewport">
+  <script src='res/js/asyncReq.js'></script>
+  <script src='res/js/anappfor.me.js'></script>
+     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="res/vendor/materialize/materialize.min.css">
+    <link href="res/vendor/materialize/icon.css" rel="stylesheet">
+
+      <!-- Compiled and minified JavaScript -->
+    <script src="res/vendor/jquery.min.js"></script>
+    <script src="res/vendor/materialize/materialize.min.js"></script>
+    <link href="res/css/anappfor.me.less" rel="stylesheet/less">
+    <script src="res/vendor/less.3.9.0.min.js"></script>
+<script>
+
+var main = function(){
+  loadFile("/loginStatus", function(data){
+    if(data === "0"){
+      window.location.href='./login.html'
+      return;
+    }
+    start();
+  });               
+}
+
+var doLogout = function()
+{
+  var x = confirm("Logout now?")
+  if(x){
+    loadFile("./logout", function(d){window.location.reload()})
+  }
+}
+
+var start = function()
+{
+  $('.sidenav').sidenav();
+  buildApp();
+}
+</script>
+<style>
+
+
+</style>
+</head>
+<body onload='main()'>
+  <!-- app content -->
+<div class='app-container'>
+  <div id='canvasWrapper'>
+  </div>
+</div>
+
+  <!-- app menu -->
+      <div class='onlyBigScreen'>
+    <ul id="nav-mobile" class="menuMarkup sidenav sidenav-fixed" style="transform: translateX(0px);">
+      <li><div class="iconBox">
+      <div class="background">
+        <div class="icon">
+        </div>
+      </div>
+    </div></li>
+      </ul>
+    </div>
+
+      <div class='onlySmallScreen'>
+  <ul id="slide-out" class="sidenav menuMarkup">
+    <li><div class="iconBox">
+      <div class="background">
+        <div class="icon">
+        </div>
+      </div>
+    </div></li>
+  </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+<div>
+
+</body>
+</html>

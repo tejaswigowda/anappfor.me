@@ -52,7 +52,6 @@ function loadCanvases()
     })(App.canvases[i][0]);
     (function (x){
       loadFile("res/canvases/" + x + "/main.js", function(data){
-        console.log(data, isJsonString(data));
          try{
            eval("App." + x + " = " + data);
          }
@@ -125,18 +124,11 @@ function loadCSSfile(filename, refresh){
 
 var mainMenuButtons = {
 	list: [],
-	getTargetCanvas:function(currentButton){
-		return currentButton.replace("button","");
-	},
 	__addSelectedStyle: function(divID){
-		$("#" + divID + "T").removeClass("thumbnailB");
-		$("#" + divID + "T").addClass("thumbnailA");
 		$("#" + divID).addClass("active");
 	},
 
 	__removeSelectedStyle: function(divID){
-		$("#" + divID + "T").removeClass("thumbnailA");
-		$("#" + divID + "T").addClass("thumbnailB");
 		$("#" + divID).removeClass("active");
 	},
 
@@ -158,7 +150,6 @@ var mainMenuButtons = {
 		}
 
 		Canvas.showOneCanvasOnly(canvasID);
-    App.focusonmainmenu = false;
   },
 
 	selected: function(buttonClicked){
@@ -168,11 +159,11 @@ var mainMenuButtons = {
 	}
 }
 
-function isJsonString(str) {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-    return true;
+var activityIndicator = {
+  show:function(){
+    $("body").append('<div style="position: fixed;height: 100vh;width: 100vw;text-align: center;background-color: rgba(255,255,255,.8);z-index: 100000;" class="ac"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="margin-top: 45vh;"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle> </svg></div>');
+  },
+  hide: function(){
+    $(".ac").hide();
+  }
 }
