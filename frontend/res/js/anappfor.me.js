@@ -1,31 +1,30 @@
+var App = {};
 function buildApp()
 {
-  	loadFile("res/config.json",readAppManifest_Aux);
-}
-
-var App = {};
-
-function readAppManifest_Aux(data)
-{
-	var temp;
-	var readData = JSON.parse(data);
-
-  var keys = Object.keys(readData);
-  for (var i = 0; i < keys.length; i++){
-      App[keys[i]] = readData[keys[i]];
-  }
-  App.mainmenubuttons = [];
-  for (var i = 0; i < App.canvases.length; i++){
-     App.mainmenubuttons[i] = "button" + App.canvases[i][0];
-   }
-
   loadMenu();
   loadCanvases();
 }
 
+
+var doLogout = function()
+{
+  var x = confirm("Logout now?")
+  if(x){
+    loadFile("./logout", function(d){window.location.reload()})
+  }
+}
+
+var start = function()
+{
+  $('.sidenav').sidenav();
+  buildApp();
+}
 function loadMenu()
 {
+  App.mainmenubuttons = [];
+  console.log(App);
   for (i = 0; i < App.canvases.length; i++){
+    App.mainmenubuttons[i] = "button" + App.canvases[i][0];
 	  var Parent = document.getElementById("canvasWrapper");
 	  var cn = "canvas";
 		var NewNode = document.createElement("div");
@@ -164,6 +163,6 @@ var activityIndicator = {
     $("body").append('<div style="position: fixed;height: 100vh;width: 100vw;text-align: center;background-color: rgba(255,255,255,.8);z-index: 100000;" class="ac"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="margin-top: 45vh;"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle> </svg></div>');
   },
   hide: function(){
-    $(".ac").hide();
+    $(".ac").remove();
   }
 }

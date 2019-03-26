@@ -1,0 +1,28 @@
+{
+  "name": "anappfor.me",
+  "version": "1.0.0",
+  "description": "## Usage",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tejaswigowda/anappfor.me.git"
+  },
+  "keywords": [
+    "apps",
+    "responsive",
+    "templates"
+  ],
+  "author": "tejaswigowda <tejaswi@foxyninjastudios.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tejaswigowda/anappfor.me/issues"
+  },
+  "homepage": "https://github.com/tejaswigowda/anappfor.me#readme"
+}
