@@ -1,0 +1,99 @@
+@import "globals.less";
+
+body{
+  color: black;
+  background: white;
+}
+
+.onlySmallScreen, .onlyBigScreen{
+  display: none;
+}
+@media (max-width : 500px){
+  .onlySmallScreen{
+    display: block;
+  }
+  .canvas{
+    width: 100vw;
+    min-height: 100vw;
+    position: absolute;
+  }
+}
+@media (min-width : 500px){
+  .onlyBigScreen{
+    display: block;
+  }
+  .canvas{
+    width: ~"calc(100vw - 300px)";
+    margin-left: 300px;
+    min-height: 100vw;
+    position: absolute;
+  }
+}
+
+.sidenav{
+     background-size:400px;
+     background-position: 50%;
+     background-color: @brandColor;
+     li > a{
+       color: @menutextColor;
+     }
+}
+
+.iconBox{
+   margin-bottom:40px;
+   .background{
+     height:140px;
+     background-size:cover;
+     background-image:linear-gradient(fade(@accentColor,50%), transparent);
+     padding: 10px;
+    }
+   .icon{
+     background-repeat:no-repeat;
+     height:90px;
+     background-size:contain;
+     background-image:url(../images/icon.png);
+     margin: 10px;
+   }
+ }
+
+
+@offset: 187;
+@duration: 1.4s;
+
+.spinner {
+  animation: rotator @duration linear infinite;
+}
+
+@keyframes rotator {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(270deg); }
+}
+
+.path {
+  stroke-dasharray: @offset;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation:
+    dash @duration ease-in-out infinite,
+    colors (@duration*4) ease-in-out infinite;
+}
+
+@keyframes colors {
+	0% { stroke: #4285F4; }
+	25% { stroke: #DE3E35; }
+	50% { stroke: #F7C223; }
+	75% { stroke: #1B9A59; }
+  100% { stroke: #4285F4; }
+}
+
+@keyframes dash {
+ 0% { stroke-dashoffset: @offset; }
+ 50% {
+   stroke-dashoffset: @offset/4;
+   transform:rotate(135deg);
+ }
+ 100% {
+   stroke-dashoffset: @offset;
+   transform:rotate(450deg);
+ }
+}

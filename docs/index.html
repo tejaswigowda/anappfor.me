@@ -5,18 +5,23 @@
   <meta content="width=device-width, initial-scale=1, maximum-width=device-width, maximum-scale=1" name="viewport">
   <script src='res/js/asyncReq.js'></script>
   <script src='res/js/anappfor.me.js'></script>
-     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="res/vendor/materialize/materialize.min.css">
-    <link href="res/vendor/materialize/icon.css" rel="stylesheet">
+  <link href="res/css/anappfor.me.less" rel="stylesheet/less">
 
-      <!-- Compiled and minified JavaScript -->
-    <script src="res/vendor/jquery.min.js"></script>
-    <script src="res/vendor/materialize/materialize.min.js"></script>
-    <link href="res/css/anappfor.me.less" rel="stylesheet/less">
-    <script src="res/vendor/less.3.9.0.min.js"></script>
+  <link rel="stylesheet" href="res/vendor/materialize/materialize.min.css">
+  <link href="res/vendor/materialize/icon.css" rel="stylesheet">
+  <script src="res/vendor/jquery.min.js"></script>
+  <script src="res/vendor/materialize/materialize.min.js"></script>
+  <script src="res/vendor/less.3.9.0.min.js"></script>
+  <!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+  -->
+
 <script>
-
-var main = function(){
+ var main = function(){
   loadFile("res/config.json",function(data){
     var readData = JSON.parse(data);
     var keys = Object.keys(readData);
@@ -34,24 +39,18 @@ var main = function(){
     }
     else start();  
   });
-}
-
-
+ }
 </script>
-<style>
-
-
-</style>
 </head>
 <body onload='main()'>
   <!-- app content -->
-<div class='app-container'>
-  <div id='canvasWrapper'>
+  <div class='app-container'>
+    <div id='canvasWrapper'>
+    </div>
   </div>
-</div>
 
   <!-- app menu -->
-      <div class='onlyBigScreen'>
+  <div class='onlyBigScreen'>
     <ul id="nav-mobile" class="menuMarkup sidenav sidenav-fixed" style="transform: translateX(0px);">
       <li><div class="iconBox">
       <div class="background">
@@ -60,19 +59,18 @@ var main = function(){
       </div>
     </div></li>
       </ul>
-    </div>
+  </div>
 
-      <div class='onlySmallScreen'>
-  <ul id="slide-out" class="sidenav menuMarkup">
-    <li><div class="iconBox">
-      <div class="background">
-        <div class="icon">
+  <div class='onlySmallScreen'>
+    <ul id="slide-out" class="sidenav menuMarkup">
+      <li><div class="iconBox">
+        <div class="background">
+          <div class="icon">
+          </div>
         </div>
-      </div>
-    </div></li>
-  </ul>
+      </div></li>
+    </ul>
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-<div>
-
+  <div>
 </body>
 </html>
