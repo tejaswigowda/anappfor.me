@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -16,28 +17,26 @@
 <script>
 
 var main = function(){
-  loadFile("/loginStatus", function(data){
-    if(data === "0"){
-      window.location.href='./login.html'
-      return;
+  loadFile("res/config.json",function(data){
+    var readData = JSON.parse(data);
+    var keys = Object.keys(readData);
+    for (var i = 0; i < keys.length; i++){
+        App[keys[i]] = readData[keys[i]];
     }
-    start();
-  });               
+    if(App.haslogin){
+      loadFile("/loginStatus", function(data){
+        if(data === "0"){
+          window.location.href='./login.html'
+          return;
+        }
+        start();
+      });
+    }
+    else start();  
+  });
 }
 
-var doLogout = function()
-{
-  var x = confirm("Logout now?")
-  if(x){
-    loadFile("./logout", function(d){window.location.reload()})
-  }
-}
 
-var start = function()
-{
-  $('.sidenav').sidenav();
-  buildApp();
-}
 </script>
 <style>
 
