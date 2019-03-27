@@ -10,5 +10,5 @@
                     ["projects", "glyphicons glyphicons-sort", "Projects"],
                     ["account", "glyphicons glyphicons-user", "Account"]
                   ],
-	"haslogin": false
+	"haslogin": true
 }
