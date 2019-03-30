@@ -123,7 +123,6 @@ module.exports = function(passport) {
                         return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
                         // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
                     } else {
-console.log("here 2");
                         var user = req.user;
                         user.local.email = email;
                         user.local.password = user.generateHash(password);

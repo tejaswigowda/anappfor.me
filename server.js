@@ -3,14 +3,14 @@ var url = require("url"),
 
 var passport = require('passport');
 var fs = require('fs');
+var mongoURL = 'mongodb://127.0.0.1:27017/test'
 var path = require('path'),
   express = require('express'),
-  db = require('mongoskin').db('mongodb://127.0.0.1:27017/test');
+  db = require('mongoskin').db(mongoURL);
 
 
 var mongoose = require('mongoose');
-var configDB = require('./backend/passport/config/database.js');
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect(mongoURL);
 
 var app = express();
 var secret = 'test' + new Date().getTime().toString()
@@ -19,7 +19,7 @@ var session = require('express-session');
 app.use(require("cookie-parser")(secret));
 var MongoStore = require('connect-mongo')(session);
 app.use(session( {store: new MongoStore({
-   url: 'mongodb://127.0.0.1:27017/test',
+   url: mongoURL,
    secret: secret
 })}));
 app.use(passport.initialize());
@@ -41,7 +41,7 @@ require('./backend/passport/routes.js')(app, passport); // load our routes and p
 
 app.use(express.static(path.join(__dirname, 'frontend')));
 
-var db = require('mongoskin').db('mongodb://127.0.0.1:27017/test');
+var db = require('mongoskin').db(mongoURL);
 app.use(function(req,res,next){
     req.db = db;
     next();
