@@ -10,5 +10,5 @@
                     ["projects", "<i class='material-icons'>apps</i>Projects", "Projects"],
                     ["account", "<i class='material-icons'>face</i>Account", "Account"]
                   ],
-	"haslogin": true
+	"haslogin": false
 }
