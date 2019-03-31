@@ -16,7 +16,6 @@ body{
     width: 100vw;
     min-height: 100vh;
     position: absolute;
-    display:none;
   }
 }
 @media (min-width : 992px){
@@ -26,14 +25,18 @@ body{
   .canvas{
     width: ~"calc(100vw - 300px)";
     margin-left: 300px;
-    min-height: 100vw;
+    min-height: 100vh;
     position: absolute;
+  }
+  body .sidenav-overlay{
+     visibility: hidden;
   }
 }
 
 .sidenav-trigger{
   i{
     font-size:50px;
+    color: @accentColor;
   }
     position: fixed;
     left: 10px;
