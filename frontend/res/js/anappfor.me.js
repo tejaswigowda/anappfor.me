@@ -136,8 +136,8 @@ var mainMenuButtons = {
 function goToCanvas(n)
 {
   App.currCanvas = n;
-  $("#canvasWrapper .canvas").fadeOut();
-  $("#canvasWrapper .canvas:nth-of-type(" + (n+1) + ")").stop().fadeIn();
+  $("#canvasWrapper .canvas").fadeOut("fast");
+  $("#canvasWrapper .canvas:nth-of-type(" + (n+1) + ")").stop().fadeIn("slow");
 }
 
 var activityIndicator = {
