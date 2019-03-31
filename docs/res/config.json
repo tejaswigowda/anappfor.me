@@ -7,8 +7,8 @@
 	"reshttpURL": "http://s3-us-west-2.amazonaws.com/aafm/",
 	"location": "",
 	"canvases": [
-                    ["projects", "glyphicons glyphicons-sort", "Projects"],
-                    ["account", "glyphicons glyphicons-user", "Account"]
+                    ["projects", "<i class='material-icons'>apps</i>Projects", "Projects"],
+                    ["account", "<i class='material-icons'>face</i>Account", "Account"]
                   ],
-	"haslogin": false
+	"haslogin": true
 }

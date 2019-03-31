@@ -3,6 +3,7 @@ function buildApp()
 {
   loadMenu();
   loadCanvases();
+  mainMenuButtons.selected(0);
 }
 
 
@@ -36,7 +37,7 @@ function loadMenu()
     var outS = "";
 
     for (i = 0; i < App.mainmenubuttons.length; i++){
-      outS += '<li class="bold"><a href="javascript:mainMenuButtons.selected('+ App.mainmenubuttons[i] + ')" class="waves-effect waves-teal">' + App.canvases[i][2] + '</a></li>'
+      outS += '<li class="bold"><a href="javascript:mainMenuButtons.selected('+ i + ')" class="waves-effect waves-teal">' + App.canvases[i][1] + '</a></li>'
     }
     $(".sidenav").html($(".sidenav").html() + outS);
 }
@@ -123,40 +124,23 @@ function loadCSSfile(filename, refresh){
 
 var mainMenuButtons = {
 	list: [],
-	__addSelectedStyle: function(divID){
-		$("#" + divID).addClass("active");
-	},
-
-	__removeSelectedStyle: function(divID){
-		$("#" + divID).removeClass("active");
-	},
-
-  __selected:function(buttonClicked, canvasID){
-		if(ENV.screen.small && App.classSmall.indexOf("-bottom") < 0){
-            $('#maincanvasWrapper').removeClass("slideInLeft slideInRight").addClass('animated slideOutLeft').delay(300).fadeOut(0);
-            showButton("home");
-            backState = 1;
-		}
-		else{
-			for(i=0; i< App.mainmenubuttons.length; i++){
-				if(App.mainmenubuttons[i] === buttonClicked){
-				   mainMenuButtons.__addSelectedStyle(App.mainmenubuttons[i]);
-				}
-				else{
-					mainMenuButtons.__removeSelectedStyle(App.mainmenubuttons[i]);
-				}
-			}
-		}
-
-		Canvas.showOneCanvasOnly(canvasID);
-  },
-
-	selected: function(buttonClicked){
+	selected: function(n){
       activityIndicator.show();
-      var canvasID = mainMenuButtons.getTargetCanvas(buttonClicked);
-      mainMenuButtons.__selected(buttonClicked, canvasID);
+      $(".menuMarkup li").removeClass("active");
+      $(".menuMarkup li:nth-of-type(" + (n+2) + ")").addClass("active");
+      goToCanvas(n);
+      activityIndicator.hide();
 	}
 }
+
+function goToCanvas(n)
+{
+  App.currCanvas = n;
+  $("#canvasWrapper .canvas").fadeOut("fast");
+  $("#canvasWrapper .canvas:nth-of-type(" + (n+1) + ")").stop().fadeIn("slow");
+}
+
+var acMU = '<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="margin:auto; display:block"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle> </svg>';
 
 var activityIndicator = {
   show:function(){
