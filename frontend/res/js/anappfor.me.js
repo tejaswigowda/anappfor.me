@@ -17,8 +17,10 @@ var doLogout = function()
 
 var start = function()
 {
+  $(".app-container").fadeOut(0);
   $('.sidenav').sidenav();
   buildApp();
+  $(".app-container").fadeIn();
 }
 function loadMenu()
 {
@@ -58,6 +60,8 @@ function loadCanvases()
          catch(e){
           console.log("Canvas '" + x + "' JavaScript did not load --- " + e);
          }
+         App[x].init();
+         App[x].active();
       });
     })(App.canvases[i][0]);
 		loadLessfile("res/canvases/" + App.canvases[i][0] + "/main.less", false);
@@ -135,7 +139,15 @@ var mainMenuButtons = {
 
 function goToCanvas(n)
 {
+  try{
+    App[App.canvases[App.currCanvas][0]].inactive();
+  }
+  catch{}
   App.currCanvas = n;
+  try{
+    App[App.canvases[App.currCanvas][0]].active()
+  }
+  catch{}
   $('.sidenav').sidenav('close');
   $("#canvasWrapper .canvas").fadeOut("fast");
   $("#canvasWrapper .canvas:nth-of-type(" + (n+1) + ")").stop().fadeIn("slow");
