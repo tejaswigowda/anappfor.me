@@ -44,7 +44,6 @@ router.get('/edit', isLoggedIn, function(req, res) {
   var cn = req.originalUrl.replace(req.url,"").replace("/","");
   var userID = req.user.local.email;
   var id = req.query.id;
-  console.log(cn,userID,id);
   var keys = Object.keys(req.query);
   req.db.collection(cn).findOne({id:id,userID:userID}, function (err,result){
     if(!result){
