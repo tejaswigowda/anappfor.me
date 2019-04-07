@@ -17,10 +17,16 @@ body{
     min-height: 100vh;
     position: absolute;
   }
+  .left-button{
+    left: 10px;
+  }
 }
 @media (min-width : 992px){
   .onlyBigScreen{
     display: block;
+  }
+  .left-button{
+    left: 310px;
   }
   .canvas{
     width: ~"calc(100vw - 300px)";
@@ -171,9 +177,12 @@ body{
 .canvas .wrapper
 {
   width: 94%;
-  margin-left: 3%;
   position: absolute;
+  margin: auto;
   top: 0;
+  left: 0;
+  right: 0;
+  max-width: 1200px;
   h1{
     text-align:center;
     margin-bottom: 20px;

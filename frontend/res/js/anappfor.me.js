@@ -163,3 +163,9 @@ var activityIndicator = {
     $(".ac").remove();
   }
 }
+
+var getUniqueID = function()
+{
+  return md5(userObj.local.email + new Date().getTime()).split("").sort(function(a,b){return -.5 + Math.random(0,1)}).toString().replace(/,/g,"")
+
+}

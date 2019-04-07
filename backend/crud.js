@@ -47,7 +47,9 @@ router.get('/edit', isLoggedIn, function(req, res) {
   var keys = Object.keys(req.query);
   req.db.collection(cn).findOne({id:id,userID:userID}, function (err,result){
     if(!result){
-      res.send("-1"); 
+      req.db.collection(cn).insert(req.query, function (err,result){
+        if(!err) res.send("1"); else res.send("0");
+      });
     }
     else{
       for(var i = 0; i < keys.length; i++){
