@@ -116,9 +116,15 @@ body{
  }
 }
 
+.mouseSupport .list li:hover,
+.touchSupport .list li:active
+{
+  background: @accentColor;
+}
+
 .list li {
-  background: url("https://bradfrost.github.com/this-is-responsive/patterns/images/icon_arrow_right.png") no-repeat 97% 50%;
-  border-bottom: 1px solid #ccc;
+  box-shadow: 0px 0px 1px;
+  background-color: fade(@brandColor,90%);
   display: table;
   border-collapse: collapse;
   width: 100%;
@@ -126,6 +132,7 @@ body{
 .inner {
   display: table-row;
   overflow: hidden;
+  color: @menutextColor;
 }
 .li-img {
   display: table-cell;

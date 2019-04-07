@@ -15,10 +15,28 @@ var doLogout = function()
   }
 }
 
+function getInputMethod(){
+		var agent = navigator.userAgent.toLowerCase();
+
+		if( agent.indexOf('iphone') != -1 || agent.indexOf('ipod') != -1) {
+      $("body").addClass("touchSupport")
+		}
+		else if( agent.indexOf('ipad') != -1) {
+      $("body").addClass("touchSupport")
+		}
+		else if( agent.indexOf('android') != -1) {
+      $("body").addClass("touchSupport")
+		}
+    else{
+      $("body").addClass("mouseSupport")
+    }
+}
+
 var start = function()
 {
   $(".app-container").fadeOut(0);
   $('.sidenav').sidenav();
+  getInputMethod();
   buildApp();
   $(".app-container").fadeIn();
 }
@@ -167,5 +185,22 @@ var activityIndicator = {
 var getUniqueID = function()
 {
   return md5(userObj.local.email + new Date().getTime()).split("").sort(function(a,b){return -.5 + Math.random(0,1)}).toString().replace(/,/g,"")
+}
 
+var getLImarkup = function(item,cbSt){
+  var thumb = item.thumb || "res/images/icon.png";
+  var name = item.name || "Untitled";
+  var desc = item.desc || "";
+  var mu =   '<li><a href="javascript:' + cbSt + '" class="inner">'+
+      '<div class="li-img">'+
+        '<img src="' + thumb + '">'+
+      '</div>'+
+      '<div class="li-text">'+
+        '<h3 class="li-head">'+ name +'</h3>'+
+        '<div class="li-sub">'+
+         '<p>'+desc+'</p>'+
+        '</div>'+
+      '</div>'+
+    '</a></li>'
+  return mu;
 }
