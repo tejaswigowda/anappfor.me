@@ -182,6 +182,32 @@ var activityIndicator = {
   }
 }
 
+
+var modal = {
+  show:function(title,subtitle, noCB, yesCB, noText, yesText){
+    title = title || "No Title"; 
+    subtitle = subtitle || "No Subtitle"; 
+    noCB = noCB || "modal.hide"; 
+    yesCB = yesCB || "modal.hide"; 
+    noText = noText || "Cancel"; 
+    yesText = yesText || "OK"; 
+    $("body").append('<div class="modal-overlay" style="z-index: 1002; display: block; opacity: 0.5;"></div><div id="" class="modal" tabindex="0" style="z-index: 1003; display: block; opacity: 1; top: 10%; transform: scaleX(1) scaleY(1);">'+
+          '<div class="modal-content">'+
+            '<h4>'+title+'</h4>'+
+            '<p>' + subtitle + '</p>'+
+          '</div>'+
+          '<div class="modal-footer">'+
+            '<a href="javascript:' + noCB + '()" class="modal-close waves-effect waves-red btn-flat">'+ noText + '</a>'+
+            '<a href="javascript:' + yesCB + '()" class="modal-close waves-effect waves-green btn-flat">'+ yesText + '</a>'+
+          '</div>'+
+        '</div>'
+                    );
+  },
+  hide: function(){
+    $(".modal-overlay,.modal").remove();
+  }
+}
+
 var getUniqueID = function()
 {
   return md5(userObj.local.email + new Date().getTime()).split("").sort(function(a,b){return -.5 + Math.random(0,1)}).toString().replace(/,/g,"")
@@ -214,10 +240,38 @@ var doFileUpload = function(e,cb)
    console.log(filename);
    var ext = filename.split(".");
    ext = ext[ext.length-1];
-   console.log(ext);
 
    var fd = new FormData();
    var fileInput = (e.target.dataset.targetname || "s3Upload_" + new Date().getTime().toString()) + "." + ext;
+   fd.append('fileInput', fileInput);
+   fd.append('file', fileObj);
+   fd.append('date', (new Date()).toString());
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(e) {
+      if (xhr.readyState != 4) { return; }
+      document.getElementById(thumbID).style.backgroundImage = "url(" + App.resURL + fileInput + "?"+ new Date().getTime() + ")";
+      cb(App.resURL + fileInput);
+    };
+    xhr.open("POST", "/uploadFile", true);
+    xhr.send(fd);
+}
+
+var doImageUpload = function(e,cb)
+{
+   
+  var thumbID = e.target.parentNode.id;
+  console.log(thumbID);
+  var fileObj = $("#" + thumbID + " input[type=file]").get(0).files[0];
+   var filename = fileObj.name;
+   console.log(filename);
+   var ext = filename.split(".");
+   ext = ext[ext.length-1];
+    var maxH = parseInt(e.target.dataset.height || "100");
+    var maxW = parseInt(e.target.dataset.width || "100");
+  
+   var fd = new FormData();
+   var fileInput = (e.target.dataset.targetname || "imageUpload_" + new Date().getTime().toString()) + "." + ext;
    fd.append('fileInput', fileInput);
    fd.append('file', fileObj);
    fd.append('date', (new Date()).toString());
