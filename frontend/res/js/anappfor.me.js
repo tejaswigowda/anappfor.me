@@ -197,34 +197,36 @@ var getLImarkup = function(item,cbSt){
       '<div class="li-text">'+
         '<h3 class="li-head">'+ name +'</h3>'+
         '<div class="li-sub">'+
-         desc+
+         desc +
         '</div>'+
       '</div>'+
     '</a></li>'
   return mu;
 }
 
-var fileUploaded = function()
+var doFileUpload = function(e,cb)
 {
-   var file = $('#theFileUploader').get(0);
-   var fileObj = $('#theFileUploader').get(0).files[0]
+   
+  var thumbID = e.target.parentNode.id;
+  console.log(thumbID);
+  var fileObj = $("#" + thumbID + " input[type=file]").get(0).files[0];
    var filename = fileObj.name;
+   console.log(filename);
    var ext = filename.split(".");
    ext = ext[ext.length-1];
    console.log(ext);
 
    var fd = new FormData();
-   var fileInput = "s3Upload_" + new Date().getTime().toString() + "." + ext;
+   var fileInput = (e.target.dataset.targetname || "s3Upload_" + new Date().getTime().toString()) + "." + ext;
    fd.append('fileInput', fileInput);
-   fd.append('input', file.files[0]);
+   fd.append('file', fileObj);
    fd.append('date', (new Date()).toString());
 
-    //fd.append('data', data);
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(e) {
       if (xhr.readyState != 4) { return; }
-        // callback logic
-       document.getElementById("preview").src = "https://s3-us-west-2.amazonaws.com/ame470s2017tg/" + fileInput;
+      document.getElementById(thumbID).style.backgroundImage = "url(" + App.resURL + fileInput + "?"+ new Date().getTime() + ")";
+      cb(App.resURL + fileInput);
     };
     xhr.open("POST", "/uploadFile", true);
     xhr.send(fd);

@@ -35,9 +35,9 @@ var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 
 app.use(methodOverride());
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
+//app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended:false
+  extended:true
 }));
 require('./backend/passport/config/passport')(passport); // pass passport for configuration
 require('./backend/passport/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
@@ -52,6 +52,7 @@ app.use(function(req,res,next){
 });
 
 app.use(require('./backend'))
+app.use(require('express-formidable')());
 
 function getFile(localPath, res, mimeType) {
 	fs.readFile(localPath, function(err, contents) {
@@ -74,7 +75,7 @@ app.post('/uploadImage', function(req, res){
     var s3Path = '/' + intname;
     var buf = new Buffer(req.body.data.replace(/^data:image\/\w+;base64,/, ""),'base64');
     var params = {
-        Bucket:'ame470s2017tg',
+        Bucket:'anappfor.me',
         ACL:'public-read',
         Key:intname,
         Body: buf,
@@ -87,15 +88,16 @@ app.post('/uploadImage', function(req, res){
 });
 
 app.post('/uploadFile', function(req, res){
-    var intname = req.body.fileInput;
-    var filename = req.files.input.name;
-    var fileType =  req.files.input.type;
-    var tmpPath = req.files.input.path;
+    var intname = req.fields.fileInput;
+    console.log(Object.keys(req.files.file));
+    var filename = req.files.file.name;
+    var fileType =  req.files.file.type;
+    var tmpPath = req.files.file.path;
     var s3Path = '/' + intname;
 
     fs.readFile(tmpPath, function (err, data) {
         var params = {
-            Bucket:'ame470s2017tg',
+            Bucket:'anappfor.me',
             ACL:'public-read',
             Key:intname,
             Body: data,

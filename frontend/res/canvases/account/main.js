@@ -5,6 +5,9 @@
   active: function(){
   },
   inactive: function(){
+  },
+  thumbChanged: function(url){
+    alert("done!");
   }
 }
 
