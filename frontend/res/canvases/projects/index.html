@@ -18,6 +18,9 @@ projects
 <div class='wrapper' id='crudProjWrapper'>
   <a class="btn-floating btn-large waves-effect waves-light left-button" href="javascript:App.projects.goBack()" id="backProjButton"><i class="material-icons">undo</i></a>
   <h1 id='newPHeading'> New Project </h1>    
+          <div class='circle thumbnail' id='projThumb'>
+            <input type='file'>
+          </div>
     <div class="input-field col s12">
           <i class="material-icons prefix">mode_edit</i>
           <textarea id="projTitle" data-key='name' onchange="App.projects.updateProject(event)" class="materialize-textarea"></textarea>

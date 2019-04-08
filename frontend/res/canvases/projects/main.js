@@ -32,16 +32,32 @@
   },
   selected: function(i)
   {
-      console.log(this.list[i]);
-      this.currID = App.projects.list[i].id;
+     console.log(this.list[i]);
+     this.currID = App.projects.list[i].id;
+     loadFile("./projects/get?id="+ this.currID,function(data){
+      var data = JSON.parse(data);
+      var name = data.name || "Untitled"
+      var desc = data.desc || ""
+      $("#newPHeading").html("<br>");
+      $("#projTitle").html(name);
+      $("#projDesc").html(desc);
+      $("label[for='projTitle']").addClass("active");
+      if(desc.length > 0)
+        $("label[for='projDesc']").addClass("active");
       $("#crudProjWrapper").fadeIn();
       $("#listProjWrapper").fadeOut();
+     });
   },
   addNew: function()
   {
       $("#crudProjWrapper").fadeIn();
       $("#listProjWrapper").fadeOut();
       this.currID = getUniqueID();
+      $("#newPHeading").html("New Project");
+      $("#projTitle").html("");
+      $("#projDesc").html("");
+      $("label[for='projTitle']").removeClass("active");
+      $("label[for='projDesc']").removeClass("active");
   },
   goBack: function()
   {

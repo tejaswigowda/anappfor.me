@@ -3,8 +3,8 @@
 	"name": "anappfor.me",
 	"embedded": false,
 	"embedType": "",
-	"resURL": "https://s3-us-west-2.amazonaws.com/aafm/",
-	"reshttpURL": "http://s3-us-west-2.amazonaws.com/aafm/",
+	"resURL": "https://s3-us-west-2.amazonaws.com/anappfor.me/",
+	"reshttpURL": "http://s3-us-west-2.amazonaws.com/anappfor.me/",
 	"location": "",
 	"canvases": [
                     ["projects", "<i class='material-icons'>apps</i>Projects", "Projects"],

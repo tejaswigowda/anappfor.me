@@ -1,3 +1,7 @@
+var AWS = require('aws-sdk');
+AWS.config.loadFromPath('./backend/aws/credentials.json');
+var s3 = new AWS.S3();
+
 var url = require("url"),
 	querystring = require("querystring");
 
@@ -65,6 +69,48 @@ function getFile(localPath, res, mimeType) {
 
 
 
+app.post('/uploadImage', function(req, res){
+    var intname = req.body.fileInput;
+    var s3Path = '/' + intname;
+    var buf = new Buffer(req.body.data.replace(/^data:image\/\w+;base64,/, ""),'base64');
+    var params = {
+        Bucket:'ame470s2017tg',
+        ACL:'public-read',
+        Key:intname,
+        Body: buf,
+        ServerSideEncryption : 'AES256'
+    };
+    s3.putObject(params, function(err, data) {
+        console.log(err);
+        res.end("success");
+    });
+});
+
+app.post('/uploadFile', function(req, res){
+    var intname = req.body.fileInput;
+    var filename = req.files.input.name;
+    var fileType =  req.files.input.type;
+    var tmpPath = req.files.input.path;
+    var s3Path = '/' + intname;
+
+    fs.readFile(tmpPath, function (err, data) {
+        var params = {
+            Bucket:'ame470s2017tg',
+            ACL:'public-read',
+            Key:intname,
+            Body: data,
+            ServerSideEncryption : 'AES256'
+        };
+        s3.putObject(params, function(err, data) {
+            res.end("success");
+            console.log(err);
+        });
+    });
+  });
+
+app.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, './frontend', 'index.html'));
+});
 app.listen(8080);
 
 

@@ -8,6 +8,11 @@ body{
 .onlySmallScreen, .onlyBigScreen{
   display: none;
 }
+@media (max-width : 500px){
+  .canvas .wrapper{
+    min-width: 100%;
+  }
+}
 @media (max-width : 992px){
   .onlySmallScreen{
     display: block;
@@ -128,6 +133,7 @@ body{
   display: table;
   border-collapse: collapse;
   width: 100%;
+  height: 100px;
 }
 .inner {
   display: table-row;
@@ -139,6 +145,9 @@ body{
   vertical-align: middle;
   width: 30%;
   padding-right: 1em;
+  background-size: 90px;
+  background-repeat: no-repeat;
+  background-position: 50%;
 }
 .li-img img {
   display: block;
@@ -152,6 +161,7 @@ body{
 }
 .li-head {
   margin: 0;
+  font-size: 150%;
 }
 .li-sub {
   margin: 0;
@@ -192,7 +202,8 @@ body{
   max-width: 1200px;
   h1{
     text-align:center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    margin-top: 5px;
     color: @brandColor;
     text-shadow: 0px 0px 1px;
   }
@@ -200,4 +211,23 @@ body{
 
 .textcenter{
   text-align:center;
+}
+
+.thumbnail{
+   background-repeat:no-repeat;
+   height: 100px;
+   width: 100px;
+   background-size:contain;
+   box-shadow: 0px 0px 20px @brandColor;
+   margin:auto;
+   margin-bottom: 20px;
+   position: relative;
+   overflow: hidden;
+   background-image:url(../images/icon.png);
+  input[type=file]{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    opacity: 0;
+  }
 }

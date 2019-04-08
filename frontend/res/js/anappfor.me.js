@@ -190,17 +190,42 @@ var getUniqueID = function()
 var getLImarkup = function(item,cbSt){
   var thumb = item.thumb || "res/images/icon.png";
   var name = item.name || "Untitled";
-  var desc = item.desc || "";
+  var desc = item.desc || "<br>";
   var mu =   '<li><a href="javascript:' + cbSt + '" class="inner">'+
-      '<div class="li-img">'+
-        '<img src="' + thumb + '">'+
+      '<div class="li-img" style="background-image:url('+ thumb + ')">'+
       '</div>'+
       '<div class="li-text">'+
         '<h3 class="li-head">'+ name +'</h3>'+
         '<div class="li-sub">'+
-         '<p>'+desc+'</p>'+
+         desc+
         '</div>'+
       '</div>'+
     '</a></li>'
   return mu;
+}
+
+var fileUploaded = function()
+{
+   var file = $('#theFileUploader').get(0);
+   var fileObj = $('#theFileUploader').get(0).files[0]
+   var filename = fileObj.name;
+   var ext = filename.split(".");
+   ext = ext[ext.length-1];
+   console.log(ext);
+
+   var fd = new FormData();
+   var fileInput = "s3Upload_" + new Date().getTime().toString() + "." + ext;
+   fd.append('fileInput', fileInput);
+   fd.append('input', file.files[0]);
+   fd.append('date', (new Date()).toString());
+
+    //fd.append('data', data);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(e) {
+      if (xhr.readyState != 4) { return; }
+        // callback logic
+       document.getElementById("preview").src = "https://s3-us-west-2.amazonaws.com/ame470s2017tg/" + fileInput;
+    };
+    xhr.open("POST", "/uploadFile", true);
+    xhr.send(fd);
 }
