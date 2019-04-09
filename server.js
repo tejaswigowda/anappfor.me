@@ -71,9 +71,9 @@ function getFile(localPath, res, mimeType) {
 
 
 app.post('/uploadImage', function(req, res){
-    var intname = req.body.fileInput;
+    var intname = req.fields.fileInput;
     var s3Path = '/' + intname;
-    var buf = new Buffer(req.body.data.replace(/^data:image\/\w+;base64,/, ""),'base64');
+    var buf = new Buffer(req.fields.data.replace(/^data:image\/\w+;base64,/, ""),'base64');
     var params = {
         Bucket:'anappfor.me',
         ACL:'public-read',
@@ -89,7 +89,6 @@ app.post('/uploadImage', function(req, res){
 
 app.post('/uploadFile', function(req, res){
     var intname = req.fields.fileInput;
-    console.log(Object.keys(req.files.file));
     var filename = req.files.file.name;
     var fileType =  req.files.file.type;
     var tmpPath = req.files.file.path;

@@ -43,7 +43,6 @@ var start = function()
 function loadMenu()
 {
   App.mainmenubuttons = [];
-  console.log(App);
   for (i = 0; i < App.canvases.length; i++){
     App.mainmenubuttons[i] = "button" + App.canvases[i][0];
 	  var Parent = document.getElementById("canvasWrapper");
@@ -234,10 +233,8 @@ var doFileUpload = function(e,cb)
 {
    
   var thumbID = e.target.parentNode.id;
-  console.log(thumbID);
   var fileObj = $("#" + thumbID + " input[type=file]").get(0).files[0];
    var filename = fileObj.name;
-   console.log(filename);
    var ext = filename.split(".");
    ext = ext[ext.length-1];
 
@@ -261,27 +258,70 @@ var doImageUpload = function(e,cb)
 {
    
   var thumbID = e.target.parentNode.id;
-  console.log(thumbID);
   var fileObj = $("#" + thumbID + " input[type=file]").get(0).files[0];
-   var filename = fileObj.name;
-   console.log(filename);
-   var ext = filename.split(".");
-   ext = ext[ext.length-1];
-    var maxH = parseInt(e.target.dataset.height || "100");
-    var maxW = parseInt(e.target.dataset.width || "100");
+  var filename = fileObj.name;
+  var ext = filename.split(".");
+  ext = ext[ext.length-1];
+  var MAX_HEIGHT = parseInt(e.target.dataset.height || "100");
+  var MAX_WIDTH = parseInt(e.target.dataset.width || "100");
   
-   var fd = new FormData();
-   var fileInput = (e.target.dataset.targetname || "imageUpload_" + new Date().getTime().toString()) + "." + ext;
-   fd.append('fileInput', fileInput);
-   fd.append('file', fileObj);
-   fd.append('date', (new Date()).toString());
+   if(fileObj.type.split("/")[0].toLowerCase() != "image"){
+      modal.show("Incorrect file type", "Please ensure you are uploading an image file.");
+      return;
+   }
 
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(e) {
-      if (xhr.readyState != 4) { return; }
-      document.getElementById(thumbID).style.backgroundImage = "url(" + App.resURL + fileInput + "?"+ new Date().getTime() + ")";
-      cb(App.resURL + fileInput);
-    };
-    xhr.open("POST", "/uploadFile", true);
-    xhr.send(fd);
+    // Uploads image and sets it to the appropriate width and height.
+    // Uses dimensions from selectChanged function.
+     if ( fileObj && fileObj.type.split("/")[0].toLowerCase() === "image") {
+         var fileInput = (e.target.dataset.targetname || "imageUpload_" + new Date().getTime().toString()) + "." + ext;
+          var FR = new FileReader();
+          FR.onload = function(e) {
+              var data = e.target.result;
+              var canvas = document.createElement("canvas");
+              var img = document.createElement("img");
+
+              img.onload = function(){
+
+                 var width = img.width;
+                 var height = img.height;
+                 var w2 = width;
+                 var h2 = height;
+
+                 if (width > height) {
+                     if (width > MAX_WIDTH) {
+                        h2 = height * MAX_WIDTH / width;
+                        w2 = MAX_WIDTH;
+                     }
+                 } else {
+                     if (height > MAX_HEIGHT) {
+                        w2 = width * MAX_HEIGHT / height;
+                        h2 = MAX_HEIGHT;
+                     }
+                 }
+				  // Canvas
+                  canvas.width = w2;
+                  canvas.height = h2;
+                  var ctx = canvas.getContext("2d");
+                  ctx.drawImage(img, 0, 0, w2, h2);
+                var base64St = canvas.toDataURL("image/png");
+               var fd = new FormData();
+               fd.append('fileInput', fileInput);
+               fd.append('data', base64St);
+               fd.append('date', (new Date()).toString());
+
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function(e) {
+                  if (xhr.readyState != 4) { return; }
+                  document.getElementById(thumbID).style.backgroundImage = "url(" + App.resURL + fileInput + "?"+ new Date().getTime() + ")";
+                  cb(App.resURL + fileInput);
+                };
+                xhr.open("POST", "/uploadImage", true);
+                xhr.send(fd);                 
+              }
+              img.src = data;
+          };
+
+          FR.readAsDataURL( fileObj );
+     }
+
 }
