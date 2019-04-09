@@ -112,7 +112,12 @@ app.post('/uploadFile', function(req, res){
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, './frontend', 'index.html'));
 });
-app.listen(8080);
+
+// DO NOT DO app.listen() unless we're testing this directly
+if (require.main === module) { app.listen(8080); }
+// Instead do export the app:
+else{ module.exports = app; }
+
 
 
 

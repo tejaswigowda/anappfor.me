@@ -1,7 +1,7 @@
 <! --
 account 
 -->
-<div class='wrapper'>
+<div class='wrapper' id='accountWrapper'>
   <h1> Account </h1>
   <div class='' id='userInfoList'>
     <div class="row">
@@ -27,3 +27,21 @@ account
  </div>
 </div>
 
+
+<div class='wrapper' id='changePwdWrapper'>
+  <a class="btn-floating btn-large waves-effect waves-light left-button" href="javascript:App.projects.goBack()" id="backProjButton"><i class="material-icons">undo</i></a>
+  <h1 id='newPHeading'> New Project </h1>    
+          <div class='circle thumbnail' id='projThumb'>
+            <input type='file'>
+          </div>
+    <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="projTitle" data-key='name' onchange="App.projects.updateProject(event)" class="materialize-textarea"></textarea>
+          <label for="projTitle">Project Title</label>
+   </div>
+    <div class="input-field col s12">
+          <i class="material-icons prefix">format_align_justify</i>
+          <textarea id="projDesc" data-key='desc' onchange="App.projects.updateProject(event)" class="materialize-textarea"></textarea>
+          <label for="projDesc">Description</label>
+   </div>
+</div>
