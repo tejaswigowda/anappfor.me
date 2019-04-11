@@ -6,6 +6,7 @@
   <script src='res/js/asyncReq.js'></script>
 <script>
   var userObj = {}
+  var hash = window.location.hash.replace("#","");
  var main = function(){
   loadFile("res/config.json",function(data){
     var readData = JSON.parse(data);
@@ -16,6 +17,11 @@
     if(App.haslogin){
       loadFile("/loginStatus", function(data){
         if(data === "0"){
+          if(hash == "getlogin"){
+            loadGetLoginModal();
+            return;
+          }
+           
           window.location.href='./login.html'
           return;
         }
@@ -23,7 +29,9 @@
         start();
       });
     }
-    else start();  
+    else {
+      start();
+    }  
   });
  }
 </script>
@@ -61,6 +69,7 @@
 </body>
   <link rel="stylesheet" href="res/vendor/materialize/materialize.min.css">
   <link href="res/vendor/materialize/icon.css" rel="stylesheet">
+  <link href="res/vendor/animate.min.css" rel="stylesheet">
   <script src="res/vendor/md5.min.js"></script>
   <script src="res/vendor/jquery.min.js"></script>
   <script src="res/vendor/materialize/materialize.min.js"></script>
@@ -76,5 +85,6 @@
 <script src='https://cdn.jsdelivr.net/gh/tejaswigowda/anappfor.me/frontend/res/js/anappfor.me.min.js'></script>
 <link href="https://cdn.jsdelivr.net/gh/tejaswigowda/anappfor.me/frontend/res/css/anappfor.me.less" rel="stylesheet/less">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
   -->
 </html>

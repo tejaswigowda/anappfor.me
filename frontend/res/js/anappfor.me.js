@@ -9,10 +9,43 @@ function buildApp()
 
 var doLogout = function()
 {
-  var x = confirm("Logout now?")
-  if(x){
-    loadFile("./logout", function(d){window.location.reload()})
-  }
+  modal.show("Logout?", "Are you sure?", null, 
+    "logoutNow", "No", "Yes"
+  ); 
+}
+function logoutNow(){loadFile("./logout", function(d){window.location.reload()})}
+
+var doLogout = function()
+{
+  modal.show("Logout?", "Are you sure?", null, 
+    "logoutNow", "No", "Yes"
+  ); 
+}
+function loadGetLoginModal(){
+  $("body").append(
+     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
+       '<div class="modal" style="z-index: 1003; display: block; opacity: 1; top: 10%; transform: scaleX(1) scaleY(1);">'+
+          '<div class="iconBlock"></div><h1 class="textcenter">Login</h1>'+
+        '<div class="row">'+
+              '<div class="input-field col s12">'+
+                '<input id="email" type="email" class="validate" name="email">'+
+                '<label for="email" class="">Email</label>'+
+                '<span class="helper-text" data-error="wrong" data-success="right"></span>'+
+              '</div>'+
+        '</div>'+
+        '<div class="row">'+
+              '<div class="input-field col s12">'+
+                '<input id="password" type="password" name="password" class="validate">'+
+                '<label for="password" class="">Password</label>'+
+                '<span class="helper-text" data-error="wrong" data-success="right"></span>'+
+              '</div>'+
+         '</div>'+
+          '<button type="submit" class="btn waves-effect waves-light" name="action" style="margin:auto;display: block;margin-bottom:30px">Login'+
+              '<i class="material-icons right">arrow_forward</i>'+
+          '</button>'+
+      '</div>'+
+    '</div>'
+  );
 }
 
 function getInputMethod(){
