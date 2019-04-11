@@ -24,8 +24,8 @@ var doLogout = function()
 function loadGetLoginModal(){
   $("body").append(
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
-       '<div class="modal" style="z-index: 1003; display: block; opacity: 1; top: 10%; transform: scaleX(1) scaleY(1);">'+
-          '<div class="iconBlock"></div><h1 class="textcenter">Login</h1>'+
+       '<div class="modal" style="z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+          '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
                 '<input id="email" type="email" class="validate" name="email">'+
