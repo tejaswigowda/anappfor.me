@@ -17,7 +17,6 @@
     loadFile("./projects/all", function(data){
       var projects = JSON.parse(data);
       App.projects.list = JSON.parse(data);
-      console.log(projects);
       if(projects.length == 0){
         document.getElementById("projList").innerHTML = "<h4 style='opacity:.5' class='textcenter'> No projects yet <br> </h4>"
         return;
@@ -32,30 +31,49 @@
   },
   selected: function(i)
   {
-     console.log(this.list[i]);
+    this.isNew = false;
      this.currID = App.projects.list[i].id;
+     $("#projects ."+this.currID).addClass("selected");
      loadFile("./projects/get?id="+ this.currID,function(data){
       var data = JSON.parse(data);
       var name = data.name || "Untitled"
       var desc = data.desc || ""
       $("#newPHeading").html("<br>");
-      $("#projTitle").html(name);
-      $("#projDesc").html(desc);
+      $("#projTitle").val(name);
+      $("#projDesc").val(desc);
       $("label[for='projTitle']").addClass("active");
       if(desc.length > 0)
         $("label[for='projDesc']").addClass("active");
       $("#crudProjWrapper").fadeIn();
       $("#listProjWrapper").fadeOut();
+      $("#deleteProjButton").fadeIn(0);
      });
   },
+  deleteNow:function(){
+     loadFile("./projects/delete?id="+ this.currID,function(data){
+       modal.hide();
+       App.projects.goBack();
+       $("#projects li.selected").hide("slow");
+       if(App.projects.list.length == 1)
+        this.loadall();
+     });
+  },
+  delete:function(){
+    modal.show("Delete?", "Are you sure?", "modal.hide", 
+      "App.projects.deleteNow", "No", "Yes"
+    ); 
+  },
+  isNew: false,
   addNew: function()
   {
+    this.isNew = true;
       $("#crudProjWrapper").fadeIn();
       $("#listProjWrapper").fadeOut();
+      $("#deleteProjButton").fadeOut(0);
       this.currID = getUniqueID();
       $("#newPHeading").html("New Project");
-      $("#projTitle").html("");
-      $("#projDesc").html("");
+      $("#projTitle").val("");
+      $("#projDesc").val("");
       $("label[for='projTitle']").removeClass("active");
       $("label[for='projDesc']").removeClass("active");
   },
@@ -63,10 +81,12 @@
   {
     $("#crudProjWrapper").fadeOut();
     $("#listProjWrapper").fadeIn();
-    this.loadall();
+    var x = function(){$("#projects .list li").removeClass("selected")}
+    setTimeout(x, 500);
+    if(this.isNew)
+      this.loadall();
   },
   updateProject: function(e){
-    console.log(e.target);
     loadFile("./projects/edit?id="+ this.currID 
              + "&userID="+ userObj.local.email
              + "&"+ e.target.dataset.key 

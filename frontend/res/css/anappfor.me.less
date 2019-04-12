@@ -27,7 +27,7 @@ body{
   }
   .canvas .wrapper h1{
     margin-top: 0px;
-    font-size: 40px;
+    font-size: 30px;
   }
 }
 @media (min-width : 992px){
@@ -55,7 +55,7 @@ body{
   }
     position: fixed;
     left: 10px;
-    top: 10px;
+    top: 5px;
 }
 .sidenav{
      background-size:400px;
@@ -142,6 +142,7 @@ body{
 }
 
 .list li {
+  transition: all 1s;
   box-shadow: 0px 0px 1px;
   border-radius: 0px;
   background-color: fade(white,90%);
@@ -251,4 +252,35 @@ body{
     position: absolute;
     opacity: 0;
   }
+}
+
+.brandBG{
+   background-color: @brandColor;
+}
+.accentBG{
+   background-color: @accentColor;
+}
+
+.menutextColor{
+   color: @menutextColor
+}
+.brandColor{
+   color: @brandColor;
+}
+.accentColor{
+   color: @accentColor;
+}
+
+.modal label{
+  color: black;
+}
+
+.modal input[type=email],
+.modal input[type=password]{
+  background-color: white;
+  padding-left: 5px;
+}
+
+.list li.selected{
+  background-color: @accentColor;
 }

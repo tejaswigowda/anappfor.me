@@ -7,28 +7,24 @@ function buildApp()
 }
 
 
-var doLogout = function()
-{
-  modal.show("Logout?", "Are you sure?", null, 
-    "logoutNow", "No", "Yes"
-  ); 
-}
 function logoutNow(){loadFile("./logout", function(d){window.location.reload()})}
 
 var doLogout = function()
 {
-  modal.show("Logout?", "Are you sure?", null, 
+  modal.show("Logout?", "Are you sure?", "modal.hide", 
     "logoutNow", "No", "Yes"
   ); 
 }
+
 function loadGetLoginModal(){
   $("body").append(
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
-       '<div class="modal" style="z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+       '<div class="modal menutextColor brandBG" style="bortder-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
+       '<form name="login" action="/tryLoginInline" method="post">'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input id="email" type="email" class="validate" name="email">'+
+                '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
                 '<label for="email" class="">Email</label>'+
                 '<span class="helper-text" data-error="wrong" data-success="right"></span>'+
               '</div>'+
@@ -43,9 +39,12 @@ function loadGetLoginModal(){
           '<button type="submit" class="btn waves-effect waves-light" name="action" style="margin:auto;display: block;margin-bottom:30px">Login'+
               '<i class="material-icons right">arrow_forward</i>'+
           '</button>'+
+          '</form>'+
       '</div>'+
     '</div>'
   );
+  $(".modal input[type='email']").focus();
+  $(".modal input[type='email']").val(localStorage.getItem("email"));
 }
 
 function getInputMethod(){
@@ -219,17 +218,20 @@ var modal = {
   show:function(title,subtitle, noCB, yesCB, noText, yesText){
     title = title || "No Title"; 
     subtitle = subtitle || "No Subtitle"; 
-    noCB = noCB || "modal.hide"; 
+ //   noCB = noCB || "modal.hide"; 
     yesCB = yesCB || "modal.hide"; 
     noText = noText || "Cancel"; 
     yesText = yesText || "OK"; 
+    var flag = "";
+    if(noCB){
+     flag = '<a href="javascript:' + noCB + '()" class="modal-close waves-effect waves-red btn-flat">'+ noText + '</a>';
+    }
     $("body").append('<div class="modal-overlay" style="z-index: 1002; display: block; opacity: 0.5;"></div><div id="" class="modal" tabindex="0" style="z-index: 1003; display: block; opacity: 1; top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="modal-content">'+
             '<h4>'+title+'</h4>'+
             '<p>' + subtitle + '</p>'+
           '</div>'+
-          '<div class="modal-footer">'+
-            '<a href="javascript:' + noCB + '()" class="modal-close waves-effect waves-red btn-flat">'+ noText + '</a>'+
+          '<div class="modal-footer">'+ flag +
             '<a href="javascript:' + yesCB + '()" class="modal-close waves-effect waves-green btn-flat">'+ yesText + '</a>'+
           '</div>'+
         '</div>'
@@ -249,7 +251,7 @@ var getLImarkup = function(item,cbSt){
   var thumb = item.thumb || "res/images/icon.png";
   var name = item.name || "Untitled";
   var desc = item.desc || "<br>";
-  var mu =   '<li><a href="javascript:' + cbSt + '" class="inner">'+
+  var mu =   '<li class="' + item.id + '"><a href="javascript:' + cbSt + '" class="inner">'+
       '<div class="li-img" style="background-image:url('+ thumb + ')">'+
       '</div>'+
       '<div class="li-text">'+
@@ -357,4 +359,12 @@ var doImageUpload = function(e,cb)
           FR.readAsDataURL( fileObj );
      }
 
+}
+
+
+function storeEmail()
+{
+    var x = $(".modal input[type='email']").val();
+    localStorage.setItem("email", x);
+    console.log(x);
 }
