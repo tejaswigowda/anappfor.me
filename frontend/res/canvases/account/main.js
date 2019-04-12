@@ -7,6 +7,8 @@
     this.loadaccount();
   },
   active: function(){
+    $("#accountWrapper").fadeIn();
+    $("#changePwdWrapper").fadeOut();
   },
   inactive: function(){
   },
@@ -18,6 +20,8 @@
   changePwd: function(){
     $("#accountWrapper").fadeOut();
     $("#changePwdWrapper").fadeIn();
+    $("#changePwdWrapper input").val("");
+    $("#cpButton").fadeOut(0);
   },
   goBack: function(){
     $("#accountWrapper").fadeIn();
