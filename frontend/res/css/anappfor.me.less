@@ -23,7 +23,6 @@ body{
     position: absolute;
   }
   .left-button{
-    left: 10px;
   }
   .canvas .wrapper h1{
     margin-top: 0px;
@@ -35,7 +34,7 @@ body{
     display: block;
   }
   .left-button{
-    left: 310px;
+    left: 305px;
   }
   .canvas{
     width: ~"calc(100vw - 300px)";
@@ -133,6 +132,7 @@ body{
  }
 }
 
+.list li.selected,
 .mouseSupport .list li:hover,
 .touchSupport .list li:active
 {
@@ -163,14 +163,9 @@ body{
   vertical-align: middle;
   width: 30%;
   padding-right: 1em;
-  background-size: 90px;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: 50%;
-}
-.li-img img {
-  display: block;
-  width: 100%;
-  height: auto;
 }
 .li-text {
   display: table-cell;
@@ -281,6 +276,7 @@ body{
   padding-left: 5px;
 }
 
-.list li.selected{
-  background-color: @accentColor;
+
+.animated .btn-floating{
+  display: none;
 }

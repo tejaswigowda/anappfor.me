@@ -2,7 +2,8 @@
   init: function(){
   },
   active: function(){
-    $("#crudProjWrapper").fadeOut(0);
+   // $("#crudProjWrapper").fadeOut(0);
+    $("#crudProjWrapper").css("visibility", "hidden").removeClass().addClass("wrapper animated slideOutRight")
     this.loadall();
   },
   inactive: function(){
@@ -14,7 +15,7 @@
   list:[],
   loadall: function()
   {
-    loadFile("./projects/all", function(data){
+    loadFile("projects/all", function(data){
       var projects = JSON.parse(data);
       App.projects.list = JSON.parse(data);
       if(projects.length == 0){
@@ -34,7 +35,7 @@
     this.isNew = false;
      this.currID = App.projects.list[i].id;
      $("#projects ."+this.currID).addClass("selected");
-     loadFile("./projects/get?id="+ this.currID,function(data){
+     loadFile("projects/get?id="+ this.currID,function(data){
       var data = JSON.parse(data);
       var name = data.name || "Untitled"
       var desc = data.desc || ""
@@ -44,13 +45,16 @@
       $("label[for='projTitle']").addClass("active");
       if(desc.length > 0)
         $("label[for='projDesc']").addClass("active");
-      $("#crudProjWrapper").fadeIn();
-      $("#listProjWrapper").fadeOut();
+      $("#crudProjWrapper").removeClass().addClass("wrapper animated slideInRight").css("visibility","");
+      $("#listProjWrapper").removeClass().addClass("wrapper animated slideOutLeft");
+      setTimeout(function(){$("#crudProjWrapper").removeClass("animated slideInRight")},1000)
+      //$("#crudProjWrapper").fadeIn();
+      //$("#listProjWrapper").fadeOut();
       $("#deleteProjButton").fadeIn(0);
      });
   },
   deleteNow:function(){
-     loadFile("./projects/delete?id="+ this.currID,function(data){
+     loadFile("projects/delete?id="+ this.currID,function(data){
        modal.hide();
        App.projects.goBack();
        $("#projects li.selected").hide("slow");
@@ -79,15 +83,18 @@
   },
   goBack: function()
   {
-    $("#crudProjWrapper").fadeOut();
-    $("#listProjWrapper").fadeIn();
+  //  $("#crudProjWrapper").fadeOut();
+  //  $("#listProjWrapper").fadeIn();
+      $("#crudProjWrapper").removeClass().addClass("wrapper animated slideOutRight")
+      $("#listProjWrapper").removeClass().addClass("wrapper animated slideInLeft")
+      setTimeout(function(){$("#listProjWrapper").removeClass("animated slideInLeft")},1000)
     var x = function(){$("#projects .list li").removeClass("selected")}
     setTimeout(x, 500);
     if(this.isNew)
       this.loadall();
   },
   updateProject: function(e){
-    loadFile("./projects/edit?id="+ this.currID 
+    loadFile("projects/edit?id="+ this.currID 
              + "&userID="+ userObj.local.email
              + "&"+ e.target.dataset.key 
              + "=" + e.target.value, function(data){

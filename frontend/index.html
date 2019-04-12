@@ -2,6 +2,7 @@
 <!doctype html>
 <html>
 <head>
+  <base href="./">
   <meta content="width=device-width, initial-scale=1, maximum-width=device-width, maximum-scale=1" name="viewport">
   <script src='res/js/asyncReq.js'></script>
 <script>
@@ -20,7 +21,7 @@
           if(hash.indexOf("getlogin")>=0){
             loadGetLoginModal();
             if(hash.indexOf("fail")>=0){
-              M.toast({html: '<b> Login Error </b>Please retry'})
+              M.toast({html: '<b> Login Error. </b>Please retry', classes:'red'})
             }
             return;
           }
