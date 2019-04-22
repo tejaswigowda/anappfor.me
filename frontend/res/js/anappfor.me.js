@@ -16,30 +16,134 @@ var doLogout = function()
   ); 
 }
 
-function loadGetLoginModal(){
+function lostPwd(){
+  modal.hide();
   $("body").append(
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
        '<div class="modal menutextColor brandBG" style="bortder-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
-          '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
-       '<form name="login" action="/tryLoginInline" method="post">'+
+          '<div class="iconBlock"></div><h4 class="textcenter">LOST PASSWORD</h4>'+
+       '<form name="login" action="/lostPwd" method="post">'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
                 '<label for="email" class="">Email</label>'+
-                '<span class="helper-text" data-error="wrong" data-success="right"></span>'+
+                '<span class="helper-text" data-error="" data-success=""></span>'+
+              '</div>'+
+        '</div>'+ 
+        '<button type="submit" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Submit'+
+              '<i class="material-icons right">arrow_forward</i>'+
+          '</button>'+
+          '</form>'+
+                '<a href="javascript:doRegister()" style="display: block;color: inherit;" class="btn-flat textcenter">No Account? Sign up</a>'+
+                '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
+      '</div>'+
+    '</div>'
+  );
+  $(".modal input[type='email']").focus();
+}
+
+
+function doRegister(){
+  modal.hide();
+  $("body").append(
+     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
+       '<div class="modal menutextColor brandBG" style="bortder-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+          '<div class="iconBlock"></div><h4 class="textcenter">REGISTER</h4>'+
+      // '<form name="login" action="/tryRegisterInline" method="post">'+
+        '<div class="row">'+
+              '<div class="input-field col s12">'+
+                '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
+                '<label for="email" class="">Email</label>'+
+                '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
         '</div>'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
                 '<input id="password" type="password" name="password" class="validate">'+
                 '<label for="password" class="">Password</label>'+
-                '<span class="helper-text" data-error="wrong" data-success="right"></span>'+
+                '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
          '</div>'+
-          '<button type="submit" class="btn waves-effect waves-light" name="action" style="margin:auto;display: block;margin-bottom:30px">Login'+
+          '<button onclick="registerNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Signup'+
               '<i class="material-icons right">arrow_forward</i>'+
           '</button>'+
-          '</form>'+
+      //    '</form>'+
+                '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
+      '</div>'+
+    '</div>'
+  );
+  $(".modal input[type='email']").focus();
+}
+
+
+function loginNow()
+{
+  $.ajax({
+    url:"/tryLoginInline ",
+    method:"POST", //First change type to method here
+    data:{
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value
+    },
+    success:function(response) {
+     window.location.hash = "fail"
+     window.location.reload();
+   },
+   error:function(){
+     window.location.hash = "fail"
+     window.location.reload();
+   }
+ });
+}
+
+
+function registerNow()
+{
+  $.ajax({
+    url:"/tryRegisterInline ",
+    method:"POST", //First change type to method here
+    data:{
+      emailR: document.getElementById("emailR").value,
+      passwordR: document.getElementById("passwordR").value
+    },
+    success:function(response) {
+     window.location.hash = "regf"
+     window.location.reload();
+   },
+   error:function(){
+     window.location.hash = "regf"
+     window.location.reload();
+   }
+ });
+}
+
+function loadGetLoginModal(){
+  modal.hide();
+  $("body").append(
+     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
+       '<div class="modal menutextColor brandBG" style="bortder-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+          '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
+      // '<form name="login" action="/tryLoginInline" method="post">'+
+        '<div class="row">'+
+              '<div class="input-field col s12">'+
+                '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
+                '<label for="email" class="">Email</label>'+
+                '<span class="helper-text" data-error="" data-success=""></span>'+
+              '</div>'+
+        '</div>'+
+        '<div class="row">'+
+              '<div class="input-field col s12">'+
+                '<input id="password" type="password" name="password" class="validate">'+
+                '<label for="password" class="">Password</label>'+
+                '<span class="helper-text" data-error="" data-success=""></span>'+
+              '</div>'+
+         '</div>'+
+          '<button onclick="loginNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Login'+
+              '<i class="material-icons right">arrow_forward</i>'+
+          '</button>'+
+         // '</form>'+
+                '<a href="javascript:doRegister()" style="display: block;color: inherit;" class="btn-flat textcenter">No Account? Sign up</a>'+
+                '<a href="javascript:lostPwd()" style="display:block;color: inherit;" class="btn-flat textcenter">Lost Password?</a>'+
       '</div>'+
     '</div>'
   );
@@ -71,6 +175,8 @@ var start = function()
   getInputMethod();
   buildApp();
   $(".app-container").fadeIn();
+  localStorage.setItem("email", "");
+  window.location.hash = "";
 }
 function loadMenu()
 {
@@ -219,7 +325,6 @@ var modal = {
   show:function(title,subtitle, noCB, yesCB, noText, yesText){
     title = title || "No Title"; 
     subtitle = subtitle || "No Subtitle"; 
- //   noCB = noCB || "modal.hide"; 
     yesCB = yesCB || "modal.hide"; 
     noText = noText || "Cancel"; 
     yesText = yesText || "OK"; 

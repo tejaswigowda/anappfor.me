@@ -18,15 +18,18 @@
     if(App.haslogin){
       loadFile("/loginStatus", function(data){
         if(data === "0"){
-          if(hash.indexOf("getlogin")>=0){
+         // if(hash.indexOf("getlogin")>=0){
             loadGetLoginModal();
             if(hash.indexOf("fail")>=0){
               M.toast({html: '<b> Login Error. </b>Please retry', classes:'red'})
             }
+            if(hash.indexOf("regf")>=0){
+              M.toast({html: '<b> Signup Error. </b>Please retry', classes:'red'})
+            }
             return;
-          }
+          //}
            
-          window.location.href='./login.html'
+          //window.location.href='./login.html'
           return;
         }
         userObj = JSON.parse(data);
