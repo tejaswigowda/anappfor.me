@@ -20,20 +20,20 @@ function lostPwd(){
   modal.hide();
   $("body").append(
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
-       '<div class="modal menutextColor brandBG" style="bortder-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+       '<div class="modal menutextColor brandBG" style="border-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOST PASSWORD</h4>'+
-       '<form name="login" action="/lostPwd" method="post">'+
+ //      '<form name="login" action="/lostPwd" method="post">'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
-                '<label for="email" class="">Email</label>'+
+                '<input onblur="storeEmail()" id="emailLP" type="email" class="validate" name="email">'+
+                '<label for="emailLP" class="">Email</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
         '</div>'+ 
-        '<button type="submit" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Submit'+
-              '<i class="material-icons right">arrow_forward</i>'+
+        '<button onclick="doLostPwd()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Submit'+
+              '<i class="material-icons left">location_disabled</i>'+
           '</button>'+
-          '</form>'+
+   //       '</form>'+
                 '<a href="javascript:doRegister()" style="display: block;color: inherit;" class="btn-flat textcenter">No Account? Sign up</a>'+
                 '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
       '</div>'+
@@ -47,25 +47,25 @@ function doRegister(){
   modal.hide();
   $("body").append(
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
-       '<div class="modal menutextColor brandBG" style="bortder-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+       '<div class="modal menutextColor brandBG" style="border-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">REGISTER</h4>'+
       // '<form name="login" action="/tryRegisterInline" method="post">'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
-                '<label for="email" class="">Email</label>'+
+                '<input onblur="" id="emailR" type="email" class="validate" name="email">'+
+                '<label for="emailR" class="">Email</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
         '</div>'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input id="password" type="password" name="password" class="validate">'+
-                '<label for="password" class="">Password</label>'+
+                '<input id="passwordR" type="password" name="password" class="validate">'+
+                '<label for="passwordR" class="">Password</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
          '</div>'+
           '<button onclick="registerNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Signup'+
-              '<i class="material-icons right">arrow_forward</i>'+
+              '<i class="material-icons left">create</i>'+
           '</button>'+
       //    '</form>'+
                 '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
@@ -117,11 +117,31 @@ function registerNow()
  });
 }
 
+
+function doLostPwd()
+{
+  $.ajax({
+    url:"/tryRegisterInline ",
+    method:"POST", //First change type to method here
+    data:{
+      emailLP: document.getElementById("emailLP").value,
+    },
+    success:function(response) {
+     window.location.hash = "lpwds"
+     window.location.reload();
+   },
+   error:function(){
+     window.location.hash = "lpwdf"
+     window.location.reload();
+   }
+ });
+}
+
 function loadGetLoginModal(){
   modal.hide();
   $("body").append(
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
-       '<div class="modal menutextColor brandBG" style="bortder-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+       '<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
       // '<form name="login" action="/tryLoginInline" method="post">'+
         '<div class="row">'+
