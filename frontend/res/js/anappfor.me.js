@@ -3,7 +3,7 @@ function buildApp()
 {
   loadMenu();
   loadCanvases();
-  mainMenuButtons.selected(0);
+  mainMenuButtons.selected(0)
 }
 
 
@@ -23,6 +23,7 @@ function lostPwd(){
        '<div class="modal menutextColor brandBG" style="border-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOST PASSWORD</h4>'+
  //      '<form name="login" action="/lostPwd" method="post">'+
+  '<form>'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="storeEmail()" id="emailLP" type="email" class="validate" name="email">'+
@@ -33,8 +34,7 @@ function lostPwd(){
         '<button onclick="doLostPwd()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Submit'+
               '<i class="material-icons left">location_disabled</i>'+
           '</button>'+
-   //       '</form>'+
-                '<a href="javascript:doRegister()" style="display: block;color: inherit;" class="btn-flat textcenter">No Account? Sign up</a>'+
+          '</form>'+
                 '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
       '</div>'+
     '</div>'
@@ -50,6 +50,7 @@ function doRegister(){
        '<div class="modal menutextColor brandBG" style="border-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">REGISTER</h4>'+
       // '<form name="login" action="/tryRegisterInline" method="post">'+
+  '<form>'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="" id="emailR" type="email" class="validate" name="email">'+
@@ -67,7 +68,7 @@ function doRegister(){
           '<button onclick="registerNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Signup'+
               '<i class="material-icons left">create</i>'+
           '</button>'+
-      //    '</form>'+
+          '</form>'+
                 '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
       '</div>'+
     '</div>'
@@ -144,6 +145,7 @@ function loadGetLoginModal(){
        '<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
       // '<form name="login" action="/tryLoginInline" method="post">'+
+  '<form>'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
@@ -161,7 +163,7 @@ function loadGetLoginModal(){
           '<button onclick="loginNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Login'+
               '<i class="material-icons right">arrow_forward</i>'+
           '</button>'+
-         // '</form>'+
+          '</form>'+
                 '<a href="javascript:doRegister()" style="display: block;color: inherit;" class="btn-flat textcenter">No Account? Sign up</a>'+
                 '<a href="javascript:lostPwd()" style="display:block;color: inherit;" class="btn-flat textcenter">Lost Password?</a>'+
       '</div>'+

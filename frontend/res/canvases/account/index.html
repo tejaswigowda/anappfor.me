@@ -12,11 +12,11 @@ account
           </div>
     <div class="row">
       <div class="input-field col s6">
-        <input id="first_name" type="text" class="validate">
+        <input id="first_name" type="text" class="validate" data-key='fname' onchange="App.account.updateAccount(event)">
         <label for="first_name" class="">First Name</label>
       </div>
       <div class="input-field col s6">
-        <input id="last_name" type="text">
+        <input id="last_name" type="text" data-key='lname' onchange="App.account.updateAccount(event)">
         <label for="last_name" class="">Last Name</label>
       </div>
     </div>
@@ -29,7 +29,7 @@ account
 
 
 <div class='wrapper' id='changePwdWrapper'>
-  <a class="btn-floating btn-large waves-effect waves-light left-button" href="javascript:App.account.goBack()" id="backProjButton"><i class="material-icons">undo</i></a>
+  <a class="btn-floating btn-large waves-effect waves-light left-button" href="javascript:App.account.goBack()" id="backProjButton"><i class="material-icons">arrow_back</i></a>
   <h1 id='newPHeading'> Change Password </h1>    
     <div class="input-field col s12">
           <i class="material-icons prefix">adjust</i>

@@ -4,7 +4,7 @@
     $("#userThumb input[type=file]").attr("data-targetname", userObj.local.email);
     $("#changePwdWrapper").fadeOut(0);
     $("#cpButton").fadeOut(0);
-    this.loadaccount();
+    this.loadAccount();
   },
   active: function(){
     $("#accountWrapper").fadeIn();
@@ -13,9 +13,18 @@
   inactive: function(){
   },
   thumbChanged: function(url){
-    alert("done!");
+    loadFile("userid/edit?id="+ userObj.local.email
+       + "&userID="+ userObj.local.email
+       + "&thumb="+ url
+       , function(data){
+    });
   },
-  loadAccount: function(){
+  updateAccount: function(e){
+    loadFile("userid/edit?id="+userObj.local.email
+       + "&userID="+ userObj.local.email
+       + "&"+ e.target.dataset.key 
+       + "=" + e.target.value, function(data){
+    });
   },
   changePwd: function(){
     $("#accountWrapper").fadeOut();
@@ -26,6 +35,24 @@
   goBack: function(){
     $("#accountWrapper").fadeIn();
     $("#changePwdWrapper").fadeOut();
+  },
+  loadAccount: function(){
+    loadFile("userid/all", function(data){
+      var u = JSON.parse(data);
+      var thumb = "";
+      var fname = "";
+      var lname = "";
+      if(u.length > 0){
+        user = u[0];
+        thumb = user.thumb || "res/images/icon.png";
+        fname = user.fname || "";
+        lname = user.lname || "";
+      }
+      document.getElementById("userThumb").style.backgroundImage = "url(" + thumb + ")";
+      document.getElementById("first_name").value = fname;
+      document.getElementById("last_name").value = lname;
+      $("label[for=first_name], label[for=last_name]").addClass("active")
+    });
   }
 }
 
