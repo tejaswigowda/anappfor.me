@@ -12,6 +12,27 @@
   },
   currID :null,
   list:[],
+  setAC: function(){
+    var list = this.list;
+    var data = [];
+    for(var i = 0; i < list.length; i++){
+      data.push({value: list[i].name, data: i, imageUrl:list[i].thumb}) 
+    }
+    $('#projSearch').devbridgeAutocomplete({
+      lookup: data,
+      minChars: 0,
+      showNoSuggestionNotice: true,
+      formatResult: function (suggestion) {
+        var ret = '<div><img width=30 height=30 style="vertical-align:middle; margin-right:10px" src="' + suggestion.imageUrl+'" /> '  + suggestion.value + '</div>';
+        return ret
+      },
+      onSelect: function (suggestion) {
+          App.projects.selected(parseInt(suggestion.data));
+          document.getElementById("projSearch").value = "";
+      }
+    });
+
+  },
   loadall: function()
   {
     loadFile("projects/all", function(data){
@@ -27,6 +48,7 @@
         markup += getLImarkup(projects[i], "App.projects.selected("+i+")");
       }
       document.getElementById("projList").innerHTML = markup;
+      App.projects.setAC();
     });
   },
   selected: function(i)
