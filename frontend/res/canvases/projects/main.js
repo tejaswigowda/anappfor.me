@@ -75,6 +75,7 @@
       setTimeout(function(){$("#crudProjWrapper").removeClass("animated slideInRight")},350)
       $("#deleteProjButton").fadeOut(0);
       this.currID = getUniqueID();
+      document.getElementById("projThumb").style.backgroundImage = "url(res/images/icon.png)"
       $("#newPHeading").html("New Project");
       $("#projTitle").val("");
       $("#projDesc").val("");
@@ -92,10 +93,11 @@
       this.loadall();
   }, 
   thumbChanged: function(url){
-    loadFile("projects/edit?id="+ this.currID
+    loadFile("projects/edit?id="+ App.projects.currID
        + "&userID="+ userObj.local.email
        + "&thumb="+ url
        , function(data){
+        App.projects.loadall();
     });
   },
   updateProject: function(e){
