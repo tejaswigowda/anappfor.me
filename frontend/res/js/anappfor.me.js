@@ -376,7 +376,6 @@ var getUniqueID = function()
 }
 
 var getLImarkup = function(item,cbSt){
-  console.log(item);
   var thumb = item.thumb || "res/images/icon.png";
   var name = item.name || "Untitled";
   var desc = item.desc || "<br>";
@@ -495,5 +494,23 @@ function storeEmail()
 {
     var x = $(".modal input[type='email']").val();
     localStorage.setItem("email", x);
-    console.log(x);
+}
+
+var swipe ={
+  interval: 500,
+  left:function(id){
+    $("#"+id).addClass("animated")
+    document.getElementById(id).style.transform = "translateX(-105vw)"
+    setTimeout(function(){$("#" + id).removeClass("animated")},this.interval);
+  },
+  center:function(id){
+    $("#"+id).addClass("animated")
+    document.getElementById(id).style.transform = "";
+    setTimeout(function(){$("#" + id).removeClass("animated")},this.interval);
+  },
+  right: function(id){
+    $("#"+id).addClass("animated")
+    document.getElementById(id).style.transform = "translateX(105vw)"
+    setTimeout(function(){$("#" + id).removeClass("animated")},this.interval);
+  }
 }

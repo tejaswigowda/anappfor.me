@@ -2,13 +2,13 @@
   init: function(){
     document.getElementById("loginInfo").innerHTML = "Logged in as <h5>" + userObj.local.email + "</h5>";
     document.getElementById("userThumb").dataset.targetname = getUniqueID();
-    $("#changePwdWrapper").fadeOut(0);
+    swipe.right("changePwdWrapper");
     $("#cpButton").fadeOut(0);
     this.loadAccount();
   },
   active: function(){
-    $("#accountWrapper").fadeIn();
-    $("#changePwdWrapper").fadeOut();
+    swipe.center("accountWrapper");
+    swipe.right("changePwdWrapper");
   },
   inactive: function(){
   },
@@ -30,14 +30,14 @@
     });
   },
   changePwd: function(){
-    $("#accountWrapper").fadeOut();
-    $("#changePwdWrapper").fadeIn();
+    swipe.left("accountWrapper");
+    swipe.center("changePwdWrapper");
     $("#changePwdWrapper input").val("");
     $("#cpButton").fadeOut(0);
   },
   goBack: function(){
-    $("#accountWrapper").fadeIn();
-    $("#changePwdWrapper").fadeOut();
+    swipe.center("accountWrapper");
+    swipe.right("changePwdWrapper");
   },
   loadAccount: function(){
     loadFile("userid/all", function(data){

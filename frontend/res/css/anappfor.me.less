@@ -22,8 +22,6 @@ body{
     min-height: 100vh;
     position: absolute;
   }
-  .left-button{
-  }
   .canvas .wrapper h1{
     margin-top: 0px;
     font-size: 30px;
@@ -32,9 +30,6 @@ body{
 @media (min-width : 992px){
   .onlyBigScreen{
     display: block;
-  }
-  .left-button{
-    left: 305px;
   }
   .canvas{
     width: ~"calc(100vw - 300px)";
@@ -159,13 +154,16 @@ body{
   color: inherit;
 }
 .li-img {
-  display: table-cell;
-  vertical-align: middle;
-  width: 30%;
-  padding-right: 1em;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: 50%;
+   display: block;
+    vertical-align: middle;
+    width: 100px;
+    padding: 0px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    height: 100px;
+    margin-left: 5px;
 }
 .li-text {
   display: table-cell;
@@ -210,9 +208,10 @@ body{
 
 .canvas{
   overflow-x: hidden;
+      transform-style: preserve-3d;
+    perspective: 500px;
  .wrapper{
-   animation-duration: .5s;
-   animation-timing-function: ease-out;
+   transition:linear .5s;
   width: 94%;
   position: absolute;
   margin: auto;
@@ -292,3 +291,6 @@ body{
 .autocomplete-suggestions strong { font-weight: normal; color: #000000; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000;color:black }
+.left-button{
+  left:5px;
+}

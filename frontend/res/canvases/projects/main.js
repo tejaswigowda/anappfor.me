@@ -2,9 +2,8 @@
   init: function(){
   },
   active: function(){
-      $("#crudProjWrapper").removeClass().addClass("wrapper animated  slideOutRight");
-      $("#listProjWrapper").removeClass().addClass("wrapper animated slideInLeft");
-      setTimeout(function(){$("#listProjWrapper").removeClass("animated slideInLeft")},350)
+      swipe.right("crudProjWrapper");
+      swipe.center("listProjWrapper");
     this.loadall();
   },
   inactive: function(){
@@ -23,7 +22,7 @@
       minChars: 0,
       showNoSuggestionNotice: true,
       formatResult: function (suggestion) {
-        var ret = '<div><img width=30 height=30 style="vertical-align:middle; margin-right:10px" src="' + suggestion.imageUrl+'" /> '  + suggestion.value + '</div>';
+        var ret = '<div><img width=50 height=50 style="border-radius:50%; vertical-align:middle; margin-right:10px" src="' + suggestion.imageUrl+'" /> '  + suggestion.value + '</div>';
         return ret
       },
       onSelect: function (suggestion) {
@@ -69,9 +68,9 @@
       $("label[for='projTitle']").addClass("active");
       if(desc.length > 0)
         $("label[for='projDesc']").addClass("active");
-      $("#crudProjWrapper").removeClass().addClass("wrapper animated slideInRight").css("visibility","");
-      $("#listProjWrapper").removeClass().addClass("wrapper animated slideOutLeft");
-      setTimeout(function(){$("#crudProjWrapper").removeClass("animated slideInRight")},350)
+      swipe.center("crudProjWrapper");
+      swipe.left("listProjWrapper");
+    this.loadall();
       $("#deleteProjButton").fadeIn(0);
      });
   },
@@ -93,9 +92,8 @@
   addNew: function()
   {
     this.isNew = true;
-      $("#crudProjWrapper").removeClass().addClass("wrapper animated slideInRight").css("visibility","");
-      $("#listProjWrapper").removeClass().addClass("wrapper animated slideOutLeft");
-      setTimeout(function(){$("#crudProjWrapper").removeClass("animated slideInRight")},350)
+      swipe.center("crudProjWrapper");
+      swipe.left("listProjWrapper");
       $("#deleteProjButton").fadeOut(0);
       this.currID = getUniqueID();
       document.getElementById("projThumb").dataset.targetname = this.currID;
@@ -108,9 +106,8 @@
   },
   goBack: function()
   {
-      $("#crudProjWrapper").removeClass().addClass("wrapper animated slideOutRight")
-      $("#listProjWrapper").removeClass().addClass("wrapper animated slideInLeft")
-      setTimeout(function(){$("#listProjWrapper").removeClass("animated slideInLeft")},350)
+      swipe.right("crudProjWrapper");
+      swipe.center("listProjWrapper");
     var x = function(){$("#projects .list li").removeClass("selected")}
     setTimeout(x, 500);
     if(this.isNew)
