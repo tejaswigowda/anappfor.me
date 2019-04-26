@@ -2,7 +2,7 @@
   "name": "anappfor.me",
   "version": "1.0.2",
   "description": "## Usage",
-  "main": "server.js",
+  "main": "electron .",
   "directories": {
     "doc": "docs"
   },
