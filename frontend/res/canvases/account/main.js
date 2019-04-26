@@ -1,7 +1,7 @@
 {
   init: function(){
     document.getElementById("loginInfo").innerHTML = "Logged in as <h5>" + userObj.local.email + "</h5>";
-    $("#userThumb input[type=file]").attr("data-targetname", userObj.local.email);
+    document.getElementById("userThumb").dataset.targetname = getUniqueID();
     $("#changePwdWrapper").fadeOut(0);
     $("#cpButton").fadeOut(0);
     this.loadAccount();
@@ -17,6 +17,9 @@
        + "&userID="+ userObj.local.email
        + "&thumb="+ url
        , function(data){
+        var x = document.getElementById("userThumb");
+        var y = x.innerHTML;
+        x.innerHTML = y;
     });
   },
   updateAccount: function(e){

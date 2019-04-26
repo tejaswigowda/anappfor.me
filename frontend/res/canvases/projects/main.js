@@ -55,6 +55,7 @@
   {
     this.isNew = false;
      this.currID = App.projects.list[i].id;
+      document.getElementById("projThumb").dataset.targetname = this.currID;
      $("#projects ."+this.currID).addClass("selected");
      loadFile("projects/get?id="+ this.currID,function(data){
       var data = JSON.parse(data);
@@ -75,7 +76,7 @@
      });
   },
   deleteNow:function(){
-     loadFile("projects/delete?id="+ this.currID,function(data){
+     loadFile("projects/delete?id="+ App.projects.currID,function(data){
        modal.hide();
        App.projects.goBack();
        $("#projects li.selected").hide("slow");
@@ -97,6 +98,7 @@
       setTimeout(function(){$("#crudProjWrapper").removeClass("animated slideInRight")},350)
       $("#deleteProjButton").fadeOut(0);
       this.currID = getUniqueID();
+      document.getElementById("projThumb").dataset.targetname = this.currID;
       document.getElementById("projThumb").style.backgroundImage = "url(res/images/icon.png)"
       $("#newPHeading").html("New Project");
       $("#projTitle").val("");
@@ -115,15 +117,19 @@
       this.loadall();
   }, 
   thumbChanged: function(url){
+    console.log(App.projects.currID);
     loadFile("projects/edit?id="+ App.projects.currID
        + "&userID="+ userObj.local.email
        + "&thumb="+ url
        , function(data){
         App.projects.loadall();
+        var x = document.getElementById("projThumb");
+        var y = x.innerHTML;
+        x.innerHTML = y;
     });
   },
   updateProject: function(e){
-    loadFile("projects/edit?id="+ this.currID 
+    loadFile("projects/edit?id="+ App.projects.currID 
        + "&userID="+ userObj.local.email
        + "&"+ e.target.dataset.key 
        + "=" + e.target.value, function(data){

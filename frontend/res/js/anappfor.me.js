@@ -376,6 +376,7 @@ var getUniqueID = function()
 }
 
 var getLImarkup = function(item,cbSt){
+  console.log(item);
   var thumb = item.thumb || "res/images/icon.png";
   var name = item.name || "Untitled";
   var desc = item.desc || "<br>";
@@ -402,7 +403,7 @@ var doFileUpload = function(e,cb)
    ext = ext[ext.length-1];
 
    var fd = new FormData();
-   var fileInput = (e.target.dataset.targetname || "s3Upload_" + new Date().getTime().toString()) + "." + ext;
+   var fileInput = (document.getElementById(thumbID).dataset.targetname || "s3Upload_" + new Date().getTime().toString()) + "." + ext;
    fd.append('fileInput', fileInput);
    fd.append('file', fileObj);
    fd.append('date', (new Date()).toString());
@@ -436,7 +437,7 @@ var doImageUpload = function(e,cb)
     // Uploads image and sets it to the appropriate width and height.
     // Uses dimensions from selectChanged function.
      if ( fileObj && fileObj.type.split("/")[0].toLowerCase() === "image") {
-         var fileInput = (e.target.dataset.targetname || "imageUpload_" + new Date().getTime().toString()) + "." + ext;
+         var fileInput = (document.getElementById(thumbID).dataset.targetname || "imageUpload_" + new Date().getTime().toString()) + "." + ext;
           var FR = new FileReader();
           FR.onload = function(e) {
               var data = e.target.result;
