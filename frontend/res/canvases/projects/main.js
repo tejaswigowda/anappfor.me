@@ -81,7 +81,6 @@
         $("label[for='projDesc']").addClass("active");
       swipe.center("crudProjWrapper");
       swipe.left("listProjWrapper");
-    this.loadall();
       $("#deleteProjButton").fadeIn(0);
      });
   },
