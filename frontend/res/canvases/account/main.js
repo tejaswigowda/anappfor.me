@@ -20,6 +20,7 @@
         var x = document.getElementById("userThumb");
         var y = x.innerHTML;
         x.innerHTML = y;
+        document.getElementById("userThumb").style.backgroundImage = "url(" + url + "?"+ new Date().getTime() + ")";
     });
   },
   updateAccount: function(e){

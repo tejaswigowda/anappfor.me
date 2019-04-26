@@ -335,7 +335,7 @@ var acMU = '<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" 
 
 var activityIndicator = {
   show:function(){
-    $("body").append('<div style="position: fixed;height: 100vh;width: 100vw;text-align: center;background-color: rgba(255,255,255,.8);z-index: 100000;" class="ac"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="margin-top: 45vh;"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle> </svg></div>');
+    $("body").append('<div style="position: fixed;height: 100vh;width: 100vw;text-align: center;background-color: rgba(255,255,255,.8);z-index: 100000;" class="ac"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="margin-top: 45vh;"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle> </svg> <h5 class="acText"></h5></div>');
   },
   hide: function(){
     $(".ac").remove();
@@ -376,7 +376,7 @@ var getUniqueID = function()
 }
 
 var getLImarkup = function(item,cbSt){
-  var thumb = item.thumb || "res/images/icon.png";
+  var thumb = item.thumb100 || "res/images/icon.png";
   var name = item.name || "Untitled";
   var desc = item.desc || "<br>";
   var mu =   '<li class="' + item.id + '"><a href="javascript:' + cbSt + '" class="inner">'+
@@ -394,7 +394,8 @@ var getLImarkup = function(item,cbSt){
 
 var doFileUpload = function(e,cb)
 {
-   
+  activityIndicator.show(); 
+  $(".acText").html("Uploading");
   var thumbID = e.target.parentNode.id;
   var fileObj = $("#" + thumbID + " input[type=file]").get(0).files[0];
    var filename = fileObj.name;
@@ -410,7 +411,7 @@ var doFileUpload = function(e,cb)
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(e) {
       if (xhr.readyState != 4) { return; }
-      document.getElementById(thumbID).style.backgroundImage = "url(" + App.resURL + fileInput + "?"+ new Date().getTime() + ")";
+      activityIndicator.hide(); 
       cb(App.resURL + fileInput);
     };
     xhr.open("POST", "/uploadFile", true);
@@ -419,7 +420,8 @@ var doFileUpload = function(e,cb)
 
 var doImageUpload = function(e,cb)
 {
-   
+  activityIndicator.show(); 
+  $(".acText").html("Uploading");
   var thumbID = e.target.parentNode.id;
   var fileObj = $("#" + thumbID + " input[type=file]").get(0).files[0];
   var filename = fileObj.name;
@@ -436,7 +438,7 @@ var doImageUpload = function(e,cb)
     // Uploads image and sets it to the appropriate width and height.
     // Uses dimensions from selectChanged function.
      if ( fileObj && fileObj.type.split("/")[0].toLowerCase() === "image") {
-         var fileInput = (document.getElementById(thumbID).dataset.targetname || "imageUpload_" + new Date().getTime().toString()) + "." + ext;
+         var fileInput = (document.getElementById(thumbID).name || "imageUpload_" + new Date().getTime().toString()) + "." + ext;
           var FR = new FileReader();
           FR.onload = function(e) {
               var data = e.target.result;
@@ -475,8 +477,8 @@ var doImageUpload = function(e,cb)
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function(e) {
                   if (xhr.readyState != 4) { return; }
-                  document.getElementById(thumbID).style.backgroundImage = "url(" + App.resURL + fileInput + "?"+ new Date().getTime() + ")";
                   cb(App.resURL + fileInput);
+                  activityIndicator.hide(); 
                 };
                 xhr.open("POST", "/uploadImage", true);
                 xhr.send(fd);                 

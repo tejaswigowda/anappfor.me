@@ -237,7 +237,7 @@ body{
    background-repeat:no-repeat;
    height: 100px;
    width: 100px;
-   background-size:contain;
+   background-size:cover;
    box-shadow: 0px 0px 20px @brandColor;
    margin:auto;
    margin-bottom: 20px;
@@ -284,7 +284,7 @@ body{
   display: none;
 }
 
-.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestions { box-shadow: 0px 0px 5px #000; background: #FFF; overflow: auto; }
 .autocomplete-no-suggestion,
 .autocomplete-suggestion { padding:12px; font-size: 20px; white-space: nowrap; overflow: hidden; transition: .2s }
 .autocomplete-selected { box-shadow: 0px 0px 1px black; background: fade(@accentColor,80); font-size: 25px;color: @menutextColor}
@@ -293,4 +293,7 @@ body{
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000;color:black }
 .left-button{
   left:5px;
+}
+.toast{
+  z-index:9999999999;
 }

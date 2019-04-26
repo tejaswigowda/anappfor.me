@@ -15,8 +15,17 @@
     var list = this.list;
     var data = [];
     for(var i = 0; i < list.length; i++){
-      data.push({value: list[i].name, data: i, imageUrl:list[i].thumb}) 
+      var x = list[i].thumb100||"";
+      var y = list[i].name || "no title";
+      if(y){
+        data.push({value: y, data: i, imageUrl:x});
+      }
     }
+
+    try{
+    $('#projSearch').devbridgeAutocomplete("dispose");
+    }
+    catch{noop;}
     $('#projSearch').devbridgeAutocomplete({
       lookup: data,
       minChars: 0,
@@ -28,6 +37,7 @@
       onSelect: function (suggestion) {
           App.projects.selected(parseInt(suggestion.data));
           document.getElementById("projSearch").value = "";
+          $('#projSearch').devbridgeAutocomplete("hide");
       }
     });
 
@@ -55,12 +65,13 @@
     this.isNew = false;
      this.currID = App.projects.list[i].id;
       document.getElementById("projThumb").dataset.targetname = this.currID;
+      document.getElementById("projThumb").name = getUniqueID();
      $("#projects ."+this.currID).addClass("selected");
      loadFile("projects/get?id="+ this.currID,function(data){
       var data = JSON.parse(data);
       var name = data.name || "Untitled"
       var desc = data.desc || ""
-      var thumb = data.thumb || "res/images/icon.png"
+      var thumb = data.thumb100 || "res/images/icon.png"
       $("#newPHeading").html("<br>");
       $("#projTitle").val(name);
       $("#projDesc").val(desc);
@@ -97,6 +108,7 @@
       $("#deleteProjButton").fadeOut(0);
       this.currID = getUniqueID();
       document.getElementById("projThumb").dataset.targetname = this.currID;
+      document.getElementById("projThumb").name = getUniqueID();
       document.getElementById("projThumb").style.backgroundImage = "url(res/images/icon.png)"
       $("#newPHeading").html("New Project");
       $("#projTitle").val("");
@@ -114,7 +126,6 @@
       this.loadall();
   }, 
   thumbChanged: function(url){
-    console.log(App.projects.currID);
     loadFile("projects/edit?id="+ App.projects.currID
        + "&userID="+ userObj.local.email
        + "&thumb="+ url
@@ -123,6 +134,14 @@
         var x = document.getElementById("projThumb");
         var y = x.innerHTML;
         x.innerHTML = y;
+    });
+  },
+  thumbChanged100: function(url){
+    loadFile("projects/edit?id="+ App.projects.currID
+       + "&userID="+ userObj.local.email
+       + "&thumb100="+ url
+       , function(data){
+         document.getElementById("projThumb").style.backgroundImage = "url(" + url + "?"+ new Date().getTime() + ")";
     });
   },
   updateProject: function(e){
