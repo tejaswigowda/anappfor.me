@@ -8,6 +8,7 @@
 	"location": "",
 	"canvases": [
                     ["projects", "<i class='material-icons'>apps</i>Projects", "Projects"],
+                    ["tags", "<i class='material-icons'>attachment</i>Tags", "Tags"]
                     ["account", "<i class='material-icons'>face</i>Account", "Account"]
                   ],
 	"haslogin": true

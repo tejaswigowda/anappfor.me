@@ -2,11 +2,22 @@
 projects
 -->
 <div class='wrapper' id='listProjWrapper'>
+
+
   <h1> Projects </h1>
   <div class="row">
-    <div class="input-field col s12">
+    <div class="input-field col s10">
         <i class="material-icons prefix">search</i>
         <input id="projSearch" class="materialize-input">
+    </div>
+    <div class="input-field col s2">
+      <a class='dropdown-trigger btn btn-large waves-effect waves-light accentBG' href='#' id='projSortTrigger' data-target='projSortDD'> <i class="large material-icons">sort_by_alpha</i><span></span></a>
+      <!-- Dropdown Structure -->
+      <ul id='projSortDD' class='dropdown-content'>
+        <li><a href="#!">By Date <i>(modified)</i></a></li>
+        <li><a href="#!">By Date <i>(created)</i></a></li>
+        <li><a  class='boldText' href="#!">By Title</a></li>
+      </ul>
     </div>
   </div>
   <ul class='list' id='projList'>
