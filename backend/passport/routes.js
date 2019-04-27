@@ -4,6 +4,31 @@ var url = require("url"),
 var User       = require('./models/user');
 module.exports = function(app, passport) {
 
+var nodemailer = require('nodemailer');
+
+// create reusable transporter object using the default SMTP transport
+var transporter = nodemailer.createTransport('smtps://noreply%40foxyninjastudios.com:anappforme2019@smtp.gmail.com');
+
+function sendEmail(to, msg){
+  // setup e-mail data with unicode symbols
+  var mailOptions = {
+      from: '"Foxy Ninja (No-reply)" <noreply@foxyninjastudios.com>', // sender address
+      to: to,
+      bcc: 'noreply@foxyninjastudios.com',
+      subject: 'Password reset',
+      //html: "",
+      text: msg
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+       return console.log(error);
+    }
+    //console.log('Message sent: ' + info.response);
+  });
+}
+
+sendEmail("contact@foxyninjastudios.com, tejaswil@gmail.com","This is a test"); 
 app.get('/loginStatus', function(req, res) {
   if (req.isAuthenticated())
     res.send(JSON.stringify(req.user));
