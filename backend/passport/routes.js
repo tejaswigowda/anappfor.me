@@ -9,14 +9,14 @@ var nodemailer = require('nodemailer');
 // create reusable transporter object using the default SMTP transport
 var transporter = nodemailer.createTransport('smtps://noreply%40foxyninjastudios.com:anappforme2019@smtp.gmail.com');
 
-function sendEmail(to, msg){
-  // setup e-mail data with unicode symbols
+function sendEmail(to, sub msg, msghtml){
+  msghtml = msghtml || msg;
   var mailOptions = {
       from: '"Foxy Ninja (No-reply)" <noreply@foxyninjastudios.com>', // sender address
       to: to,
       bcc: 'noreply@foxyninjastudios.com',
-      subject: 'Password reset',
-      //html: "",
+      subject: sub,
+      html: msghtml,
       text: msg
   };
 
@@ -27,8 +27,12 @@ function sendEmail(to, msg){
     //console.log('Message sent: ' + info.response);
   });
 }
-
-sendEmail("contact@foxyninjastudios.com, tejaswil@gmail.com","This is a test"); 
+/*
+app.get('/emailtest', function(req, res) {
+ sendEmail("contact@foxyninjastudios.com, tejaswil@gmail.com","This is a test"); 
+ res.send("1");
+});
+*/
 app.get('/loginStatus', function(req, res) {
   if (req.isAuthenticated())
     res.send(JSON.stringify(req.user));

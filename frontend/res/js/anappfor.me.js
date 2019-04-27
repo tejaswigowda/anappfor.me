@@ -19,8 +19,8 @@ var doLogout = function()
 function lostPwd(){
   modal.hide();
   $("body").append(
-     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
-       '<div class="modal menutextColor brandBG" style="border-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
+       '<div class="modal menutextColor brandBG" style="border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOST PASSWORD</h4>'+
  //      '<form name="login" action="/lostPwd" method="post">'+
   '<form>'+
@@ -46,8 +46,8 @@ function lostPwd(){
 function doRegister(){
   modal.hide();
   $("body").append(
-     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
-       '<div class="modal menutextColor brandBG" style="border-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
+       '<div class="modal menutextColor brandBG" style="border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">REGISTER</h4>'+
       // '<form name="login" action="/tryRegisterInline" method="post">'+
   '<form>'+
@@ -141,8 +141,8 @@ function doLostPwd()
 function loadGetLoginModal(){
   modal.hide();
   $("body").append(
-     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay"> </div>'+
-       '<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: 0px 0px 10px;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
+       '<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
       // '<form name="login" action="/tryLoginInline" method="post">'+
   '<form>'+
