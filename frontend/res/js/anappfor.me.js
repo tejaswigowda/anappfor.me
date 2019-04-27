@@ -1,4 +1,11 @@
 var App = {};
+App.addNew = function(){
+  App[App.canvases[App.currCanvas][0]].addNew()
+};
+App.goBack = function(){
+  App[App.canvases[App.currCanvas][0]].goBack()
+};
+
 function buildApp()
 {
   loadMenu();
@@ -516,3 +523,4 @@ var swipe ={
     setTimeout(function(){$("#" + id).removeClass("animated")},this.interval);
   }
 }
+

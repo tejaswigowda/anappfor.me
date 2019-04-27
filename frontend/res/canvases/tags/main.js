@@ -4,6 +4,8 @@
   active: function(){
       swipe.right("crudtagWrapper");
       swipe.center("listtagWrapper");
+    $("#backButton").fadeOut(0);
+    $("#addButton").fadeIn();
     this.loadall();
   },
   inactive: function(){
@@ -44,6 +46,8 @@
   },
   loadall: function()
   {
+    $("#backButton").fadeOut(0);
+    $("#addButton").fadeIn();
     loadFile("tags/all", function(data){
       var tags = JSON.parse(data);
       App.tags.list = JSON.parse(data);
@@ -81,6 +85,8 @@
         $("label[for='tagDesc']").addClass("active");
       swipe.center("crudtagWrapper");
       swipe.left("listtagWrapper");
+    $("#addButton").fadeOut(0);
+    $("#backButton").fadeIn();
       $("#deletetagButton").fadeIn(0);
      });
   },
@@ -104,6 +110,8 @@
     this.isNew = true;
       swipe.center("crudtagWrapper");
       swipe.left("listtagWrapper");
+    $("#addButton").fadeOut(0);
+    $("#backButton").fadeIn();
       $("#deletetagButton").fadeOut(0);
       this.currID = getUniqueID();
       document.getElementById("tagThumb").dataset.targetname = this.currID;
@@ -119,6 +127,8 @@
   {
       swipe.right("crudtagWrapper");
       swipe.center("listtagWrapper");
+    $("#backButton").fadeOut(0);
+    $("#addButton").fadeIn();
     var x = function(){$("#tags .list li").removeClass("selected")}
     setTimeout(x, 500);
     if(this.isNew)

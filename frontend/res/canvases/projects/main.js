@@ -7,6 +7,8 @@
   active: function(){
       swipe.right("crudProjWrapper");
       swipe.center("listProjWrapper");
+    $("#backButton").fadeOut(0);
+    $("#addButton").fadeIn();
     this.loadall();
   },
   inactive: function(){
@@ -84,6 +86,8 @@
         $("label[for='projDesc']").addClass("active");
       swipe.center("crudProjWrapper");
       swipe.left("listProjWrapper");
+    $("#addButton").fadeOut(0);
+    $("#backButton").fadeIn();
       $("#deleteProjButton").fadeIn(0);
      });
   },
@@ -107,6 +111,8 @@
     this.isNew = true;
       swipe.center("crudProjWrapper");
       swipe.left("listProjWrapper");
+    $("#addButton").fadeOut(0);
+    $("#backButton").fadeIn();
       $("#deleteProjButton").fadeOut(0);
       this.currID = getUniqueID();
       document.getElementById("projThumb").dataset.targetname = this.currID;
@@ -122,6 +128,8 @@
   {
       swipe.right("crudProjWrapper");
       swipe.center("listProjWrapper");
+    $("#backButton").fadeOut(0);
+    $("#addButton").fadeIn();
     var x = function(){$("#projects .list li").removeClass("selected")}
     setTimeout(x, 500);
     if(this.isNew)

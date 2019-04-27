@@ -9,6 +9,8 @@
   active: function(){
     swipe.center("accountWrapper");
     swipe.right("changePwdWrapper");
+    $("#backButton").fadeOut(0);
+    $("#addButton").fadeOut(0);
   },
   inactive: function(){
   },
@@ -33,12 +35,14 @@
   changePwd: function(){
     swipe.left("accountWrapper");
     swipe.center("changePwdWrapper");
+    $("#backButton").fadeIn();
     $("#changePwdWrapper input").val("");
     $("#cpButton").fadeOut(0);
   },
   goBack: function(){
     swipe.center("accountWrapper");
     swipe.right("changePwdWrapper");
+    $("#backButton").fadeOut();
   },
   loadAccount: function(){
     loadFile("userid/all", function(data){
