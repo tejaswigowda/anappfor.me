@@ -390,8 +390,8 @@ var getLImarkup = function(item,cbSt){
   var desc = item.desc || "";
   var created = item.created || "";
   var modified = item.modified || "";
-  if(created!="") created = "Created " + moment(created).format('MMMM Do YYYY, h:mm:ss a');
-  if(modified!="") modified = "Modified " + moment(modified).format('MMMM Do YYYY, h:mm:ss a');
+  if(created!="") created = "Created " + moment(created).format('Do MMM YYYY, h:mm a');
+  if(modified!="") modified = "Modified " + moment(modified).format('Do YY, h:mm a');
   var mu =   '<li class="' + item.id + '"><a href="javascript:' + cbSt + '" class="inner">'+
       '<div class="li-img" style="background-image:url('+ thumb + ')">'+
       '</div>'+

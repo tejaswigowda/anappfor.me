@@ -1,8 +1,6 @@
 {
   init: function(){
-      $('#projSortTrigger').dropdown();
-    //   $('.dropdown-trigger').dropdown();
-
+      $('#projects select').formSelect();
   },
   active: function(){
       swipe.right("crudProjWrapper");

@@ -6,19 +6,27 @@ projects
 
   <h1> Projects </h1>
   <div class="row">
-    <div class="input-field col s11">
+    <div class="input-field col s12">
         <i class="material-icons prefix">search</i>
         <input id="projSearch" class="materialize-input">
     </div>
-    <div class="input-field col s1">
-      <a class='dropdown-trigger btn waves-effect waves-light accentBG' href='#' id='projSortTrigger' data-target='projSortDD'> <i class="large material-icons">sort_by_alpha</i><span></span></a>
-      <!-- Dropdown Structure -->
-      <ul id='projSortDD' class='dropdown-content'>
-        <li><a href="#!">By Date <i>(modified)</i></a></li>
-        <li><a href="#!">By Date <i>(created)</i></a></li>
-        <li><a  class='boldText' href="#!">By Title</a></li>
-      </ul>
+    <div id='viewSelect' class="input-field col s12 m6">
+      <i class="material-icons prefix">format_list_bulleted</i>
+      <select>
+       <option value="1">List View</option>
+       <option value="3">Card View</option>
+       <option value="3">Thumbnail View</option>
+      </select>
     </div>
+    <div id='sortSelect' class="input-field col s12 m6">
+      <i class="material-icons prefix">sort_by_alpha</i>
+      <select>
+       <option value="1">Sort A-Z</option>
+       <option value="2">Sort by Create Date</option>
+       <option value="3">Sort by Modified</option>
+      </select>
+    </div>
+
   </div>
   <ul class='list' id='projList'>
   </ul>
