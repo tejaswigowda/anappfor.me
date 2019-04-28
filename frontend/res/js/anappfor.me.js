@@ -11,6 +11,7 @@ function buildApp()
   loadMenu();
   loadCanvases();
   mainMenuButtons.selected(0)
+  activityIndicator.hide();
 }
 
 
@@ -27,7 +28,7 @@ function lostPwd(){
   modal.hide();
   $("body").append(
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
-       '<div class="modal menutextColor brandBG" style="border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+       '<div class="modal menutextColor brandBG" style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOST PASSWORD</h4>'+
  //      '<form name="login" action="/lostPwd" method="post">'+
   '<form>'+
@@ -54,7 +55,7 @@ function doRegister(){
   modal.hide();
   $("body").append(
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
-       '<div class="modal menutextColor brandBG" style="border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+       '<div class="modal menutextColor brandBG" style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">REGISTER</h4>'+
       // '<form name="login" action="/tryRegisterInline" method="post">'+
   '<form>'+
@@ -148,7 +149,7 @@ function doLostPwd()
 function loadGetLoginModal(){
   modal.hide();
   $("body").append(
-     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
+     '<div style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
        '<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
       // '<form name="login" action="/tryLoginInline" method="post">'+
@@ -176,6 +177,7 @@ function loadGetLoginModal(){
       '</div>'+
     '</div>'
   );
+  activityIndicator.hide();
   $(".modal input[type='email']").focus();
   $(".modal input[type='email']").val(localStorage.getItem("email"));
 }
@@ -385,15 +387,19 @@ var getUniqueID = function()
 var getLImarkup = function(item,cbSt){
   var thumb = item.thumb100 || "res/images/icon.png";
   var name = item.name || "Untitled";
-  var desc = item.desc || "<br>";
+  var desc = item.desc || "";
+  var created = item.created || "";
+  var modified = item.modified || "";
+  if(created!="") created = "Created " + moment(created).format('MMMM Do YYYY, h:mm:ss a');
+  if(modified!="") modified = "Modified " + moment(modified).format('MMMM Do YYYY, h:mm:ss a');
   var mu =   '<li class="' + item.id + '"><a href="javascript:' + cbSt + '" class="inner">'+
       '<div class="li-img" style="background-image:url('+ thumb + ')">'+
       '</div>'+
       '<div class="li-text">'+
         '<h3 class="li-head">'+ name +'</h3>'+
-        '<div class="li-sub">'+
-         desc +
-        '</div>'+
+        '<div class="li-sub">'+desc +'</div>'+
+        '<div class="li-created">'+created+'</div>'+
+        '<div class="li-modified">'+modified+'</div>'+
       '</div>'+
     '</a></li>'
   return mu;

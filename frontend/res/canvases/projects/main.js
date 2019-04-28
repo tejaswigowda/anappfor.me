@@ -63,6 +63,7 @@
       }
       document.getElementById("projList").innerHTML = markup;
       App.projects.setAC();
+      $("#addButton").fadeIn();
     });
   },
   selected: function(i)
@@ -159,7 +160,7 @@
        + "&userID="+ userObj.local.email
        + "&"+ e.target.dataset.key 
        + "=" + e.target.value, function(data){
-        App.projects.loadall();
+       // App.projects.loadall();
     });
   }
 }
