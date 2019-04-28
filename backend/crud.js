@@ -47,6 +47,7 @@ router.get('/edit', isLoggedIn, function(req, res) {
   var keys = Object.keys(req.query);
   req.db.collection(cn).findOne({id:id,userID:userID}, function (err,result){
     if(!result){
+      req.query.created = req.query.modified = new Date().getTime();
       req.db.collection(cn).insert(req.query, function (err,result){
         if(!err) res.send("1"); else res.send("0");
       });
@@ -55,6 +56,7 @@ router.get('/edit', isLoggedIn, function(req, res) {
       for(var i = 0; i < keys.length; i++){
         result[keys[i]] = req.query[keys[i]];
       }
+      result.modified = new Date().getTime();
       req.db.collection(cn).save(result, function (err,result){
         if(!err) res.send("1"); else res.send("0");
       });

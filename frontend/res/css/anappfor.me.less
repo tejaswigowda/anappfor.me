@@ -149,12 +149,12 @@ body{
   transition: all .1s;
 }
 .inner {
-  display: table-row;
+  display: block;
   overflow: hidden;
   color: inherit;
 }
 .li-img {
-   display: block;
+   display: inline-block;
     vertical-align: middle;
     width: 100px;
     padding: 0px;
@@ -166,16 +166,23 @@ body{
     margin-left: 5px;
 }
 .li-text {
-  display: table-cell;
+  display: inline-block;
   vertical-align: middle;
-  width: 70%;
+  width: calc(100% - 120px);
+  margin-left: 10px;
 }
 .li-head {
   margin: 0;
   font-size: 150%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .li-sub {
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media all and (min-width: 45em) {
@@ -184,6 +191,7 @@ body{
     width: 48%;
     margin-left: 1%;
     border-radius: 10px;
+    display: inline-block;
   }
 }
 
@@ -192,6 +200,7 @@ body{
     width: 31.33333%;
     margin-left: 1%;
     border-radius: 10px;
+    display: inline-block;
   }
 }
 
@@ -202,7 +211,7 @@ body{
     border-radius: 0px;
   }
   .li-img {
-     display: block;
+     display: inline-block;
       vertical-align: middle;
       width: 50px;
       padding: 0px;
@@ -214,9 +223,10 @@ body{
       margin: 0px;
   }
   .li-text {
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
-    width: 90%;
+    width: calc(100% - 70px);
+    margin-left: 10px;
   }
   .li-head {
     margin: 0;

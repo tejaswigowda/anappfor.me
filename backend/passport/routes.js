@@ -9,7 +9,7 @@ var nodemailer = require('nodemailer');
 // create reusable transporter object using the default SMTP transport
 var transporter = nodemailer.createTransport('smtps://noreply%40foxyninjastudios.com:anappforme2019@smtp.gmail.com');
 
-function sendEmail(to, sub msg, msghtml){
+function sendEmail(to, sub, msg, msghtml){
   msghtml = msghtml || msg;
   var mailOptions = {
       from: '"Foxy Ninja (No-reply)" <noreply@foxyninjastudios.com>', // sender address
