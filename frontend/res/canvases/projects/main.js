@@ -28,7 +28,7 @@
     try{
     $('#projSearch').devbridgeAutocomplete("dispose");
     }
-    catch{noop;}
+    catch{}
     $('#projSearch').devbridgeAutocomplete({
       lookup: data,
       minChars: 0,
