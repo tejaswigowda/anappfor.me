@@ -9,6 +9,9 @@ body{
   display: none;
 }
 @media (max-width : 500px){
+  .left-button{
+    left:5px;
+  }
   .canvas .wrapper{
     min-width: 100%;
   }
@@ -28,6 +31,9 @@ body{
   }
 }
 @media (min-width : 992px){
+  .left-button{
+    left:305px;
+  }
   .onlyBigScreen{
     display: block;
   }
@@ -369,9 +375,6 @@ body{
 .autocomplete-suggestions strong { font-weight: normal; color: #000000; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000;color:black }
-.left-button{
-  left:5px;
-}
 .toast{
   z-index:9999999999;
 }
@@ -382,7 +385,6 @@ body{
 {
     position: fixed;
     bottom: 5px;
-    left: 5px;
     i{
       background:@accentColor;
     }
@@ -399,4 +401,12 @@ body{
 }
 
 
+.dropdown-content li>a, .dropdown-content li>span
+{
+  color: @accentColor;
+}
 
+.select-dropdown.dropdown-content li.selected>span{
+  color: @brandColor;
+  font-weight: bold;
+}
