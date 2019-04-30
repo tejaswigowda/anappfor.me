@@ -385,6 +385,7 @@ var getUniqueID = function()
 }
 
 var getLImarkup = function(item,cbSt){
+  var ad = "";//"animation-delay:" + Math.random() *300 + "ms;";
   var thumb = item.thumb100 || "res/images/icon.png";
   var name = item.name || "Untitled";
   var desc = item.desc || "";
@@ -392,7 +393,7 @@ var getLImarkup = function(item,cbSt){
   var modified = item.modified || "";
   if(created!="") created = "Created " + moment(created).format('Do MMM YYYY, h:mm a');
   if(modified!="") modified = "Modified " + moment(modified).format('Do YY, h:mm a');
-  var mu =   '<li class="' + item.id + '"><a href="javascript:' + cbSt + '" class="inner">'+
+  var mu =   '<li style="' + ad + '" class="' + item.id + '"><a href="javascript:' + cbSt + '" class="inner">'+
       '<div class="li-img" style="background-image:url('+ thumb + ')">'+
       '</div>'+
       '<div class="li-text">'+

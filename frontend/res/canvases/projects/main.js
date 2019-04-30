@@ -57,17 +57,17 @@
       document.getElementById("projList").innerHTML = acMU;
       var markup = "";
       for(var i = 0; i < projects.length; i++){
-        markup += getLImarkup(projects[i], "App.projects.selected("+i+")");
+        markup += getLImarkup(projects[i], "App.projects.selected('"+projects[i].id+"')");
       }
       document.getElementById("projList").innerHTML = markup;
       App.projects.setAC();
       $("#addButton").fadeIn();
     });
   },
-  selected: function(i)
+  selected: function(id)
   {
     this.isNew = false;
-     this.currID = App.projects.list[i].id;
+     this.currID = id;
       document.getElementById("projThumb").dataset.targetname = this.currID;
       document.getElementById("projThumb").name = getUniqueID();
      $("#projects ."+this.currID).addClass("selected");

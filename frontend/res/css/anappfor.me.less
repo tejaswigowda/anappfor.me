@@ -259,7 +259,7 @@ body{
   }
   .li-head {
     margin: 0;
-    font-size: 150%;
+    font-size: 100%;
   }
   .li-sub {
     margin: 0;
@@ -404,9 +404,17 @@ body{
 .dropdown-content li>a, .dropdown-content li>span
 {
   color: @accentColor;
+  box-shadow: 0px 0px 1px;
 }
 
 .select-dropdown.dropdown-content li.selected>span{
   color: @brandColor;
   font-weight: bold;
+}
+
+.modal .row .input-field.col.s12 label.active
+{
+  color: @menutextColor;
+  margin-top: -5px;
+  transition: .2s;
 }

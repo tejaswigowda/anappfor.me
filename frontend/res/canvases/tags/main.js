@@ -58,16 +58,16 @@
       document.getElementById("tagList").innerHTML = acMU;
       var markup = "";
       for(var i = 0; i < tags.length; i++){
-        markup += getLImarkup(tags[i], "App.tags.selected("+i+")");
+        markup += getLImarkup(tags[i], "App.tags.selected('"+tags[i].id+"')");
       }
       document.getElementById("tagList").innerHTML = markup;
       App.tags.setAC();
     });
   },
-  selected: function(i)
+  selected: function(id)
   {
     this.isNew = false;
-     this.currID = App.tags.list[i].id;
+     this.currID = id;
       document.getElementById("tagThumb").dataset.targetname = this.currID;
       document.getElementById("tagThumb").name = getUniqueID();
      $("#tags ."+this.currID).addClass("selected");
