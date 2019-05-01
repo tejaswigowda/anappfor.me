@@ -20,7 +20,7 @@
       var x = list[i].thumb100||"";
       var y = list[i].name || "no title";
       if(y){
-        data.push({value: y, data: i, imageUrl:x});
+        data.push({value: y, data: list[i].id, imageUrl:x});
       }
     }
 
@@ -37,7 +37,7 @@
         return ret
       },
       onSelect: function (suggestion) {
-          App.tags.selected(parseInt(suggestion.data));
+          App.tags.selected(suggestion.data);
           document.getElementById("tagSearch").value = "";
           $('#tagSearch').devbridgeAutocomplete("hide");
       }
@@ -55,6 +55,7 @@
         document.getElementById("tagList").innerHTML = "<h4 style='opacity:.5' class='textcenter'> No tags yet <br> </h4>"
         return;
       }
+      tags = App.tags.list = sortByKey(App.tags.list, "name");
       document.getElementById("tagList").innerHTML = acMU;
       var markup = "";
       for(var i = 0; i < tags.length; i++){
@@ -158,7 +159,7 @@
        + "&userID="+ userObj.local.email
        + "&"+ e.target.dataset.key 
        + "=" + e.target.value, function(data){
-        App.tags.loadall();
+      //  App.tags.loadall();
     });
   }
 }

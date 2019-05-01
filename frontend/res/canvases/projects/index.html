@@ -13,17 +13,17 @@ projects
     <div id='projViewSelect' class="input-field col s6">
       <i class="material-icons prefix">format_list_bulleted</i>
       <select onchange='App.projects.projViewChanged()'>
-       <option value="1">List View</option>
-       <option value="3">Card View</option>
-       <option value="3">Thumbnail View</option>
+       <option value="list">List View</option>
+       <option value="list flatlist">Card View</option>
+       <option value="list thumblist">Thumbnail View</option>
       </select>
     </div>
     <div id='projSortSelect' class="input-field col s6">
       <i class="material-icons prefix">sort_by_alpha</i>
       <select onchange='App.projects.projSortChanged()'>
-       <option value="1">Sort by Title</option>
-       <option value="2">Sort by Create Date</option>
-       <option value="3">Sort by Modified</option>
+       <option value="name">Sort by Title</option>
+       <option value="created">Sort by Create Date</option>
+       <option value="modified">Sort by Modified</option>
       </select>
     </div>
 

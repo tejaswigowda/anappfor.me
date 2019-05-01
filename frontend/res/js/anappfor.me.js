@@ -30,9 +30,7 @@ function lostPwd(){
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
        '<div class="modal menutextColor brandBG" style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOST PASSWORD</h4>'+
- //      '<form name="login" action="/lostPwd" method="post">'+
-  '<form>'+
-        '<div class="row">'+
+        '<form><div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="storeEmail()" id="emailLP" type="email" class="validate" name="email">'+
                 '<label for="emailLP" class="">Email</label>'+
@@ -41,8 +39,7 @@ function lostPwd(){
         '</div>'+ 
         '<button onclick="doLostPwd()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Submit'+
               '<i class="material-icons left">location_disabled</i>'+
-          '</button>'+
-          '</form>'+
+          '</button></form>'+
                 '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
       '</div>'+
     '</div>'
@@ -57,9 +54,7 @@ function doRegister(){
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
        '<div class="modal menutextColor brandBG" style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">REGISTER</h4>'+
-      // '<form name="login" action="/tryRegisterInline" method="post">'+
-  '<form>'+
-        '<div class="row">'+
+        '<form><div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="" id="emailR" type="email" class="validate" name="email">'+
                 '<label for="emailR" class="">Email</label>'+
@@ -75,8 +70,7 @@ function doRegister(){
          '</div>'+
           '<button onclick="registerNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Signup'+
               '<i class="material-icons left">create</i>'+
-          '</button>'+
-          '</form>'+
+          '</button></form>'+
                 '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
       '</div>'+
     '</div>'
@@ -88,7 +82,7 @@ function doRegister(){
 function loginNow()
 {
   $.ajax({
-    url:"/tryLoginInline ",
+    url:"/tryLogin",
     method:"POST", //First change type to method here
     data:{
       email: document.getElementById("email").value,
@@ -109,7 +103,7 @@ function loginNow()
 function registerNow()
 {
   $.ajax({
-    url:"/tryRegisterInline ",
+    url:"/tryRegister",
     method:"POST", //First change type to method here
     data:{
       emailR: document.getElementById("emailR").value,
@@ -152,9 +146,7 @@ function loadGetLoginModal(){
      '<div style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
        '<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
-      // '<form name="login" action="/tryLoginInline" method="post">'+
-  '<form>'+
-        '<div class="row">'+
+        '<form><div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
                 '<label for="email" class="">Email</label>'+
@@ -170,8 +162,7 @@ function loadGetLoginModal(){
          '</div>'+
           '<button onclick="loginNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Login'+
               '<i class="material-icons right">arrow_forward</i>'+
-          '</button>'+
-          '</form>'+
+          '</button></form>'+
                 '<a href="javascript:doRegister()" style="display: block;color: inherit;" class="btn-flat textcenter">No Account? Sign up</a>'+
                 '<a href="javascript:lostPwd()" style="display:block;color: inherit;" class="btn-flat textcenter">Lost Password?</a>'+
       '</div>'+
@@ -392,7 +383,7 @@ var getLImarkup = function(item,cbSt){
   var created = item.created || "";
   var modified = item.modified || "";
   if(created!="") created = "Created " + moment(created).format('Do MMM YYYY, h:mm a');
-  if(modified!="") modified = "Modified " + moment(modified).format('Do YY, h:mm a');
+  if(modified!="") modified = "Modified " + moment(modified).format('Do MMM YYYY, h:mm a');
   var mu =   '<li style="' + ad + '" class="' + item.id + '"><a href="javascript:' + cbSt + '" class="inner">'+
       '<div class="li-img" style="background-image:url('+ thumb + ')">'+
       '</div>'+
@@ -531,3 +522,20 @@ var swipe ={
   }
 }
 
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key];
+        var y = b[key];
+
+        if (typeof x == "string")
+        {
+            x = (""+x).toLowerCase();
+        }
+        if (typeof y == "string")
+        {
+            y = (""+y).toLowerCase();
+        }
+
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}

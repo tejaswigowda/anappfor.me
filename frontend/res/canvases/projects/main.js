@@ -6,9 +6,9 @@
       swipe.right("crudProjWrapper");
       swipe.center("listProjWrapper");
     $("#backButton").fadeOut(0);
-    $("#addButton").fadeIn();
     this.loadall();
   },
+  wasEdited: false,
   inactive: function(){
     document.getElementById("projList").innerHTML = "";
   },
@@ -21,7 +21,7 @@
       var x = list[i].thumb100||"";
       var y = list[i].name || "no title";
       if(y){
-        data.push({value: y, data: i, imageUrl:x});
+        data.push({value: y, data: list[i].id, imageUrl:x});
       }
     }
 
@@ -38,7 +38,7 @@
         return ret
       },
       onSelect: function (suggestion) {
-          App.projects.selected(parseInt(suggestion.data));
+          App.projects.selected(suggestion.data);
           document.getElementById("projSearch").value = "";
           $('#projSearch').devbridgeAutocomplete("hide");
       }
@@ -48,8 +48,22 @@
   loadall: function()
   {
     loadFile("projects/all", function(data){
-      var projects = JSON.parse(data);
       App.projects.list = JSON.parse(data);
+      App.projects.projSortChanged();
+      $("#addButton").stop().fadeIn();
+    });
+    this.projViewChanged();
+  },
+  projViewChanged: function(){
+    $("#projList").removeClass().addClass($("#projViewSelect select").val());
+  },
+  projSortChanged: function(){
+    var st = $("#projSortSelect select").val();
+       this.list = sortByKey(this.list,st);
+       if(st == "created" || st == "modified"){
+         this.list.reverse();
+       }
+      var projects = App.projects.list;
       if(projects.length == 0){
         document.getElementById("projList").innerHTML = "<h4 style='opacity:.5' class='textcenter'> No projects yet <br> </h4>"
         return;
@@ -62,7 +76,6 @@
       document.getElementById("projList").innerHTML = markup;
       App.projects.setAC();
       $("#addButton").fadeIn();
-    });
   },
   selected: function(id)
   {
@@ -131,8 +144,10 @@
     $("#addButton").fadeIn();
     var x = function(){$("#projects .list li").removeClass("selected")}
     setTimeout(x, 500);
-    if(this.isNew)
-      this.loadall();
+    if(this.isNew || this.wasEdited){
+     this.wasEdited = false;
+     this.loadall();
+    } 
   }, 
   thumbChanged: function(url){
     loadFile("projects/edit?id="+ App.projects.currID
@@ -154,6 +169,7 @@
     });
   },
   updateProject: function(e){
+    this.wasEdited = true;
     loadFile("projects/edit?id="+ App.projects.currID 
        + "&userID="+ userObj.local.email
        + "&"+ e.target.dataset.key 
