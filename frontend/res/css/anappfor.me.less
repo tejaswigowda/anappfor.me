@@ -15,6 +15,11 @@ body{
   .canvas .wrapper{
     min-width: 100%;
   }
+  .list.thumblist li {
+    width:90%;
+    margin-left: 5%; 
+    margin-bottom: 20px;
+  }
 }
 @media (max-width : 992px){
   .onlySmallScreen{
@@ -223,6 +228,45 @@ body{
     display: inline-block;
   }
 }
+
+.list.thumblist{
+  li{
+    height:220px;
+    border-radius: 5px;
+    background-color: fade(@brandColor, 20%);
+  }
+  .li-modified{
+    display:none;
+  }
+  .li-created{
+    display:none;
+  }
+  .li-img {
+     display: block;
+      padding: 0px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50%;
+      border-radius: 0%;
+      height: 170px;
+      width: 100%;
+      margin: 0px;
+  }
+  .li-text {
+    display: block;
+    width: 90%;
+    margin-left: 5%;
+  }
+  .li-head {
+    margin-top: 10px;
+    font-size: 160%;
+  }
+  .li-sub
+  {
+    display:none;
+  }
+}
+
 
 .list.flatlist{
   li{
