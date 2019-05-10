@@ -11,9 +11,9 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport('smtps://noreply%40foxyninjastudios.com:anappforme2019@smtp.gmail.com');
 var mongoURL = 'mongodb://127.0.0.1:27017/test'
 var db = require('mongoskin').db(mongoURL);
-
 function sendEmail(to, sub, msg, msghtml){
   msghtml = msghtml || msg;
+
   var mailOptions = {
       from: '"Foxy Ninja (No-reply)" <noreply@foxyninjastudios.com>', // sender address
       to: to,
@@ -104,14 +104,11 @@ app.get('/resetpass', function (req, res) {
              }
              else {
                res.send("1");
-               result.lostPToken = "";
-               mailOptions.to = info.id;
-               transporter.sendMail(mailOptions, function(error, info){
-                   if(error){
-                      return console.log(error);
-                   }
-                   //console.log('Message sent: ' + info.response);
-               }); 
+               var to = info.id;
+               var sub = "Password Reset Link";
+               var msg = "PWD reset TEST"
+               var msghtml = "PWD reset TEST"
+               sendEmail(to, sub, msg, msghtml);
              }
          });
       }
