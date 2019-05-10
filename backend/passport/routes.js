@@ -11,6 +11,13 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport('smtps://noreply%40foxyninjastudios.com:anappforme2019@smtp.gmail.com');
 var mongoURL = 'mongodb://127.0.0.1:27017/test'
 var db = require('mongoskin').db(mongoURL);
+function fullURL(req) {
+  return url.format({
+    protocol: req.protocol,
+    host: req.get('host')
+  }) + "/";
+}
+
 function sendEmail(to, sub, msg, msghtml){
   msghtml = msghtml || msg;
 
@@ -95,9 +102,8 @@ app.get('/resetpass', function (req, res) {
   var info = querystring.parse(incoming);
   User.findOne({ 'local.email' :  info.id }, function(err, user) {
   if(user){
-     user.local.password = bcrypt.hashSync(info.pass, bcrypt.genSaltSync(8), null);
-     var tk = info.tk;
-     var uid =  md5(new Date().getTime()).split("").sort(function(a,b){return -.5 + Math.random(0,1)}).toString().replace(/,/g,"")
+     var uid = user.local.pwcode =  md5(new Date().getTime()).split("").sort(function(a,b){return -.5 + Math.random(0,1)}).toString().replace(/,/g,"");
+     user.local.pwresetts = new Date().getTime();
          user.save(function(err){
              if (err) { 
                res.send("0");
@@ -106,8 +112,8 @@ app.get('/resetpass', function (req, res) {
                res.send("1");
                var to = info.id;
                var sub = "Password Reset Link";
-               var msg = "PWD reset TEST"
-               var msghtml = "PWD reset TEST"
+               var msg = "Password reset link: " + fullURL(req) + "reset#" + uid;
+               var msghtml = msg;
                sendEmail(to, sub, msg, msghtml);
              }
          });
