@@ -28,6 +28,7 @@
   "dependencies": {
     "express-fileupload": "^1.1.4",
     "express-formidable": "^1.2.0",
-    "formidable": "^1.2.1"
+    "formidable": "^1.2.1",
+    "md5": "^2.2.1"
   }
 }

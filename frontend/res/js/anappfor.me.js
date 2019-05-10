@@ -28,7 +28,7 @@ function lostPwd(){
   modal.hide();
   $("body").append(
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
-       '<div class="modal menutextColor brandBG" style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+       '<div class="modal menutextColor brandBG" style="box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOST PASSWORD</h4>'+
         '<form><div class="row">'+
               '<div class="input-field col s12">'+
@@ -52,7 +52,7 @@ function doRegister(){
   modal.hide();
   $("body").append(
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
-       '<div class="modal menutextColor brandBG" style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+       '<div class="modal menutextColor brandBG" style="min-height:500px;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">REGISTER</h4>'+
         '<form><div class="row">'+
               '<div class="input-field col s12">'+
@@ -70,7 +70,8 @@ function doRegister(){
          '</div>'+
           '<button onclick="registerNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Signup'+
               '<i class="material-icons left">create</i>'+
-          '</button></form>'+
+          '</button>'+
+          '</form>'+
                 '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
       '</div>'+
     '</div>'
@@ -123,21 +124,9 @@ function registerNow()
 
 function doLostPwd()
 {
-  $.ajax({
-    url:"/tryRegisterInline ",
-    method:"POST", //First change type to method here
-    data:{
-      emailLP: document.getElementById("emailLP").value,
-    },
-    success:function(response) {
-     window.location.hash = "lpwds"
-     window.location.reload();
-   },
-   error:function(){
-     window.location.hash = "lpwdf"
-     window.location.reload();
-   }
- });
+  loadFile("resetpass", function(data){
+    alert(data);
+  });
 }
 
 function loadGetLoginModal(){

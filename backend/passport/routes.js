@@ -1,3 +1,4 @@
+var md5 = require('md5');
 var url = require("url"),
 	bcrypt = require("bcrypt-nodejs");
 	querystring = require("querystring");
@@ -8,6 +9,8 @@ var nodemailer = require('nodemailer');
 
 // create reusable transporter object using the default SMTP transport
 var transporter = nodemailer.createTransport('smtps://noreply%40foxyninjastudios.com:anappforme2019@smtp.gmail.com');
+var mongoURL = 'mongodb://127.0.0.1:27017/test'
+var db = require('mongoskin').db(mongoURL);
 
 function sendEmail(to, sub, msg, msghtml){
   msghtml = msghtml || msg;
@@ -84,16 +87,17 @@ app.get('/changepass', isLoggedIn, function (req, res) {
 
 
 
+app.get('/resetpassnow', function (req, res) {
+});
+
 app.get('/resetpass', function (req, res) {
-var incoming = url.parse(req.url).query;
-var info = querystring.parse(incoming);
-User.findOne({ 'local.email' :  info.id }, function(err, user) {
+  var incoming = url.parse(req.url).query;
+  var info = querystring.parse(incoming);
+  User.findOne({ 'local.email' :  info.id }, function(err, user) {
   if(user){
      user.local.password = bcrypt.hashSync(info.pass, bcrypt.genSaltSync(8), null);
      var tk = info.tk;
-     db.collection('userID').findOne({id:info.id}, function(err, result) {
-       if(result){
-         if(result.lostPToken && result.lostPToken == tk && result.lostPTS && result.lostPTS - new Date().getTime() < 2*60*60*1000){
+     var uid =  md5(new Date().getTime()).split("").sort(function(a,b){return -.5 + Math.random(0,1)}).toString().replace(/,/g,"")
          user.save(function(err){
              if (err) { 
                res.send("0");
@@ -101,34 +105,21 @@ User.findOne({ 'local.email' :  info.id }, function(err, user) {
              else {
                res.send("1");
                result.lostPToken = "";
-               db.collection("userID").save(result, function(e,r){
-                 mailOptions.to = info.id;
-                  transporter.sendMail(mailOptions, function(error, info){
-                      if(error){
-                          return console.log(error);
-                      }
-                      //console.log('Message sent: ' + info.response);
-                  }); 
-
-                });
+               mailOptions.to = info.id;
+               transporter.sendMail(mailOptions, function(error, info){
+                   if(error){
+                      return console.log(error);
+                   }
+                   //console.log('Message sent: ' + info.response);
+               }); 
              }
          });
-        }
-        else{
-          res.send("0");
-        }
       }
       else{
         res.send("0");
       }
-    });
-  }
-  else{
-    res.send("0");
-  }
+  });
 });
-});
-
 
 
 };

@@ -7,10 +7,10 @@ var url = require("url"),
 
 var passport = require('passport');
 var fs = require('fs');
+var path = require('path');
+var express = require('express');
 var mongoURL = 'mongodb://127.0.0.1:27017/test'
-var path = require('path'),
-  express = require('express'),
-  db = require('mongoskin').db(mongoURL);
+var db = require('mongoskin').db(mongoURL);
 
 
 var mongoose = require('mongoose');
@@ -111,6 +111,10 @@ app.post('/uploadFile', function(req, res){
 
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, './frontend', 'index.html'));
+});
+
+app.get('/reset', function(req, res){
+  res.sendFile(path.join(__dirname, './frontend', 'reset.html'));
 });
 
 // DO NOT DO app.listen() unless we're testing this directly
