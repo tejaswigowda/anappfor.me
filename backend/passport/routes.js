@@ -3,14 +3,15 @@ var url = require("url"),
 	bcrypt = require("bcrypt-nodejs");
 	querystring = require("querystring");
 var User       = require('./models/user');
+var mongoURL = 'mongodb://127.0.0.1:27017/test'
+var db = require('mongoskin').db(mongoURL);
+var nodemailer = require('nodemailer');
+
 module.exports = function(app, passport) {
 
-var nodemailer = require('nodemailer');
 
 // create reusable transporter object using the default SMTP transport
 var transporter = nodemailer.createTransport('smtps://noreply%40foxyninjastudios.com:anappforme2019@smtp.gmail.com');
-var mongoURL = 'mongodb://127.0.0.1:27017/test'
-var db = require('mongoskin').db(mongoURL);
 function fullURL(req) {
   return url.format({
     protocol: req.protocol,
@@ -102,25 +103,38 @@ app.get('/resetpass', function (req, res) {
   var info = querystring.parse(incoming);
   User.findOne({ 'local.email' :  info.id }, function(err, user) {
   if(user){
-     var uid = user.local.pwcode =  md5(new Date().getTime()).split("").sort(function(a,b){return -.5 + Math.random(0,1)}).toString().replace(/,/g,"");
-     user.local.pwresetts = new Date().getTime();
-         user.save(function(err){
-             if (err) { 
-               res.send("0");
-             }
-             else {
-               res.send("1");
-               var to = info.id;
-               var sub = "Password Reset Link";
-               var msg = "Password reset link: " + fullURL(req) + "reset#" + uid;
-               var msghtml = msg;
-               sendEmail(to, sub, msg, msghtml);
-             }
-         });
-      }
-      else{
-        res.send("0");
-      }
+     db.collection("userid").findOne({id:info.id}, function(err, result){
+       var uid =   md5(new Date().getTime()).split("").sort(function(a,b){return -.5 + Math.random(0,1)}).toString().replace(/,/g,"");
+       var pwresetts = new Date().getTime();
+       var to = info.id;
+       var sub = "Password Reset Link";
+       var msg = "Password reset link: " + fullURL(req) + "reset#" + uid;
+       var msghtml = msg;
+        if(result){
+            result.pwresetts = pwresetts,
+            result.pwcode = uid
+            db.collection("userid").save(result, function(err, result){
+             res.send("1");
+             sendEmail(to, sub, msg, msghtml);
+            });
+        }
+        else{
+          var resave = {
+            id: info.id,
+            userID: info.id,
+            pwresetts: pwresetts,
+            pwcode: uid
+          }
+          db.collection("userid").insert(resave, function(err, result){
+             res.send("1");
+             sendEmail(to, sub, msg, msghtml);
+          });
+        } 
+     });
+   }
+   else{
+     res.send("0");
+   }
   });
 });
 

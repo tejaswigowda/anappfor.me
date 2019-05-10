@@ -25,7 +25,9 @@
             }
             if(hash.indexOf("regf")>=0){
               M.toast({html: '<b> Signup Error. </b>Please retry', classes:'red'})
+              doRegister();
             }
+            window.location.hash="";
             return;
           //}
            
