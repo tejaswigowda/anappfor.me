@@ -111,8 +111,8 @@ app.get('/resetpass', function (req, res) {
        var msg = "Password reset link: " + fullURL(req) + "reset#" + uid;
        var msghtml = msg;
         if(result){
-            result.pwresetts = pwresetts,
-            result.pwcode = uid
+            result.pwresetts = pwresetts;
+            result.pwcode = uid;
             db.collection("userid").save(result, function(err, result){
              res.send("1");
              sendEmail(to, sub, msg, msghtml);

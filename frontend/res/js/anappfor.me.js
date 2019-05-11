@@ -30,16 +30,16 @@ function lostPwd(){
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
        '<div class="modal menutextColor brandBG" style="box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOST PASSWORD</h4>'+
-        '<form><div class="row">'+
+        '<div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="storeEmail()" id="emailLP" type="email" class="validate" name="email">'+
                 '<label for="emailLP" class="">Email</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
         '</div>'+ 
-        '<button onclick="doLostPwd()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Submit'+
+        '<button type="submit" onclick="doLostPwd()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Submit'+
               '<i class="material-icons left">location_disabled</i>'+
-          '</button></form>'+
+          '</button>'+
                 '<a href="javascript:loadGetLoginModal()" style="display: block;color: inherit;" class="btn-flat textcenter">Have Account? Login</a>'+
       '</div>'+
     '</div>'
@@ -124,8 +124,15 @@ function registerNow()
 
 function doLostPwd()
 {
-  loadFile("resetpass", function(data){
-    alert(data);
+  var x = document.getElementById("emailLP").value;
+  loadFile("resetpass?id=" + x, function(data){
+    console.log(data);
+    if(data === "0"){
+      modal.show("Something went wrong", "Check the email you entered? <br> Do you have an account? <br> You entered <b>"+x +"</b>.", "lostPwd", "doRegister", "Try again", "Create Account")
+    }
+    else{
+      modal.show("Success!", "Check email (<b>"+ x+ "</b>) for reset instructions.", null, "loadGetLoginModal", "", "OK");
+    }
   });
 }
 

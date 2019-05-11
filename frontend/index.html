@@ -20,6 +20,13 @@
         if(data === "0"){
          // if(hash.indexOf("getlogin")>=0){
             loadGetLoginModal();
+            if(hash.indexOf("pwcodeE")>=0){
+              M.toast({html: '<b> Error. </b>Account not found', classes:'red'})
+              lostPwd();
+            }
+            if(hash.indexOf("pwcode")>=0){
+              M.toast({html: '<b> Check email. </b>Password reset code sent', classes:'blue'})
+            }
             if(hash.indexOf("fail")>=0){
               M.toast({html: '<b> Login Error. </b>Please retry', classes:'red'})
             }
