@@ -59,15 +59,15 @@ app.get('/logout', function(req, res) {
 
 // LOGIN  ==============================
 app.post('/tryLogin', passport.authenticate('local-login', {
-    successRedirect : '/index.html', // redirect to the secure profile section
-    failureRedirect : '/index.html#fail', // redirect back to the signup page if there is an error
+    successRedirect : '/', // redirect to the secure profile section
+    failureRedirect : '/#fail', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 }));
 
 // process the signup form
 app.post('/tryRegister', passport.authenticate('local-signup', {
-    successRedirect : '/index.html', // redirect to the secure profile section
-    failureRedirect : '/index.html#freg', // redirect back to the signup page if there is an error
+    successRedirect : '/', // redirect to the secure profile section
+    failureRedirect : '/#freg', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 }));
 

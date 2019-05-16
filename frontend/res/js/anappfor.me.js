@@ -24,6 +24,12 @@ var doLogout = function()
   ); 
 }
 
+function validateEmail(email)
+{
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
 function lostPwd(){
   modal.hide();
   $("body").append(
@@ -125,6 +131,8 @@ function registerNow()
 function doLostPwd()
 {
   var x = document.getElementById("emailLP").value;
+  if(!validateEmail(x)){
+  }
   loadFile("resetpass?id=" + x, function(data){
     console.log(data);
     if(data === "0"){
