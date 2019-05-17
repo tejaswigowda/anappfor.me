@@ -60,7 +60,8 @@ function doRegister(){
      '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
        '<div class="modal menutextColor brandBG" style="min-height:500px;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">REGISTER</h4>'+
-        '<form><div class="row">'+
+        '<form action="tryRegister" method="post">'+
+        '<div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="" id="emailR" type="email" class="validate" name="email">'+
                 '<label for="emailR" class="">Email</label>'+
@@ -88,6 +89,8 @@ function doRegister(){
 
 function loginNow()
 {
+  if(App.embedType.length == 0) return;
+
   $.ajax({
     url:"/tryLogin",
     method:"POST", //First change type to method here
@@ -109,6 +112,8 @@ function loginNow()
 
 function registerNow()
 {
+  if(App.embedType.length == 0) return;
+
   $.ajax({
     url:"/tryRegister",
     method:"POST", //First change type to method here
@@ -144,13 +149,30 @@ function doLostPwd()
   });
 }
 
+function doCP()
+{
+  var x = userObj.local.email;
+  var oldP = document.getElementById("currPwd").value;
+  var newP = document.getElementById("newPwd").value;
+  $("#changePwdWrapper input").val("")
+  loadFile("changepass?id=" + x + "&oldpass=" + oldP + "&newpass=" + newP, function(data){
+    if(data !== "1"){
+      modal.show("Something went wrong", "Check the password you entered?", "", "", "", "Try again");
+    }
+    else{
+      modal.show("Success!", "Your password is reset.", null, null, "", "OK");
+    }
+  });
+}
+
 function loadGetLoginModal(){
   modal.hide();
   $("body").append(
      '<div style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
        '<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
-        '<form><div class="row">'+
+         '<form action="tryLogin" method="post">'+
+        '<div class="row">'+
               '<div class="input-field col s12">'+
                 '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
                 '<label for="email" class="">Email</label>'+
@@ -166,15 +188,15 @@ function loadGetLoginModal(){
          '</div>'+
           '<button onclick="loginNow()" class="btn waves-effect waves-light accentBG" name="action" style="margin:auto;display: block;margin-bottom:30px">Login'+
               '<i class="material-icons right">arrow_forward</i>'+
-          '</button></form>'+
+          '</button>'+
+          '</form>'+
                 '<a href="javascript:doRegister()" style="display: block;color: inherit;" class="btn-flat textcenter">No Account? Sign up</a>'+
                 '<a href="javascript:lostPwd()" style="display:block;color: inherit;" class="btn-flat textcenter">Lost Password?</a>'+
       '</div>'+
     '</div>'
   );
   activityIndicator.hide();
-  $(".modal input[type='email']").focus();
-  $(".modal input[type='email']").val(localStorage.getItem("email"));
+  $(".modal input[type='email']").val(localStorage.getItem("email")).focus();
 }
 
 function getInputMethod(){

@@ -77,11 +77,12 @@ app.get('/changepass', isLoggedIn, function (req, res) {
    var user = req.user;
    var newpass = info.newpass;
    var oldpass = info.oldpass;
+   console.log(user, newpass, oldpass)
    if (user.validPassword(oldpass)){
      user.local.password = bcrypt.hashSync(newpass, bcrypt.genSaltSync(8), null);
      user.save(function(err){
          if (err) { 
-           res.send("issue");
+           res.send("-1");
          }
          else {
            res.send("1");

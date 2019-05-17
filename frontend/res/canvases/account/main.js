@@ -61,6 +61,23 @@
       document.getElementById("last_name").value = lname;
       $("label[for=first_name], label[for=last_name]").addClass("active")
     });
+  },
+  pwEntered: function(){
+    var p = document.getElementById("currPwd").value;
+    var np1 = document.getElementById("newPwd").value;
+    var np2 = document.getElementById("newPwdR").value;
+    if(np1.length < 5 || np2.length < 5){
+      document.getElementById("pwMatch").innerHTML = 'New password should be at-least 5 characters long.'
+      $("#cpButton").fadeOut();
+      return;
+    }
+    if(np1 !== np2){
+      document.getElementById("pwMatch").innerHTML = 'Passwords have to match.'
+      $("#cpButton").fadeOut();
+      return;
+    }
+    document.getElementById("pwMatch").innerHTML = '';
+    $("#cpButton").fadeIn();
   }
 }
 
