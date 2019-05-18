@@ -69,6 +69,26 @@ app.post('/tryRegister', passport.authenticate('local-signup', {
     failureFlash : true // allow flash messages
 }));
 
+app.get('/getUIDfromHash', function (req, res) {
+  var incoming = url.parse(req.url).query;
+  var info = querystring.parse(incoming);
+  var hash = info.hash;
+  db.collection("userid").findOne({pwcode:hash}, function(err, result){
+    if(result){
+      var td = new Date().getTime() - result.pwresetts
+      if (td > 24 *60 *60 *1000){
+        res.send("-1");
+        return;
+      }
+      res.send(result.userID);
+    }
+    else{
+      res.send("0");
+    }
+  });
+});
+
+
 app.get('/changepass', isLoggedIn, function (req, res) {
    var incoming = url.parse(req.url).query;
    var info = querystring.parse(incoming);
@@ -93,26 +113,6 @@ app.get('/changepass', isLoggedIn, function (req, res) {
 });
 
 
-
-app.get('/getUIDfromHash', function (req, res) {
-  var incoming = url.parse(req.url).query;
-  var info = querystring.parse(incoming);
-  var hash = info.hash;
-  db.collection("userid").findOne({pwcode:hash}, function(err, result){
-    if(result){
-      var td = new Date().getTime() - result.pwresetts
-      if (td > 24 *60 *60 *1000){
-        res.send("-1");
-        return;
-      }
-      res.send(result.userID);
-    }
-    else{
-      res.send("0");
-    }
-  });
-});
-
 app.get('/resetpassnow', function (req, res) {
   var incoming = url.parse(req.url).query;
   var info = querystring.parse(incoming);
@@ -120,6 +120,32 @@ app.get('/resetpassnow', function (req, res) {
   var hash = info.hash;
   db.collection("userid").findOne({pwcode:hash}, function(err, result){
     if(result){
+      User.findOne({ 'local.email' :  result.id }, function(err, user) {
+        if(user){
+          console.log(user);
+          user.local.password = bcrypt.hashSync(newpass, bcrypt.genSaltSync(8), null);
+          user.save(function(err){
+             if (err) { 
+               res.send("-1");
+             }
+             else {
+               result.pwcode = "";
+               result.pwresetts =  new Date().getTime();
+                db.collection("userid").save(result, function(err, result){
+                 res.send("1");
+                 var to = result.id;
+                 var sub = "Your password was reset!";
+                 var msg = "Your password was reset!";
+                 var msghtml = msg;
+                 sendEmail(to, sub, msg, msghtml);
+                });
+             }
+          });        
+        }
+        else{
+          res.send("0");
+        }
+      });
     }
   });
 });
