@@ -95,7 +95,6 @@ app.get('/changepass', isLoggedIn, function (req, res) {
    var user = req.user;
    var newpass = info.newpass;
    var oldpass = info.oldpass;
-   console.log(user, newpass, oldpass)
    if (user.validPassword(oldpass)){
      user.local.password = bcrypt.hashSync(newpass, bcrypt.genSaltSync(8), null);
      user.save(function(err){
@@ -122,7 +121,6 @@ app.get('/resetpassnow', function (req, res) {
     if(result){
       User.findOne({ 'local.email' :  result.id }, function(err, user) {
         if(user){
-          console.log(user);
           user.local.password = bcrypt.hashSync(newpass, bcrypt.genSaltSync(8), null);
           user.save(function(err){
              if (err) { 
