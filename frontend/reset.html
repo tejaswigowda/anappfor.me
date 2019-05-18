@@ -48,7 +48,6 @@ function newPassword(){
   var newP = document.getElementById("newPwd").value;
   var hash = window.location.hash.replace("#","");
   loadFile("resetpassnow?hash=" + hash + "&newpass=" + newP, function(data){
-    alert(data);
     if(data == "1"){
       modal.show("Success!", "Your password is reset.", null, "startOver", "", "OK");
     }

@@ -131,7 +131,7 @@ app.get('/resetpassnow', function (req, res) {
                result.pwresetts =  new Date().getTime();
                 db.collection("userid").save(result, function(err, result){
                  res.send("1");
-                 var to = result.id;
+                 var to = user.local.email;
                  var sub = "Your password was reset!";
                  var msg = "Your password was reset!";
                  var msghtml = msg;
