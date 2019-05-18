@@ -8,13 +8,22 @@
 function main(){
   var hash = window.location.hash.replace("#","");
   loadFile("getUIDfromHash?hash="+hash, function(data){
+    activityIndicator.hide();
     if(data === "0"){
-      modal.show("Something went wrong", "", "", "", "", "Try again");
+      modal.show("Something went wrong", "", "", "startOver", "", "OK");
+      return;
+    }
+    if(data === "-1"){
+      modal.show("That link has expired", "Please request another password reset code", "", "startOver", "", "Start Over");
       return;
     }
     document.getElementById("userID").innerHTML = data;
-    setTimeout(activityIndicator.hide, 1000);
   });
+}
+
+function startOver()
+{
+  window.location.href = "/";
 }
 
 function  pwEntered(){
@@ -53,8 +62,8 @@ function newPassword(){
 <body onload='main()'>
     <div style="position: fixed;height: 100vh;width: 100vw;text-align: center;background-color: rgba(255,255,255,.8);z-index: 100000;" class="ac"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="margin-top: 45vh;"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle> </svg> <h5 class="acText"></h5></div>
 <div style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>
-<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);"><div class="iconBlock"></div>
-  <h4 class="textcenter">CHANGE PASSWORD for</h4>
+<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 5%; transform: scaleX(1) scaleY(1);"><div class="iconBlock"></div>
+  <h4 class="textcenter">CHANGING PASSWORD for</h4>
   <h5 id="userID" class='textcenter'></h5>
   <form action="tryLogin" method="post">
     <div class="row">

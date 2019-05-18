@@ -100,6 +100,11 @@ app.get('/getUIDfromHash', function (req, res) {
   var hash = info.hash;
   db.collection("userid").findOne({pwcode:hash}, function(err, result){
     if(result){
+      var td = new Date().getTime() - result.pwresetts
+      if (td > 24 *60 *60 *1000){
+        res.send("-1");
+        return;
+      }
       res.send(result.userID);
     }
     else{
@@ -112,7 +117,11 @@ app.get('/resetpassnow', function (req, res) {
   var incoming = url.parse(req.url).query;
   var info = querystring.parse(incoming);
   var newpass = info.newpass;
-  var oldpass = info.oldpass;
+  var hash = info.hash;
+  db.collection("userid").findOne({pwcode:hash}, function(err, result){
+    if(result){
+    }
+  });
 });
 
 app.get('/resetpass', function (req, res) {
