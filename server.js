@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended:true
 }));
 require('./backend/passport/config/passport')(passport); // pass passport for configuration
-require('./backend/passport/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./backend/passport/routes.js')(app, db, passport); // load our routes and pass in our app and fully configured passport
 
 
 app.use(express.static(path.join(__dirname, 'frontend')));

@@ -3,11 +3,9 @@ var url = require("url"),
 	bcrypt = require("bcrypt-nodejs");
 	querystring = require("querystring");
 var User       = require('./models/user');
-var mongoURL = 'mongodb://127.0.0.1:27017/test'
-var db = require('mongoskin').db(mongoURL);
 var nodemailer = require('nodemailer');
 
-module.exports = function(app, passport) {
+module.exports = function(app, db, passport) {
 
 
 // create reusable transporter object using the default SMTP transport
@@ -96,7 +94,25 @@ app.get('/changepass', isLoggedIn, function (req, res) {
 
 
 
+app.get('/getUIDfromHash', function (req, res) {
+  var incoming = url.parse(req.url).query;
+  var info = querystring.parse(incoming);
+  var hash = info.hash;
+  db.collection("userid").findOne({pwcode:hash}, function(err, result){
+    if(result){
+      res.send(result.userID);
+    }
+    else{
+      res.send("0");
+    }
+  });
+});
+
 app.get('/resetpassnow', function (req, res) {
+  var incoming = url.parse(req.url).query;
+  var info = querystring.parse(incoming);
+  var newpass = info.newpass;
+  var oldpass = info.oldpass;
 });
 
 app.get('/resetpass', function (req, res) {
