@@ -137,7 +137,7 @@
   }, 
   thumbChanged: function(url){
     loadFile("tags/edit?id="+ App.tags.currID
-       + "&userID="+ userObj.local.email
+       + "&userID="+ userObj
        + "&thumb="+ url
        , function(data){
         App.tags.loadall();
@@ -148,7 +148,7 @@
   },
   thumbChanged100: function(url){
     loadFile("tags/edit?id="+ App.tags.currID
-       + "&userID="+ userObj.local.email
+       + "&userID="+ userObj
        + "&thumb100="+ url
        , function(data){
          document.getElementById("tagThumb").style.backgroundImage = "url(" + url + "?"+ new Date().getTime() + ")";
@@ -156,7 +156,7 @@
   },
   updatetag: function(e){
     loadFile("tags/edit?id="+ App.tags.currID 
-       + "&userID="+ userObj.local.email
+       + "&userID="+ userObj
        + "&"+ e.target.dataset.key 
        + "=" + e.target.value, function(data){
       //  App.tags.loadall();

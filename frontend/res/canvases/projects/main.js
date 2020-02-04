@@ -151,7 +151,7 @@
   }, 
   thumbChanged: function(url){
     loadFile("projects/edit?id="+ App.projects.currID
-       + "&userID="+ userObj.local.email
+       + "&userID="+ userObj
        + "&thumb="+ url
        , function(data){
         App.projects.loadall();
@@ -162,7 +162,7 @@
   },
   thumbChanged100: function(url){
     loadFile("projects/edit?id="+ App.projects.currID
-       + "&userID="+ userObj.local.email
+       + "&userID="+ userObj
        + "&thumb100="+ url
        , function(data){
          document.getElementById("projThumb").style.backgroundImage = "url(" + url + "?"+ new Date().getTime() + ")";
@@ -171,7 +171,7 @@
   updateProject: function(e){
     this.wasEdited = true;
     loadFile("projects/edit?id="+ App.projects.currID 
-       + "&userID="+ userObj.local.email
+       + "&userID="+ userObj
        + "&"+ e.target.dataset.key 
        + "=" + e.target.value, function(data){
        // App.projects.loadall();

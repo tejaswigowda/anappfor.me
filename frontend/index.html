@@ -15,7 +15,7 @@
       App[keys[i]] = readData[keys[i]];
     }
     if(App.haslogin){
-      loadFile("/loginStatus", function(data){
+      loadFile("/auth/islogin", function(data){
         if(data === "0"){
          // if(hash.indexOf("getlogin")>=0){
             loadGetLoginModal();
@@ -40,7 +40,7 @@
           //window.location.href='./login.html'
           return;
         }
-        userObj = JSON.parse(data);
+        userObj = data;
         start();
       });
     }

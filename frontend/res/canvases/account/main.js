@@ -1,6 +1,6 @@
 {
   init: function(){
-    document.getElementById("loginInfo").innerHTML = "Logged in as <h5>" + userObj.local.email + "</h5>";
+    document.getElementById("loginInfo").innerHTML = "Logged in as <h5>" + userObj+ "</h5>";
     document.getElementById("userThumb").dataset.targetname = getUniqueID();
     swipe.right("changePwdWrapper");
     $("#cpButton").fadeOut(0);
@@ -15,8 +15,8 @@
   inactive: function(){
   },
   thumbChanged: function(url){
-    loadFile("userid/edit?id="+ userObj.local.email
-       + "&userID="+ userObj.local.email
+    loadFile("userid/edit?id="+ userObj
+       + "&userID="+ userObj
        + "&thumb="+ url
        , function(data){
         var x = document.getElementById("userThumb");
@@ -27,7 +27,7 @@
   },
   updateAccount: function(e){
     loadFile("userid/edit?id="+userObj.local.email
-       + "&userID="+ userObj.local.email
+       + "&userID="+ userObj
        + "&"+ e.target.dataset.key 
        + "=" + e.target.value, function(data){
     });

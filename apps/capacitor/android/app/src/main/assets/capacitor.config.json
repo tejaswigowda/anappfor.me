@@ -1,0 +1,7 @@
+{
+  "appId": "me.anappfor",
+  "appName": "capacitor",
+  "bundledWebRuntime": true,
+  "npmClient": "npm",
+  "webDir": "www"
+}
