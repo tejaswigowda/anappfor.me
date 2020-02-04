@@ -1,4 +1,4 @@
-<img src='res/images/icon.png'>
+<img src='docs/res/images/icon.png'>
 
 # anappfor.me
 
