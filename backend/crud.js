@@ -4,7 +4,7 @@ var express = require('express')
 // add
 router.get('/add', function(req, res) {
   var cn = req.originalUrl.replace(req.url,"").replace("/","");
-  req.query.userID = req.session.email;
+  req.query.userID = req.headers.email;
   req.db.collection(cn).insert(req.query, function (err,result){
     if(!err) res.send("1"); else res.send("0");
   });
@@ -13,7 +13,7 @@ router.get('/add', function(req, res) {
 // getAll
 router.get('/all', isLoggedIn, function(req, res) {
   var cn = req.originalUrl.replace(req.url,"").replace("/","");
-  var userID = req.session.email;
+  var userID = req.headers.email;
   req.db.collection(cn).find({userID:userID}).toArray(function (err,result){
     res.send(JSON.stringify(result));
   });
@@ -22,7 +22,7 @@ router.get('/all', isLoggedIn, function(req, res) {
 // get
 router.get('/get', isLoggedIn, function(req, res) {
   var cn = req.originalUrl.replace(req.url,"").replace("/","");
-  var userID = req.session.email;
+  var userID = req.headers.email;
   var id = req.query.id;
   req.db.collection(cn).findOne({id:id,userID:userID}, function (err,result){
     if(!err) res.send(result); else res.send("0");
@@ -32,7 +32,7 @@ router.get('/get', isLoggedIn, function(req, res) {
 // delete
 router.get('/delete', isLoggedIn, function(req, res) {
   var cn = req.originalUrl.replace(req.url,"").replace("/","");
-  var userID = req.session.email;
+  var userID = req.headers.email;
   var id = req.query.id;
   req.db.collection(cn).remove({id:id,userID:userID}, function (err,result){
     if(!err) res.send("1"); else res.send("0");
@@ -42,7 +42,7 @@ router.get('/delete', isLoggedIn, function(req, res) {
 // edit
 router.get('/edit', isLoggedIn, function(req, res) {
   var cn = req.originalUrl.replace(req.url,"").replace("/","");
-  var userID = req.session.email;
+  var userID = req.headers.email;
   var id = req.query.id;
   var keys = Object.keys(req.query);
   req.db.collection(cn).findOne({id:id,userID:userID}, function (err,result){
@@ -63,13 +63,34 @@ router.get('/edit', isLoggedIn, function(req, res) {
     }
   });
 });
-
 module.exports = router
 
 function isLoggedIn(req, res, next) {// route middleware to ensure user is logged in
-  if(req.session.email){
-        return next();
+  var cn = "auth"
+  if(req.headers.sessionid && req.headers.email){
+    req.db.collection(cn).findOne({email:req.headers.email}, function (err,result){
+      if(result && result.sessions){
+        var sessionid = req.headers.sessionid;
+        if(Object.keys(result.sessions).indexOf(sessionid) >= 0){
+          var ts = result.sessions[sessionid];
+          var now = new Date().getTime();
+          if((now - ts) <= 24*60*60*1000){
+            return next();
+          }
+          else{
+            res.send("noauth");
+          }
+        }
+        else{
+          res.send("noauth");
+        }
+      }
+      else{
+        res.send("noauth");
+      }
+    });
   }
-    res.send('noauth');
+  else{
+    res.send("noauth");
+  }
 }
-

@@ -5,6 +5,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-width=device-width, maximum-scale=1" name="viewport">
   <script src='res/js/asyncReq.js'></script>
 <script>
+var baseURL = "";
 function main(){
   var hash = window.location.hash.replace("#","");
   loadFile("getUIDfromHash?hash="+hash, function(data){

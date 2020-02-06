@@ -21,16 +21,24 @@ function getXMLHTTPRequest()
     return request;
 }
 
+var sessionid = null
 
 function loadFile(filename, callback)
 {
+  sessionid = localStorage.getItem("sessionid");
+  userObj = localStorage.getItem("userObj");
     var aXMLHttpRequest = getXMLHTTPRequest();
     var allData;
+    filename = (baseURL + filename).replace(/\/\//g,"/");
 
     if (aXMLHttpRequest)
     {
         aXMLHttpRequest.open("GET", filename, true);
         
+      if(sessionid){
+        aXMLHttpRequest.setRequestHeader("sessionid", sessionid);
+        aXMLHttpRequest.setRequestHeader("email", userObj);
+      }
       aXMLHttpRequest.onreadystatechange = function (aEvt) {
         if(aXMLHttpRequest.readyState == 4){
         allData = aXMLHttpRequest.responseText;

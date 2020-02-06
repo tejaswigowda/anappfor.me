@@ -33,12 +33,12 @@ function validateEmail(email)
 function lostPwd(){
   modal.hide();
   $("body").append(
-     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
-       '<div class="modal menutextColor brandBG" style="box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+     '<div style="z-index: 21002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
+       '<div class="modal menutextColor brandBG" style="box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 21003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOST PASSWORD</h4>'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input onblur="storeEmail()" id="emailLP" type="email" class="validate" name="email">'+
+                '<input onkeydown="lpKeyDown(event)" onblur="storeEmail()" id="emailLP" type="email" class="validate" name="email">'+
                 '<label for="emailLP" class="">Email</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
@@ -57,20 +57,20 @@ function lostPwd(){
 function doRegister(){
   modal.hide();
   $("body").append(
-     '<div style="z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
-       '<div class="modal menutextColor brandBG" style="min-height:500px;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+     '<div style="z-index: 21002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
+       '<div class="modal menutextColor brandBG" style="min-height:500px;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 21003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">REGISTER</h4>'+
     //    '<form action="tryRegister" method="post">'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input onblur="" id="emailR" type="email" class="validate" name="emailR">'+
+                '<input onkeydown="regKeyDown0(event)" onblur="" id="emailR" type="email" class="validate" name="emailR">'+
                 '<label for="emailR" class="">Email</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
         '</div>'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input id="passwordR" type="password" name="passwordR" class="validate">'+
+                '<input onkeydown="regKeyDown(event)" id="passwordR" type="password" name="passwordR" class="validate">'+
                 '<label for="passwordR" class="">Password</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
@@ -92,16 +92,20 @@ function loginNow()
       email= document.getElementById("email").value,
       password= document.getElementById("password").value
       var url = "./auth/login?email=" + email + "&password=" + password;
+      localStorage.removeItem("sessionid");
+      localStorage.removeItem("userObj");
       loadFile(url, function (data){
+        alert(data);
         if(data === "0"){
            window.location.hash = "fail"
            window.location.reload();
         }
         else{
+           localStorage.setItem("sessionid", data)
+           localStorage.setItem("userObj", email)
            window.location.reload();
         }
       })
-
 }
 
 
@@ -128,7 +132,7 @@ function doLostPwd()
   var x = document.getElementById("emailLP").value;
   if(!validateEmail(x)){
   }
-  loadFile("resetpass?id=" + x, function(data){
+  loadFile("auth/resetpass?id=" + x, function(data){
     console.log(data);
     if(data === "0"){
       modal.show("Something went wrong", "Check the email you entered? <br> Do you have an account? <br> You entered <b>"+x +"</b>.", "lostPwd", "doRegister", "Try again", "Create Account")
@@ -145,7 +149,7 @@ function doCP()
   var oldP = document.getElementById("currPwd").value;
   var newP = document.getElementById("newPwd").value;
   $("#changePwdWrapper input").val("")
-  loadFile("changepass?id=" + x + "&oldpass=" + oldP + "&newpass=" + newP, function(data){
+  loadFile("auth/changepass?id=" + x + "&oldpass=" + oldP + "&newpass=" + newP, function(data){
     if(data !== "1"){
       modal.show("Something went wrong", "Check the password you entered?", "", "", "", "Try again");
     }
@@ -158,20 +162,20 @@ function doCP()
 function loadGetLoginModal(){
   modal.hide();
   $("body").append(
-     '<div style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);z-index: 1002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
-       '<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 1003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
+     '<div style="    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);z-index: 21002; display: block; opacity: 1;" class="modal-overlay brandBG"> </div>'+
+       '<div class="modal menutextColor brandBG" style="min-height: 555px;border-radius: 10px; box-shadow: none;overflow:hidden;z-index: 21003; display: block; opacity: 1; max-width: 400px;top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="iconBlock"></div><h4 class="textcenter">LOGIN</h4>'+
      //    '<form action="tryLogin" method="post">'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
+                '<input onkeydown="loginKeyDown0(event)" onblur="storeEmail()" id="email" type="email" class="validate" name="email">'+
                 '<label for="email" class="">Email</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
         '</div>'+
         '<div class="row">'+
               '<div class="input-field col s12">'+
-                '<input id="password" type="password" name="password" class="validate">'+
+                '<input onkeydown="loginKeyDown(event)" id="password" type="password" name="password" class="validate">'+
                 '<label for="password" class="">Password</label>'+
                 '<span class="helper-text" data-error="" data-success=""></span>'+
               '</div>'+
@@ -186,6 +190,8 @@ function loadGetLoginModal(){
     '</div>'
   );
   activityIndicator.hide();
+  $(".ac-main").remove()
+
   $(".modal input[type='email']").val(localStorage.getItem("email")).focus();
 }
 
@@ -208,6 +214,10 @@ function getInputMethod(){
 
 var start = function()
 {
+  if(navigator.userAgent.toLowerCase().indexOf("iphone") || navigator.userAgent.toLowerCase().indexOf("ipad") || navigator.userAgent.toLowerCase().indexOf("android")){
+    App.touch = true;
+  }
+  $(".ac-main").remove()
   $(".app-container").fadeOut(0);
   $('.sidenav').sidenav();
   getInputMethod();
@@ -370,7 +380,7 @@ var modal = {
     if(noCB){
      flag = '<a href="javascript:' + noCB + '()" class="modal-close waves-effect waves-red btn-flat">'+ noText + '</a>';
     }
-    $("body").append('<div class="modal-overlay" style="z-index: 1002; display: block; opacity: 0.5;"></div><div id="" class="modal" tabindex="0" style="z-index: 1003; display: block; opacity: 1; top: 10%; transform: scaleX(1) scaleY(1);">'+
+    $("body").append('<div class="modal-overlay" style="z-index: 21002; display: block; opacity: 0.5;"></div><div id="" class="modal" tabindex="0" style="z-index: 21003; display: block; opacity: 1; top: 10%; transform: scaleX(1) scaleY(1);">'+
           '<div class="modal-content">'+
             '<h4>'+title+'</h4>'+
             '<p>' + subtitle + '</p>'+
@@ -554,4 +564,30 @@ function sortByKey(array, key) {
 
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
+}
+
+function loginKeyDown(e)
+{
+  var keycode = e.keyCode;
+  if(keycode==13) loginNow();
+}
+function regKeyDown(e)
+{
+  var keycode = e.keyCode;
+  if(keycode==13) registerNow();
+}
+function lpKeyDown(e)
+{
+  var keycode = e.keyCode;
+  if(keycode==13) doLostPwd();
+}
+function loginKeyDown0(e)
+{
+  var keycode = e.keyCode;
+  if(keycode==13) $("#password").focus();
+}
+function regKeyDown0(e)
+{
+  var keycode = e.keyCode;
+  if(keycode==13) $("#passwordR").focus();
 }
