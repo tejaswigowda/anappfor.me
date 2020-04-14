@@ -26,7 +26,7 @@
     });
   },
   updateAccount: function(e){
-    loadFile("userid/edit?id="+userObj.local.email
+    loadFile("userid/edit?id="+userObj
        + "&userID="+ userObj
        + "&"+ e.target.dataset.key 
        + "=" + e.target.value, function(data){

@@ -88,6 +88,7 @@
       var data = JSON.parse(data);
       var name = data.name || "Untitled"
       var desc = data.desc || ""
+      var tags = (data.tags || "").split(",");
       var thumb = data.thumb100 || "res/images/icon.png"
       $("#newPHeading").html("<br>");
       $("#projTitle").val(name);
@@ -98,9 +99,22 @@
         $("label[for='projDesc']").addClass("active");
       swipe.center("crudProjWrapper");
       swipe.left("listProjWrapper");
-    $("#addButton").fadeOut(0);
-    $("#backButton").fadeIn();
+      $("#addButton").fadeOut(0);
+      $("#backButton").fadeIn();
       $("#deleteProjButton").fadeIn(0);
+      var tagsDict = App.tags.list;
+      var outS = "";
+      for(var i = 0; i < tagsDict.length; i++){
+        if(tags.indexOf(tagsDict[i].id) >= 0){
+          outS += "<option selected value='" + tagsDict[i].id + "'>" + tagsDict[i].name + "</option>";
+        }
+        else{
+          outS += "<option value='" + tagsDict[i].id + "'>" + tagsDict[i].name + "</option>";
+        }
+      }
+      console.log(outS);
+      var t = $("#projTags");
+      t.html(outS).chosen().change(deviceEdited);
      });
   },
   deleteNow:function(){

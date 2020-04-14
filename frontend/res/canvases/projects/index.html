@@ -47,5 +47,12 @@ projects
           <textarea id="projDesc" data-key='desc' onchange="App.projects.updateProject(event)" class="materialize-textarea"></textarea>
           <label for="projDesc">Description</label>
    </div>
+
+    <div class="col s12">
+          <label for="projDesc">Tags</label>
+    <select id='projTags' tabindex="-1" onblur='rpBU(event)' onfocus='pBU(event)' data-placeholder="Tags..." autocapitalize="off" autocorrect="off" class="input subtitle deviceTags" multiple onchange="App.projects.updateProject(event)" style='display:none;box-shadow:none'></select>
+   </div>
+
+
     <a class="waves-effect waves-light btn red" href='javascript:App.projects.delete()' id='deleteProjButton'><i class="material-icons left">delete</i>Delete</a>
 </div>
