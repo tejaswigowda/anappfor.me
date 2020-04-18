@@ -103,6 +103,9 @@
       $("#backButton").fadeIn();
       $("#deleteProjButton").fadeIn(0);
       var tagsDict = App.tags.list;
+      var x = "pT" + new Date().getTime();
+    var y = "<select id='" + x + "' tabindex='-1' onblur='rpBU(event)' onfocus='pBU(event)' data-placeholder='Tags...' class='input subtitle' multiple onchange='App.projects.updateProject(event)' style='display:none;box-shadow:none'></select>"
+      $("#projTagsW").html(y);
       var outS = "";
       for(var i = 0; i < tagsDict.length; i++){
         if(tags.indexOf(tagsDict[i].id) >= 0){
@@ -113,7 +116,7 @@
         }
       }
       console.log(outS);
-      var t = $("#projTags");
+      var t = $("#" + x);
       t.html(outS).chosen().change(deviceEdited);
      });
   },
